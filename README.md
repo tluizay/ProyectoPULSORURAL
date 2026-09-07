@@ -83,11 +83,14 @@ google-genai: SDK oficial para interactuar con los modelos de lenguaje y generac
 
 ## Fuentes de datos
 **Aement:** Agencia estatal metereologica
+```text
 Esta fuente tiene el siguiente sistemas:
 [PULSORURAL] ---> 1. GET (URL API + api_key) ---> [AEMET OpenData]
 [PULSORURAL] <--- 2. JSON { "datos": "https://..." } <--- [AEMET OpenData]
 [PULSORURAL] ---> 3. GET (URL temporal) ---------> [Servidor de Datos AEMET]
 [PULSORURAL] <--- 4. JSON con los datos crudos <--- [Servidor de Datos AEMET]
+```
+
 
 el punto de origen o la petición es un click en el mapa, por tanto el sistemas debe proveé una solucion a la
 ubicación de donde solicita los datos. Cuenta con una estrategia fallback de cinco intentos donde busca cinco estaciones
