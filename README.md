@@ -75,7 +75,7 @@ google-genai: SDK oficial para interactuar con los modelos de lenguaje y generac
     de la zona /    JSON limpio       datos   /    resumen
               v   /  de clima        + prompt/     ejecutivo
      +-----------------+          +------------------+
-     |  Aemet Service  |          |  Gemini Service  |
+     |    Service      |          |  Gemini Service  |
      |   (Extracción)  |          |  (Interpretación)|
      +-----------------+          +------------------+
 ```
