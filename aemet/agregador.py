@@ -1,7 +1,7 @@
 import json
 from aemet.aemet_services import Aemet  # O tu ruta de la clase Aemet
 from aemet.gemini_services import asistente_virtual  # Tu función de Gemini
-
+ 
 class ClimaInteligenteAggregator:
     
     @staticmethod
