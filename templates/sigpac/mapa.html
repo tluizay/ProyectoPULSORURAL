@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}PULSO RURAL | Consulta SIGPAC{% endblock %}
+
+{% block extra_css %}
+<style>
+    #contenedor-mapa {
+        height: 70vh;
+        width: 100%;
+        border-radius: 8px;
+        z-index: 1;
+    }
+
+    .tarjeta-sigpac {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: white;
+        padding: 15px;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        max-width: 350px;
+        font-size: 0.875rem;
+        max-height: 85%;
+        overflow-y: auto;
+    }
+
+    .tabla-sigpac td {
+        padding: 4px 8px;
+    }
+
+    .caja-diagnostico-ia {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 0.82rem;
+        white-space: pre-line;
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-12 mb-3">
+        <h2>Consulta de Parcela SIGPAC</h2>
+        <p class="text-muted">Haz clic sobre cualquier punto del mapa para consultar la parcela y sus atributos.</p>
+    </div>
+
+    <div class="col-12 position-relative">
+        <div id="contenedor-mapa"></div>
+
+        {% if datos_recinto or clima_aemet %}
+        <div class="tarjeta-sigpac">
+            {% if datos_recinto %}
+            <h5 class="mb-2 text-success">Datos del Recinto</h5>
+            {% if datos_recinto.sin_recinto %}
+            <p class="text-danger mb-2">No se encontró ningún recinto SIGPAC en la ubicación seleccionada.</p>
+            {% else %}
+            <table class="table table-sm table-borderless tabla-sigpac mb-2">
+                <tbody>
+                    <tr>
+                        <td><strong>Provincia:</strong></td>
+                        <td>{{ datos_recinto.provincia|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Municipio:</strong></td>
+                        <td>{{ datos_recinto.municipio|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Polígono:</strong></td>
+                        <td>{{ datos_recinto.poligono|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parcela:</strong></td>
+                        <td>{{ datos_recinto.parcela|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recinto:</strong></td>
+                        <td>{{ datos_recinto.recinto|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uso SIGPAC:</strong></td>
+                        <td>{{ datos_recinto.uso|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Superficie:</strong></td>
+                        <td>{{ datos_recinto.superficie_ha|default:"-" }} ha</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+            {% endif %}
+
+            <!-- SECCIÓN: Diagnóstico del clima con AEMET -->
+            <hr class="my-2">
+            <h5 class="mb-2 text-info">Diagnóstico AEMET</h5>
+            <div id="contenedor-diagnostico-ia" class="text-muted small">
+                {% if clima_aemet and clima_aemet.interpretacion_ia %}
+                <div class="caja-diagnostico-ia">{{ clima_aemet.interpretacion_ia }}</div>
+                {% else %}
+                <span id="cargando-ia">Cargando análisis inteligente del clima...</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- SECCIÓN DE INFORMES TÉCNICOS (Debajo del Mapa) -->
+    <div class="col-12 mt-3">
+        <!-- 1. Contenedor de Propiedades Hídricas -->
+        <div id="contenedor-hidrico" class="mb-3">
+            <!-- Aquí se inyectará la card de SoilGrids -->
+        </div>
+
+        <!-- 2. Contenedor de Diagnóstico ITACYL + Gemini (AÑADIDO) -->
+        <div id="contenedor-diagnostico-suelo" class="mb-3">
+            <!-- Aquí se inyectará la card de ITACYL & Gemini -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if datos_recinto and datos_recinto.geometria %}
+{{ datos_recinto.geometria|json_script:"geometria-data" }}
+{% endif %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Coordenadas por defecto ajustadas a León, España (42.5987, -5.5671)
+        const latitudPorDefecto = Number("{{ latitud|default:42.5987|stringformat:'f' }}");
+        const longitudPorDefecto = Number("{{ longitud|default:-5.5671|stringformat:'f' }}");
+ 
+        // 1. Inicializar mapa centrado en León
+        const mapa = L.map('contenedor-mapa', {
+            doubleClickZoom: false
+        }).setView([latitudPorDefecto, longitudPorDefecto], 16);
+ 
+        // 2. Capa base estándar
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(mapa);
+ 
+        // 3. Capa transparente con los límites catastrales de parcelas/recintos SIGPAC
+        L.tileLayer.wms("https://sigpac-hubcloud.es/wms", {
+            layers: 'PARCELA,RECINTO',
+            format: 'image/png',
+            transparent: true,
+            version: '1.3.0',
+            crs: L.CRS.EPSG3857,
+            attribution: '© SIGPAC',
+            maxZoom: 20,
+            zIndex: 100
+        }).addTo(mapa);
+ 
+        // Ajustar encuadre de Leaflet tras cargar maquetación
+        setTimeout(() => {
+            mapa.invalidateSize();
+        }, 100);
+ 
+        // 4. Renderizar parcela seleccionada (Morado)
+        const nodoGeometria = document.getElementById('geometria-data');
+ 
+        if (nodoGeometria && nodoGeometria.textContent.trim() !== "" && nodoGeometria.textContent.trim() !== "null") {
+            try {
+                let datosGeoJson = JSON.parse(nodoGeometria.textContent);
+ 
+                if (typeof datosGeoJson === 'string') {
+                    datosGeoJson = JSON.parse(datosGeoJson);
+                }
+ 
+                const estructuraValida = datosGeoJson.geometry || datosGeoJson;
+ 
+                if (estructuraValida && (estructuraValida.coordinates || estructuraValida.features || estructuraValida.type)) {
+                    const capaPoligono = L.geoJSON(estructuraValida, {
+                        style: {
+                            color: '#6f42c1',       // Borde morado
+                            weight: 4,
+                            opacity: 0.9,
+                            fillColor: '#a855f7',   // Relleno morado
+                            fillOpacity: 0.45
+                        }
+                    }).addTo(mapa);
+ 
+                    const limites = capaPoligono.getBounds();
+                    if (limites.isValid()) {
+                        mapa.fitBounds(limites, { padding: [30, 30] });
+                    }
+                }
+            } catch (error) {
+                console.error("Error al procesar el GeoJSON en Leaflet:", error);
+            }
+        }
+ 
+        // 5. Manejo de Clics usando la ruta 'croquis'
+        mapa.on('click', function (evento) {
+            const latitudSeleccionada = evento.latlng.lat;
+            const longitudSeleccionada = evento.latlng.lng;
+ 
+            const urlCroquis = "{% url 'croquis' %}";
+            window.location.href = `${urlCroquis}?lat=${latitudSeleccionada}&lon=${longitudSeleccionada}`;
+        });
+
+        // 6. Configuración de coordenadas compartidas para peticiones asíncronas
+        const latRaw = "{{ latitud|default:42.5987 }}";
+        const lonRaw = "{{ longitud|default:-5.5671 }}";
+
+        const lat = latRaw.replace(',', '.');
+        const lon = lonRaw.replace(',', '.');
+
+        // A. Petición para el Clima / AEMET
+        const urlDiagnostico = `/aemet/consulta_clima/?lat=${lat}&lon=${lon}`;
+
+        fetch(urlDiagnostico)
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la respuesta del servidor AEMET");
+                return response.json();
+            })
+            .then(data => {
+                const contenedorIa = document.getElementById('contenedor-diagnostico-ia');
+                if (!contenedorIa) return;
+
+                const infoIa = data.interpretacion_ia || {};
+                const texto = infoIa.interpretacion_ia || infoIa.error || data.mensaje;
+
+                if (texto) {
+                    contenedorIa.innerHTML = `<div class="caja-diagnostico-ia">${texto}</div>`;
+                }
+            })
+            .catch(err => {
+                console.error("Error al cargar el diagnóstico auxiliar:", err);
+            });
+
+        // B. Petición para las Propiedades Hídricas (SoilGrids)
+        const urlBaseAguas = "{% url 'consulta_aguas' %}";
+        const urlAguas = `${urlBaseAguas}?lat=${lat}&lon=${lon}`;
+        const contenedorHidrico = document.getElementById('contenedor-hidrico');
+
+        if (contenedorHidrico) {
+            contenedorHidrico.innerHTML = `<p class="text-info small mb-0">🔄 Consultando propiedades hídricas del suelo...</p>`;
+        }
+
+        fetch(urlAguas)
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la respuesta del servidor hídrico");
+                return response.json();
+            })
+            .then(data => {
+                if (!contenedorHidrico) return;
+
+                if (data.datos_disponibles) {
+                    contenedorHidrico.innerHTML = `
+                        <div class="card p-2 bg-light border-start border-info border-3 shadow-sm mb-3">
+                            <h6 class="fw-bold text-dark mb-1">💧 Propiedades Hídricas (SoilGrids)</h6>
+                            <p class="mb-1 small"><strong>Capacidad de Campo:</strong> ${data.capacidad_campo ?? 'N/D'} %</p>
+                            <p class="mb-1 small"><strong>Punto de Marchitez:</strong> ${data.punto_marchitez ?? 'N/D'} %</p>
+                            <p class="mb-1 small"><strong>Agua Útil:</strong> ${data.agua_util ?? 'N/D'} %</p>
+                            <p class="mb-0 small"><strong>Profundidad Útil:</strong> ${data.profundidad_util_centimetros ?? 'N/D'} cm</p>
+                        </div>
+                    `;
+                } else {
+                    contenedorHidrico.innerHTML = `<p class="text-muted mb-3 small">Sin datos hídricos disponibles para esta ubicación.</p>`;
+                }
+            })
+            .catch(err => {
+                console.error("Error al cargar propiedades hídricas:", err);
+                if (contenedorHidrico) {
+                    contenedorHidrico.innerHTML = `<p class="text-danger mb-3 small">⚠️ No se pudo cargar el diagnóstico hídrico.</p>`;
+                }
+            });
+
+        // C. Petición para Diagnóstico de Suelos (ITACYL + Gemini IA)
+        const urlBaseSuelos = "{% url 'itacyl:consulta_suelo' %}";
+        const urlDiagnosticoSuelos = `${urlBaseSuelos}?lat=${lat}&lon=${lon}`;
+        const contenedorSuelos = document.getElementById('contenedor-diagnostico-suelo');
+
+        if (contenedorSuelos) {
+            contenedorSuelos.innerHTML = `<p class="text-info small mb-0">🌱 Consultando tipo de suelo e informe agronómico...</p>`;
+        }
+
+        fetch(urlDiagnosticoSuelos)
+            .then(response => {
+                if (!response.ok) throw new Error("Error al consultar la API de Suelos ITACYL");
+                return response.json();
+            })
+            .then(data => {
+                if (!contenedorSuelos) return;
+
+                if (data.error) {
+                    contenedorSuelos.innerHTML = `<p class="text-danger small mb-0">⚠️ ${data.error}</p>`;
+                    return;
+                }
+
+                const municipio = data.nombre_municipio || 'No especificado';
+                const interpretacionIa = data.interpretacion_ia || 'Sin análisis disponible.';
+
+                contenedorSuelos.innerHTML = `
+                    <div class="card p-3 bg-light border-start border-success border-4 shadow-sm">
+                        <h6 class="fw-bold text-success mb-2">🌱 Diagnóstico de Suelos (ITACYL & Gemini)</h6>
+                        <p class="mb-2 small"><strong>Municipio:</strong> ${municipio}</p>
+                        <div class="caja-diagnostico-ia mt-2 p-2 bg-white rounded border small text-dark">
+                            ${interpretacionIa}
+                        </div>
+                    </div>
+                `;
+            })
+            .catch(err => {
+                console.error("Error al cargar el diagnóstico de suelos:", err);
+                if (contenedorSuelos) {
+                    contenedorSuelos.innerHTML = `<p class="text-danger mb-0 small">⚠️ No se pudo obtener la información del suelo.</p>`;
+                }
+            });
+    });
+</script>
+{% endblock %}
