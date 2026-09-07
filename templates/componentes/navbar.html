@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'inicio' %}">Pulso Rural</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse show" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- Enlace a la página de inicio o core -->
+        <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+
+        <!-- Enlace corregido al mapa de agronomía -->
+        <a class="nav-link" href="{% url 'mapa' %}">Mapa</a>
+
+        <!-- Enlaces futuros para históricos u otras secciones -->
+      
+ 
+      </div>
+    </div>
+  </div>
+</nav>

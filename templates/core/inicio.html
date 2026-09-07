@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="position-relative w-100 min-vh-100 d-flex align-items-center justify-content-center overflow-hidden bg-black m-0 p-0" style="width: 100vw !important; margin-left: calc(-50vw + 50%) !important; margin-right: calc(-50vw + 50%) !important; margin-top: -1.5rem !important;">
+    
+    <div id="video-slider" class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden z-0">
+        <img src="{% static 'v1.gif' %}" class="slide-video position-absolute top-0 start-0 w-100 h-100 object-fit-cover opacity-100" style="transition: opacity 1s ease-in-out;" alt="Fondo 1">
+        <img src="{% static 'v2.gif' %}" class="slide-video position-absolute top-0 start-0 w-100 h-100 object-fit-cover opacity-0" style="transition: opacity 1s ease-in-out;" alt="Fondo 2">
+    </div>
+
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50 z-1 pointer-events-none"></div>
+
+    <div class="position-relative z-2 text-center text-white container-fluid px-4 d-flex flex-column align-items-center">
+        
+        <h1 class="display-3 fw-bold mb-3">
+            Pulso Rural
+        </h1>
+        <p class="lead text-light mb-5 fs-4" style="letter-spacing: 2px;">
+            Castilla y León
+        </p>
+
+        <div class="position-relative w-100 mb-4" style="max-width: 600px;">
+            <div class="input-group p-1 bg-white rounded-pill shadow-lg border border-3" style="border-color: #00bf63 !important;">
+                <span class="input-group-text bg-transparent border-0 ps-3 fs-5">🔍</span>
+                <input type="text" id="searchInput" placeholder="Busca secciones (ej. histórico, mapas...)" 
+                       class="form-control bg-transparent border-0 shadow-none text-dark fs-6 fs-md-5">
+                <button type="button" onclick="irASeccion()" class="btn fw-bold px-4 rounded-pill text-black" style="background-color: #00bf63;">
+                    Ir
+                </button>
+            </div>
+            
+            <ul id="autocompleteList" class="position-absolute start-0 end-0 mt-2 bg-white rounded-4 shadow-lg overflow-hidden d-none text-start border border-light list-unstyled m-0 z-3">
+            </ul>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3 mt-2">
+            <a href="{% url 'mapa' %}"
+               class="btn text-black px-5 py-3 rounded-pill fw-bold fs-5 shadow-lg" style="background-color: #00bf63; transition: transform 0.2s;">
+                Ver Mapas
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const slides = document.querySelectorAll('.slide-video');
+        let currentSlide = 0;
+        
+        if (slides.length > 1) {
+            setInterval(() => {
+                slides[currentSlide].style.opacity = '0';
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].style.opacity = '1';
+            }, 7000);
+        }
+
+        const seccionesDisponibles = [
+            { nombre: "Histórico de datos", url: "#historico" },
+            { nombre: "Mapas interactivos", url: "#mapas" },
+            { nombre: "Catálogo de bombillos", url: "#catalogo" },
+            { nombre: "Zona de contacto", url: "#contacto" }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const autocompleteList = document.getElementById('autocompleteList');
+
+        if (searchInput && autocompleteList) {
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                autocompleteList.innerHTML = '';
+                
+                if (!query) {
+                    autocompleteList.classList.add('d-none');
+                    return;
+                }
+
+                const filtradas = seccionesDisponibles.filter(item => item.nombre.toLowerCase().includes(query));
+
+                if (filtradas.length > 0) {
+                    autocompleteList.classList.remove('d-none');
+                    filtradas.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.nombre;
+                        li.className = "px-4 py-3 text-dark border-bottom border-light";
+                        li.style.cursor = "pointer";
+                        li.onmouseover = function() { this.style.backgroundColor = '#00bf63'; this.style.color = '#000'; };
+                        li.onmouseout = function() { this.style.backgroundColor = '#fff'; this.style.color = '#212529'; };
+                        
+                        li.addEventListener('click', function() {
+                            searchInput.value = item.nombre;
+                            autocompleteList.classList.add('d-none');
+                            window.location.href = item.url;
+                        });
+                        autocompleteList.appendChild(li);
+                    });
+                } else {
+                    autocompleteList.classList.add('d-none');
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !autocompleteList.contains(e.target)) {
+                    autocompleteList.classList.add('d-none');
+                }
+            });
+        }
+    });
+
+    function irASeccion() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        if (query.includes('historico')) {
+            window.location.hash = '#historico';
+        } else if (query.includes('mapa')) {
+            window.location.hash = '#mapas';
+        } else if (query.includes('catalogo')) {
+            window.location.hash = '#catalogo';
+        } else {
+            alert("Por favor selecciona una sección válida del autocompletado.");
+        }
+    }
+</script>
+{% endblock %}
