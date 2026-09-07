@@ -25,6 +25,8 @@ numpy: Biblioteca base para cálculo numérico masivo y operaciones con matrices
 
 xarray: Extensión de NumPy orientada a datos multidimensionales etiquetados (muy usada en datos meteorológicos, satelitales y climáticos).
 
+openpyxl: 
+
 ### Geodatos, GIS y Mapas
 
 rasterio: Manejo, lectura y escritura de imágenes satelitales y datos ráster geoespaciales.
@@ -35,15 +37,6 @@ geojson / xyzservices: Lectura/escritura del formato GeoJSON y proveedores de ca
 
 affine: Realiza transformaciones matrices afines, clave para mapear coordenadas de píxeles a coordenadas geográficas.
 
-Inteligencia Artificial y Modelos
-
-pydantic: Validación de datos y gestión de configuraciones mediante tipos de Python; ampliamente usado para estructurar respuestas de IA y API.
-
-Visualización y Tratamiento de Imágenes
-
-matplotlib: Biblioteca principal para la creación de gráficos 2D y visualización estática de datos.
-
-pillow (PIL): Procesamiento, manipulación y edición de imágenes (formatos JPG, PNG, etc.).
 
 ### Base de Datos y Seguridad
 
@@ -53,9 +46,18 @@ cryptography: Funciones criptográficas de bajo nivel para cifrado, firma de dat
 
 google-auth: Gestión de autenticación e identidades para servicios de Google Cloud.
 
-### Inteligencia artificial
+### Inteligencia artificial y modelos
 google-genai: SDK oficial para interactuar con los modelos de lenguaje y generación de Google (como Gemini).
 
+markdown 
+
+pydantic: Validación de datos y gestión de configuraciones mediante tipos de Python; ampliamente usado para estructurar respuestas de IA y API.
+
+Visualización y Tratamiento de Imágenes
+
+matplotlib: Biblioteca principal para la creación de gráficos 2D y visualización estática de datos.
+
+pillow (PIL): Procesamiento, manipulación y edición de imágenes (formatos JPG, PNG, etc.).
 ### Modelo de extracción e interpretación
 
 ```text

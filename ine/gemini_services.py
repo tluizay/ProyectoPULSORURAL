@@ -1,39 +1,70 @@
+import logging
+import markdown
 from google import genai
 from google.genai import types
+from google.genai.errors import APIError
 from config.entorno import API_KEY_GEMINI
 
+logger = logging.getLogger(__name__)
 
-def asistente_virtual(contexto_negocio):
+
+def asistente_virtual(contexto_negocio: str) -> str:
     if not API_KEY_GEMINI:
-        return {"error": "No se encontró la API Key de Gemini."}
+        return "<p>Error: No se encontró la API Key de Gemini.</p>"
 
-    try:
-        client = genai.Client(api_key=API_KEY_GEMINI)
+    client = genai.Client(api_key=API_KEY_GEMINI)
 
-        system_instruction = ( "Eres un estadista, interprete de datos de mercado agricola y el uso de suelos de tierra de cultivo."
-                              "Estas enfocado en la bsuqueda de tendencias, patrones y observaciones en el ambito agricola."
-        
-        )
+    # Instrucciones alineadas: sintético, directo y sin contradicciones
+    system_instruction = (
+        "Eres un analista de datos agrícolas de respuesta rápida. "
+        "Debes responder SIEMPRE en español de España. "
+        "Sintetiza la información de forma clara, directa y completa. "
+        "Usa formato Markdown (listas de viñetas y negritas). "
+        "Nunca dejes frases ni secciones a medio terminar."
+    )
 
-        prompt = (
-            "Analiza los siguientes datos económicos y proporciona un analisis critico:\n"
-            "1. Tendencias del mercado: \n"
-            "2. Capacidad de retorno de la inversión.\n"
-            "3. Situación de la industria.\n\n"
-            f"Datos (JSON):\n{contexto_negocio}"
-        )
+    prompt = (
+        "Sintetiza los siguientes datos territoriales en un informe ejecutivo conciso:\n\n"
+        "1. **Tendencias del Mercado y Rendimiento:** (Máximo 3 viñetas con puntos clave).\n"
+        "2. **Uso del Suelo y Capacidad:** (Máximo 2 viñetas sobre distribución y aprovechamiento).\n"
+        "3. **Perspectivas:** (1 o 2 conclusiones directas).\n\n"
+        f"Datos (JSON):\n{contexto_negocio}"
+    )
 
-        response = client.models.generate_content(
-            model="gemini-3.5-flash-lite",  # ← más rápido, sin razonamiento largo
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=system_instruction,
-                max_output_tokens=512,       # ← limita la respuesta
-                temperature=0.3,
-            ),
-        )
+    configuracion = types.GenerateContentConfig(
+        system_instruction=system_instruction,
+        max_output_tokens=2000,
+        temperature=0.2,
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(
+            disable=True
+        ),
+    )
 
-        return {"interpretacion_ia": response.text}
+    # Modelos a intentar en orden de preferencia
+    modelos_intentar =["gemini-3.6-flash", "gemini-2.5-flash"]
 
-    except Exception as e:
-        return {"error": f"Error al conectar con Gemini: {str(e)}"}   
+    for modelo in modelos_intentar:
+        try:
+            response = client.models.generate_content(
+                model=modelo,
+                contents=prompt,
+                config=configuracion,
+            )
+
+            texto_markdown = response.text or "No se pudo generar el informe."
+            return markdown.markdown(texto_markdown)
+
+        except APIError as e:
+            # Si es error 503 (alta demanda), probamos con el siguiente modelo de respaldo
+            if e.code == 503 or "503" in str(e):
+                logger.warning(
+                    f"Modelo {modelo} saturado (503). Intentando fallback..."
+                )
+                continue
+            logger.error(f"Error de API Gemini con {modelo}: {e}")
+            break
+        except Exception as e:
+            logger.error(f"Error inesperado al conectar con Gemini: {e}")
+            break
+
+    return "<p>El servicio de IA está experimentando una alta demanda en este momento. Por favor, reintenta la consulta en unos segundos.</p>"
