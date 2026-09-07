@@ -3,8 +3,13 @@
 <html lang="es">
 
 <head>
+     
+    <!-- Tu archivo CSS personalizado global (opcional pero recomendado) -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}?v=5">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="origin-when-cross-origin">
 
@@ -18,9 +23,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    
-    <!-- Tu archivo CSS personalizado global (opcional pero recomendado) -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+   
 
     {% block extra_css %}{% endblock %}
 </head>
