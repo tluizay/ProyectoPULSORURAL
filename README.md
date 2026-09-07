@@ -53,14 +53,46 @@ cryptography: Funciones criptográficas de bajo nivel para cifrado, firma de dat
 
 google-auth: Gestión de autenticación e identidades para servicios de Google Cloud.
 
-### Inteligencia artificial 
+### Inteligencia artificial
 google-genai: SDK oficial para interactuar con los modelos de lenguaje y generación de Google (como Gemini).
+
+### Modelo de extracción e interpretación
+
+```text
+               +----------------------------------+
+               |        Vista / Controller        |
+               +----------------------------------+
+                             |     ^
+           1. Pide información |     | 6. Devuelve objeto final
+               de una ubicación|     |    (Datos + Análisis IA)
+                             v     |
+               +----------------------------------+
+               |            AGREGADOR             |
+               |       (Orquestador / Facade)     |
+               +----------------------------------+
+                 /                              ^
+ 2. Pide datos  / 3. Devuelve      4. Envía    / 5. Devuelve
+    de la zona /    JSON limpio       datos   /    resumen
+              v   /  de clima        + prompt/     ejecutivo
+     +-----------------+          +------------------+
+     |  Aemet Service  |          |  Gemini Service  |
+     |   (Extracción)  |          |  (Interpretación)|
+     +-----------------+          +------------------+
+```
 
 
 ## Fuentes de datos
 **Aement:** Agencia estatal metereologica
-Esta fuente
+Esta fuente tiene el siguiente sistemas:
 [PULSORURAL] ---> 1. GET (URL API + api_key) ---> [AEMET OpenData]
 [PULSORURAL] <--- 2. JSON { "datos": "https://..." } <--- [AEMET OpenData]
 [PULSORURAL] ---> 3. GET (URL temporal) ---------> [Servidor de Datos AEMET]
 [PULSORURAL] <--- 4. JSON con los datos crudos <--- [Servidor de Datos AEMET]
+
+el punto de origen o la petición es un click en el mapa, por tanto el sistemas debe proveé una solucion a la
+ubicación de donde solicita los datos. Cuenta con una estrategia fallback de cinco intentos donde busca cinco estaciones
+más cercanas la punto reduciendo las posibilidades de retornar datos nulos.
+
+La web esta diseñada para cargar datos al vuelo por tanto el inventario completo de estaciones se almacena en memoria/Redis (cache.set) durante 24 horas (CACHE_TTL_INVENTARIO_SEGUNDOS) para evitar descargar la lista de estaciones en cada llamada asimismo el método normalize() toma los datos devueltos por AEMET (datos_brutos) y corrige las inconsistencias del formato de origen mediante.
+
+**sigpac:**
