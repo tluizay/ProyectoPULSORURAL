@@ -1,22 +1,31 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'inicio' %}">Pulso Rural</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm sticky-top">
+  <div class="container">
+    <!-- Logotipo / Nombre de la App -->
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{% url 'inicio' %}">
+      <span class="fs-4">🌾</span> Pulso Rural
+    </a>
+
+    <!-- Botón Hamburguesa para Móviles y Tabletas -->
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Navegación Móvil">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse show" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <!-- Enlace a la página de inicio o core -->
-        <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
 
-        <!-- Enlace corregido al mapa de agronomía -->
-        <a class="nav-link" href="{% url 'mapa' %}">Mapa</a>
+    <!-- Menú Colapsable Responsive -->
+    <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-1">
+        <li class="nav-item">
+          <a class="nav-link text-white fw-medium px-3 rounded" aria-current="page" href="{% url 'inicio' %}">
+            <i class="bi bi-house-door me-1"></i> Inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white-50 text-white-hover fw-medium px-3 rounded" href="{% url 'mapa' %}">
+            <i class="bi bi-geo-alt me-1"></i> Mapa
+          </a>
+        </li>
+      </ul>
 
-        <!-- Enlaces futuros para históricos u otras secciones -->
-      
- 
-      </div>
     </div>
   </div>
 </nav>
