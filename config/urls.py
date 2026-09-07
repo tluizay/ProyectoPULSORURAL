@@ -25,5 +25,6 @@ urlpatterns = [
     path('aemet/', include('aemet.urls')),
     path('solgrids/', include('solgrids.urls')),
      path('itacyl/', include('itacyl.urls')),
+    path('ine/', include('ine.urls')),
    
 ]   

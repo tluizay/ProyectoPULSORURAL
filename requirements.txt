@@ -12,6 +12,7 @@ cryptography==50.0.1
 cycler==0.12.1
 distro==1.9.0
 Django==6.1.1
+et_xmlfile==2.0.0
 fonttools==4.64.0
 geographiclib==2.1
 geojson==3.3.0
@@ -24,8 +25,10 @@ httpx==0.28.1
 idna==3.19
 kiwisolver==1.5.1
 leaflet==0.0.3
+Markdown==3.10.3
 matplotlib==3.11.1
 numpy==2.5.2
+openpyxl==3.1.5
 packaging==26.3
 pandas==3.0.5
 pillow==12.3.0

@@ -12,7 +12,11 @@ class RendimientosIne(BaseDataService):
     def __init__(self, identificador_tabla: str = "60233"):
         self.identificador_tabla = identificador_tabla
 
-    def fetch(self, lat: float = 0.0, lng: float = 0.0) -> list[dict]:
+    def fetch(self, parametro_busqueda: str | None = None) -> list[dict]:
+        """
+        Descarga el CSV del INE y filtra las filas correspondientes al municipio buscado.
+        Acepta un código (ej: '24089') o nombre de municipio.
+        """
         url_descarga = self.URL_PLANTILLA_INE.format(
             identificador_tabla=self.identificador_tabla
         )
@@ -39,15 +43,29 @@ class RendimientosIne(BaseDataService):
 
         cabeceras_limpias = [col.strip().lower() for col in cabeceras]
 
+        busqueda_limpia = str(parametro_busqueda).strip() if parametro_busqueda else ""
+
         filas = []
         for fila in lector_csv:
             if not fila:
                 continue
+            
             registro = {
                 cabecera: valor.strip()
                 for cabecera, valor in zip(cabeceras_limpias, fila)
             }
-            filas.append(registro)
+
+            # Si no hay parámetro de búsqueda, devolvemos todo
+            if not busqueda_limpia:
+                filas.append(registro)
+                continue
+
+            # El INE suele incluir el municipio en columnas como "municipios", "comarcas", o la primera columna
+            contenido_fila = " ".join(registro.values()).lower()
+            
+            # Comprobación por código o coincidencia de texto
+            if busqueda_limpia.lower() in contenido_fila:
+                filas.append(registro)
 
         return filas
 

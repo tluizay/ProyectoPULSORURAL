@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Informe Territorial e INE - Pulso Rural{% endblock %}
+
+{% block extra_css %}
+<style>
+    .informe-card {
+        background-color: #f8f9fa;
+        border-left: 4px solid #198754;
+    }
+    .chart-box {
+        position: relative;
+        height: 380px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="h2 text-success fw-bold">
+            <i class="bi bi-bar-chart-line me-2"></i>Consulta Territorial y Rendimientos
+        </h1>
+        <p class="text-muted">Introduce el código o nombre del municipio para consultar indicadores del INE y el análisis.</p>
+    </div>
+</div>
+
+<!-- Formulario de búsqueda -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="GET" action="" class="row g-3 align-items-center">
+            <div class="col-md-8 col-lg-6">
+                <label for="codigo_municipio" class="form-label fw-bold">Municipio (Código o Nombre):</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                    <input type="text" 
+                           class="form-control" 
+                           id="codigo_municipio" 
+                           name="codigo_municipio" 
+                           placeholder="Ej: 24089 o Villaobispo" 
+                           value="{{ codigo_municipio|default:'' }}" 
+                           required>
+                    <button class="btn btn-success" type="submit">
+                        <i class="bi bi-search me-1"></i> Consultar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Mensajes de Error -->
+{% if mensaje_error %}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2 fs-5"></i>
+    <div>
+        {{ mensaje_error }}
+    </div>
+</div>
+{% endif %}
+
+<!-- Muestra de Resultados solo si existen datos válidos -->
+{% if informe_ia %}
+
+<!-- Bloque de Gráficos -->
+<div class="row g-4 mb-4">
+    <!-- Gráfico de Rendimientos -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white fw-bold py-3">
+                <i class="bi bi-graph-up me-2 text-primary"></i>Evolución de Rendimientos
+            </div>
+            <div class="card-body">
+                <div class="chart-box">
+                    <canvas id="graficoRendimientos"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico Uso de Suelos -->
+    <div class="col-lg-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white fw-bold py-3">
+                <i class="bi bi-pie-chart me-2 text-warning"></i>Distribución del Suelo
+            </div>
+            <div class="card-body">
+                <div class="chart-box">
+                    <canvas id="graficoSuelos"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bloque del Informe IA -->
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card shadow-sm informe-card p-4">
+            <h3 class="h4 text-success mb-3">
+                <i class="bi bi-robot me-2"></i>Análisis Territorial (IA)
+            </h3>
+            <div class="lh-lg">
+                {{ informe_ia|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inyección segura del JSON desde Django a JS -->
+{{ datos_ine|json_script:"datos-ine-json" }}
+
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+{% if informe_ia %}
+<!-- Importación requerida de Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const scriptTag = document.getElementById('datos-ine-json');
+        if (!scriptTag) return;
+        
+        const datosIne = JSON.parse(scriptTag.textContent);
+
+        // =========================================================
+        // 1. GRÁFICO DE BARRAS: Rendimientos Agrícolas
+        // =========================================================
+        const registrosRend = datosIne.rendimientos?.registros || [];
+        const labelsRend = registrosRend.map(item => `${item.cultivo || 'Cultivo'} (${item.anio || 'S/A'})`);
+        const valuesRend = registrosRend.map(item => item.rendimiento_medio_kilogramos_hectarea || 0);
+
+        const canvasRend = document.getElementById('graficoRendimientos');
+        if (canvasRend) {
+            const ctxRend = canvasRend.getContext('2d');
+            new Chart(ctxRend, {
+                type: 'bar',
+                data: {
+                    labels: labelsRend.length ? labelsRend : ['Sin datos'],
+                    datasets: [{
+                        label: 'Rendimiento Medio (kg/ha)',
+                        data: valuesRend.length ? valuesRend : [0],
+                        backgroundColor: 'rgba(25, 135, 84, 0.65)',
+                        borderColor: 'rgb(25, 135, 84)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            title: { display: true, text: 'kg / ha' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // =========================================================
+        // 2. GRÁFICO DONUT/PIE: Uso de Suelos
+        // =========================================================
+        const registrosSuelos = datosIne.uso_suelos?.registros || [];
+        const ultimoRegistroSuelos = registrosSuelos[registrosSuelos.length - 1] || {};
+        
+        const labelsSuelos = Object.keys(ultimoRegistroSuelos).filter(key => key !== 'anio');
+        const valuesSuelos = labelsSuelos.map(key => ultimoRegistroSuelos[key]);
+
+        const canvasSuelos = document.getElementById('graficoSuelos');
+        if (canvasSuelos) {
+            const ctxSuelos = canvasSuelos.getContext('2d');
+            new Chart(ctxSuelos, {
+                type: 'doughnut',
+                data: {
+                    labels: labelsSuelos.length ? labelsSuelos : ['Sin datos'],
+                    datasets: [{
+                        data: valuesSuelos.length ? valuesSuelos : [0],
+                        backgroundColor: [
+                            '#198754',
+                            '#ffc107',
+                            '#0dcaf0',
+                            '#fd7e14',
+                            '#6c757d',
+                            '#20c997'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: {
+                            display: true,
+                            text: ultimoRegistroSuelos.anio ? `Distribución del Suelo (${ultimoRegistroSuelos.anio})` : 'Uso del Suelo'
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}
