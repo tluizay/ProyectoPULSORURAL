@@ -3,6 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path("rendimientos/", views.api_ine, name="rendimientos"),
+    path("rendimientos/", views.vista_evolucion_agraria, name="rendimientos"),
     
 ]

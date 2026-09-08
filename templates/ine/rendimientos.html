@@ -1,210 +1,168 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Informe Territorial e INE - Pulso Rural{% endblock %}
-
-{% block extra_css %}
-<style>
-    .informe-card {
-        background-color: #f8f9fa;
-        border-left: 4px solid #198754;
-    }
-    .chart-box {
-        position: relative;
-        height: 380px;
-        width: 100%;
-    }
-</style>
-{% endblock %}
-
 {% block contenido %}
-<div class="row mb-4">
-    <div class="col-12">
-        <h1 class="h2 text-success fw-bold">
-            <i class="bi bi-bar-chart-line me-2"></i>Consulta Territorial y Rendimientos
-        </h1>
-        <p class="text-muted">Introduce el código o nombre del municipio para consultar indicadores del INE y el análisis.</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Evolución de la Producción Agraria en Castilla y León</h2>
+
+    <!-- Mensaje de error por si fallara la analítica -->
+    {% if mensaje_error %}
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ mensaje_error }}
+        </div>
+    {% endif %}
+
+    <!-- Indicador de Carga (Spinner) -->
+    <div id="loadingIndicator" class="text-center py-5">
+        <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Cargando gráficos...</span>
+        </div>
+        <p class="text-muted mt-2">Procesando series temporales y generando visualizaciones...</p>
     </div>
-</div>
 
-<!-- Formulario de búsqueda -->
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <form method="GET" action="" class="row g-3 align-items-center">
-            <div class="col-md-8 col-lg-6">
-                <label for="codigo_municipio" class="form-label fw-bold">Municipio (Código o Nombre):</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-                    <input type="text" 
-                           class="form-control" 
-                           id="codigo_municipio" 
-                           name="codigo_municipio" 
-                           placeholder="Ej: 24089 o Villaobispo" 
-                           value="{{ codigo_municipio|default:'' }}" 
-                           required>
-                    <button class="btn btn-success" type="submit">
-                        <i class="bi bi-search me-1"></i> Consultar
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Mensajes de Error -->
-{% if mensaje_error %}
-<div class="alert alert-danger d-flex align-items-center" role="alert">
-    <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2 fs-5"></i>
-    <div>
-        {{ mensaje_error }}
-    </div>
-</div>
-{% endif %}
-
-<!-- Muestra de Resultados solo si existen datos válidos -->
-{% if informe_ia %}
-
-<!-- Bloque de Gráficos -->
-<div class="row g-4 mb-4">
-    <!-- Gráfico de Rendimientos -->
-    <div class="col-lg-8">
-        <div class="card shadow-sm h-100">
-            <div class="card-header bg-white fw-bold py-3">
-                <i class="bi bi-graph-up me-2 text-primary"></i>Evolución de Rendimientos
-            </div>
-            <div class="card-body">
-                <div class="chart-box">
-                    <canvas id="graficoRendimientos"></canvas>
-                </div>
+    <!-- Contenedor general de todas las gráficas (Oculto inicialmente) -->
+    <div id="chartsContainer" style="display: none;">
+        
+        <!-- Gráficas originales de Producción Vegetal y Animal (Apiladas) -->
+        <div class="card p-3 my-4 shadow-sm">
+            <h4>Evolución Producción Vegetal</h4>
+            <div style="position: relative; height: 350px; width: 100%;">
+                <canvas id="graficoVegetal"></canvas>
             </div>
         </div>
-    </div>
 
-    <!-- Gráfico Uso de Suelos -->
-    <div class="col-lg-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-header bg-white fw-bold py-3">
-                <i class="bi bi-pie-chart me-2 text-warning"></i>Distribución del Suelo
+        <div class="card p-3 my-4 shadow-sm">
+            <h4>Evolución Producción Animal</h4>
+            <div style="position: relative; height: 350px; width: 100%;">
+                <canvas id="graficoAnimal"></canvas>
             </div>
-            <div class="card-body">
-                <div class="chart-box">
-                    <canvas id="graficoSuelos"></canvas>
+        </div>
+
+        <!-- NUEVA FILA: Gráfica 3 y Gráfica 4 una al lado de la otra en pantallas medianas/grandes -->
+        <div class="row g-4 my-2">
+            
+            <!-- Gráfica 3: Evolución Global (Líneas) - Ocupa la mitad izquierda -->
+            <div class="col-xl-6 col-lg-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0 fw-semibold text-success">Evolución Histórica Global (CyL)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div style="position: relative; height: 350px; width: 100%;">
+                            <canvas id="chartEvolucionGlobal"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Gráfica 4: Desglose Provincial por Año (Barras) - Ocupa la mitad derecha -->
+            <!-- Gráfica 4: Distribución de Cultivos (Torta) - Ocupa la mitad derecha -->
+            <div class="col-xl-6 col-lg-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0 fw-semibold text-primary">Distribución de Producción Vegetal por Cultivos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div style="position: relative; height: 350px; width: 100%;">
+                            <canvas id="chartProvincialAnio"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 
-<!-- Bloque del Informe IA -->
-<div class="row g-4">
-    <div class="col-12">
-        <div class="card shadow-sm informe-card p-4">
-            <h3 class="h4 text-success mb-3">
-                <i class="bi bi-robot me-2"></i>Análisis Territorial (IA)
-            </h3>
-            <div class="lh-lg">
-                {{ informe_ia|safe }}
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Inyectamos los datos de Python de forma unificada -->
+{{ datos_evolucion|json_script:"json-datos-panel" }}
 
-<!-- Inyección segura del JSON desde Django a JS -->
-{{ datos_ine|json_script:"datos-ine-json" }}
-
-{% endif %}
-{% endblock %}
-
-{% block extra_js %}
-{% if informe_ia %}
-<!-- Importación requerida de Chart.js -->
+<!-- Cargar la librería Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const scriptTag = document.getElementById('datos-ine-json');
-        if (!scriptTag) return;
-        
-        const datosIne = JSON.parse(scriptTag.textContent);
+    document.addEventListener("DOMContentLoaded", function () {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const chartsContainer = document.getElementById('chartsContainer');
 
-        // =========================================================
-        // 1. GRÁFICO DE BARRAS: Rendimientos Agrícolas
-        // =========================================================
-        const registrosRend = datosIne.rendimientos?.registros || [];
-        const labelsRend = registrosRend.map(item => `${item.cultivo || 'Cultivo'} (${item.anio || 'S/A'})`);
-        const valuesRend = registrosRend.map(item => item.rendimiento_medio_kilogramos_hectarea || 0);
+        try {
+            const elPanel = document.getElementById('json-datos-panel');
+            if (elPanel && elPanel.textContent.trim()) {
+                const data = JSON.parse(elPanel.textContent);
+                console.log("Datos recibidos en el panel:", data); // Para depurar en consola si lo necesitas
 
-        const canvasRend = document.getElementById('graficoRendimientos');
-        if (canvasRend) {
-            const ctxRend = canvasRend.getContext('2d');
-            new Chart(ctxRend, {
-                type: 'bar',
-                data: {
-                    labels: labelsRend.length ? labelsRend : ['Sin datos'],
-                    datasets: [{
-                        label: 'Rendimiento Medio (kg/ha)',
-                        data: valuesRend.length ? valuesRend : [0],
-                        backgroundColor: 'rgba(25, 135, 84, 0.65)',
-                        borderColor: 'rgb(25, 135, 84)',
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { 
-                            beginAtZero: true,
-                            title: { display: true, text: 'kg / ha' }
-                        }
-                    }
+                // 1. Gráfica Vegetal
+                const canvasVegetal = document.getElementById('graficoVegetal');
+                if (canvasVegetal && data?.vegetal) {
+                    new Chart(canvasVegetal.getContext('2d'), {
+                        type: 'bar',
+                        data: data.vegetal,
+                        options: { responsive: true, maintainAspectRatio: false }
+                    });
                 }
-            });
-        }
 
-        // =========================================================
-        // 2. GRÁFICO DONUT/PIE: Uso de Suelos
-        // =========================================================
-        const registrosSuelos = datosIne.uso_suelos?.registros || [];
-        const ultimoRegistroSuelos = registrosSuelos[registrosSuelos.length - 1] || {};
-        
-        const labelsSuelos = Object.keys(ultimoRegistroSuelos).filter(key => key !== 'anio');
-        const valuesSuelos = labelsSuelos.map(key => ultimoRegistroSuelos[key]);
-
-        const canvasSuelos = document.getElementById('graficoSuelos');
-        if (canvasSuelos) {
-            const ctxSuelos = canvasSuelos.getContext('2d');
-            new Chart(ctxSuelos, {
-                type: 'doughnut',
-                data: {
-                    labels: labelsSuelos.length ? labelsSuelos : ['Sin datos'],
-                    datasets: [{
-                        data: valuesSuelos.length ? valuesSuelos : [0],
-                        backgroundColor: [
-                            '#198754',
-                            '#ffc107',
-                            '#0dcaf0',
-                            '#fd7e14',
-                            '#6c757d',
-                            '#20c997'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' },
-                        title: {
-                            display: true,
-                            text: ultimoRegistroSuelos.anio ? `Distribución del Suelo (${ultimoRegistroSuelos.anio})` : 'Uso del Suelo'
-                        }
-                    }
+                // 2. Gráfica Animal
+                const canvasAnimal = document.getElementById('graficoAnimal');
+                if (canvasAnimal && data?.animal) {
+                    new Chart(canvasAnimal.getContext('2d'), {
+                        type: 'bar',
+                        data: data.animal,
+                        options: { responsive: true, maintainAspectRatio: false }
+                    });
                 }
-            });
+
+                // 3. Gráfica de Líneas (Evolución Global)
+                const canvasEvolucion = document.getElementById('chartEvolucionGlobal');
+                if (canvasEvolucion && data?.evolucion_global) {
+                    new Chart(canvasEvolucion.getContext('2d'), {
+                        type: 'line',
+                        data: data.evolucion_global,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { position: 'top' } },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: { display: true, text: 'Millones de Euros' }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 4. Gráfica de Torta (Distribución de Cultivos)
+                const canvasProvincial = document.getElementById('chartProvincialAnio');
+                if (canvasProvincial && data?.provincial_anio) {
+                    new Chart(canvasProvincial.getContext('2d'), {
+                        type: 'pie', // Cambiado a gráfico de pastel/torta
+                        data: data.provincial_anio,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { 
+                                legend: { 
+                                    position: 'right' // Ubica la leyenda a la derecha para mayor claridad
+                                } 
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Ocultamos el spinner y mostramos las gráficas con éxito
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            if (chartsContainer) chartsContainer.style.display = 'block';
+
+        } catch (error) {
+            console.error("Error al renderizar las gráficas:", error);
+            if (loadingIndicator) {
+                loadingIndicator.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="bi bi-info-circle me-2"></i> No se pudieron cargar todas las gráficas. Revisa la consola para más detalles.
+                    </div>`;
+            }
         }
     });
 </script>
-{% endif %}
 {% endblock %}

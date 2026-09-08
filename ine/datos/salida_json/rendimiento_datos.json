@@ -1,0 +1,3554 @@
+[
+  {
+    "archivo_origen": "20191227CEA+2017.pdf",
+    "anio": 2017,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 4963.28,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 1632.53,
+              "porcentaje": 32.9,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 605.06,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 258.43,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 260.08,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 166.82,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 87.74,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 151.74,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 96.62,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 2.32,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 3.72,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2981.44,
+              "porcentaje": 60.1,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 2196.11,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 585.89,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1159.56,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.78,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 199.44,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 204.96,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 38.48,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 785.34,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 535.92,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 227.35,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 22.06,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 92.82,
+              "porcentaje": 1.9,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 256.48,
+              "porcentaje": 5.2,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3336.2,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 153.41,
+              "porcentaje": 4.6
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 262.6,
+              "porcentaje": 7.9
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 338.91,
+              "porcentaje": 10.2
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 97.63,
+              "porcentaje": 2.9
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 103.06,
+              "porcentaje": 3.1
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1828.94,
+              "porcentaje": 54.8
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 197.74,
+              "porcentaje": 5.9
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 81.03,
+              "porcentaje": 2.4
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 92.82,
+              "porcentaje": 2.8
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 32.22,
+              "porcentaje": 1.0
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 147.84,
+              "porcentaje": 4.4
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 1627.08,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 679.24,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 947.84,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 886.98,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 37.69,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 1797.12,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "20201111+CEA+2018.pdf",
+    "anio": 2018,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 6423.42,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 3119.28,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1475.85,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 294.8,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 492.16,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 205.41,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 192.83,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 254.07,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 194.8,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 2.93,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 6.42,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2945.31,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 2171.6,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 603.33,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1103.58,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 8.62,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 202.95,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 211.06,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 42.06,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 773.71,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 545.1,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 202.85,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 25.76,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 102.72,
+              "porcentaje": null,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 256.11,
+              "porcentaje": null,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3811.93,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 164.33,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 301.04,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 367.13,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 116.85,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 103.3,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 2173.03,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 197.43,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 82.47,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 102.72,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 32.98,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 170.67,
+              "porcentaje": null
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2611.48,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 686.21,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1925.28,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 891.03,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 39.62,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2776.68,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "20211001+CEA+2019.pdf",
+    "anio": 2019,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 6082.09,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 2628.47,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1096.71,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 242.9,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 424.53,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 321.44,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 195.54,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 200.37,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 138.08,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.29,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 7.61,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 3095.18,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 2324.97,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 621.44,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1250.26,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.81,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 191.86,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 211.02,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 42.58,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 770.21,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 564.39,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 175.71,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 30.11,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 103.81,
+              "porcentaje": null,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 254.63,
+              "porcentaje": null,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3769.38,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 177.27,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 313.77,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 433.35,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 118.96,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 106.12,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 2037.27,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 202.96,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 84.25,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 103.81,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 30.93,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 160.71,
+              "porcentaje": null
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2312.71,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 706.48,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1606.23,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 896.64,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 40.59,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2462.28,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "20221110+CEA+2020.pdf",
+    "anio": 2020,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 6462.14,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 3191.15,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1685.02,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 293.74,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 463.81,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 333.22,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 120.2,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 201.82,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 84.29,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.22,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 7.83,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2977.99,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 2151.43,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 511.62,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1218.22,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 8.31,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 168.35,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 208.2,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 36.73,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 826.55,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 589.35,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 210.21,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 26.99,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 122.33,
+              "porcentaje": null,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 170.67,
+              "porcentaje": null,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3770.35,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 171.94,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 260.34,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 414.07,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 142.06,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 108.04,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 2047.19,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 208.28,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 83.16,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 122.33,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 35.78,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 177.16,
+              "porcentaje": null
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2691.79,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 716.27,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1975.51,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 894.59,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 41.16,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2828.94,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "20231025+CEA+2021.pdf",
+    "anio": 2021,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 7318.49,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 3807.59,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 2269.74,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 369.69,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 415.15,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 321.0,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 131.65,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 182.99,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 103.79,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.52,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 12.07,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 3224.6,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 2363.32,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 613.24,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1265.58,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.99,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 208.42,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 232.18,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 35.9,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 861.28,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 615.79,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 212.31,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 33.18,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 136.08,
+              "porcentaje": null,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 150.21,
+              "porcentaje": null,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 4270.37,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 171.59,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 334.74,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 524.98,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 157.18,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 108.76,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 2316.69,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 213.51,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 88.52,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 136.08,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 34.06,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 184.27,
+              "porcentaje": null
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 3048.12,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 738.6,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 2309.52,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 935.04,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 41.23,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 3203.34,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "20241023+CEA+2022.pdf",
+    "anio": 2022,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 8091.3,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 3819.29,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 2003.73,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 434.13,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 464.01,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 316.13,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 251.41,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 228.8,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 109.15,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 3.59,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 8.33,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 4001.22,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 2858.89,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 744.14,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1569.9,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 8.01,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 209.45,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 283.03,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 44.36,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 1142.33,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 766.42,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 348.88,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 27.03,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 149.57,
+              "porcentaje": null,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 121.22,
+              "porcentaje": null,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 5138.77,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 219.38,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 472.57,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 641.65,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 160.07,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 111.32,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 2825.1,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 227.0,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 100.77,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 149.57,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 30.39,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 200.94,
+              "porcentaje": null
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2952.54,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 797.51,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 2155.03,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 1005.99,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 41.94,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 3119.07,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEA+2016.pdf",
+    "anio": 2016,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5755.43,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 2699.62,
+              "porcentaje": 46.9,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1296.79,
+                  "porcentaje": 48.0
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 294.56,
+                  "porcentaje": 10.9
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 373.87,
+                  "porcentaje": 13.8
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 175.17,
+                  "porcentaje": 6.5
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 211.32,
+                  "porcentaje": 7.8
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 203.6,
+                  "porcentaje": 7.5
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 135.89,
+                  "porcentaje": 5.0
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 3.82,
+                  "porcentaje": 0.1
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 4.61,
+                  "porcentaje": 0.2
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2697.09,
+              "porcentaje": 46.9,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1984.21,
+                  "porcentaje": 73.6,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 591.0,
+                      "porcentaje": 29.8
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 979.46,
+                      "porcentaje": 49.4
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.64,
+                      "porcentaje": 0.4
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 198.54,
+                      "porcentaje": 10.0
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 175.02,
+                      "porcentaje": 8.8
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 32.55,
+                      "porcentaje": 1.6
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 712.88,
+                  "porcentaje": 26.4,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 509.94,
+                      "porcentaje": 71.5
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 173.15,
+                      "porcentaje": 24.3
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 29.8,
+                      "porcentaje": 4.2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 100.67,
+              "porcentaje": 1.7,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 258.05,
+              "porcentaje": 4.5,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3324.88,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 154.27,
+              "porcentaje": 4.6
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 231.06,
+              "porcentaje": 6.9
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 370.85,
+              "porcentaje": 11.2
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 118.36,
+              "porcentaje": 3.6
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 97.0,
+              "porcentaje": 2.9
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1773.15,
+              "porcentaje": 53.3
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 200.57,
+              "porcentaje": 6.0
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 79.36,
+              "porcentaje": 2.4
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 100.67,
+              "porcentaje": 3.0
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 35.46,
+              "porcentaje": 1.1
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 164.15,
+              "porcentaje": 4.9
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2430.55,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 680.69,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1749.87,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 927.56,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 35.63,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2641.79,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEA+2023.pdf",
+    "anio": 2023,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 8048.35,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 3252.47,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1031.39,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 434.93,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 605.32,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 589.57,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 253.29,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 237.76,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 86.17,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.93,
+                  "porcentaje": null
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 12.11,
+                  "porcentaje": null
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 4523.29,
+              "porcentaje": null,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 3138.36,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 801.3,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 1794.05,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 9.21,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 184.85,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 303.3,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 45.66,
+                      "porcentaje": null
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 1384.93,
+                  "porcentaje": null,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 943.28,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 420.05,
+                      "porcentaje": null
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 21.6,
+                      "porcentaje": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 159.93,
+              "porcentaje": null,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 112.67,
+              "porcentaje": null,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 4933.85,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 295.3,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 335.33,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 479.11,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 154.29,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 114.89,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 2797.56,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 251.47,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 105.74,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 159.93,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 41.81,
+              "porcentaje": null
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 198.43,
+              "porcentaje": null
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 3114.5,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 874.68,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 2239.82,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 1107.15,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 42.67,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 3304.29,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEAS+2010x.pdf",
+    "anio": 2010,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5047.81,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Proucción vegetal",
+              "valor_millones_eur": 2477.55,
+              "porcentaje": 49.08
+            },
+            {
+              "etiqueta": "1. Cereales",
+              "valor_millones_eur": 1257.54,
+              "porcentaje": 50.76
+            },
+            {
+              "etiqueta": "2. Plantas industriales",
+              "valor_millones_eur": 281.54,
+              "porcentaje": 11.36
+            },
+            {
+              "etiqueta": "3. Plantas forrajeras",
+              "valor_millones_eur": 392.45,
+              "porcentaje": 15.84
+            },
+            {
+              "etiqueta": "4. Hortalizas",
+              "valor_millones_eur": 204.32,
+              "porcentaje": 8.25
+            },
+            {
+              "etiqueta": "5. Patata",
+              "valor_millones_eur": 146.55,
+              "porcentaje": 5.92
+            },
+            {
+              "etiqueta": "6. Frutas",
+              "valor_millones_eur": 87.25,
+              "porcentaje": 3.52
+            },
+            {
+              "etiqueta": "7. Vino y mosto",
+              "valor_millones_eur": 101.3,
+              "porcentaje": 4.09
+            },
+            {
+              "etiqueta": "8. Aceite de oliva",
+              "valor_millones_eur": 1.15,
+              "porcentaje": 0.05
+            },
+            {
+              "etiqueta": "9. Otros",
+              "valor_millones_eur": 5.44,
+              "porcentaje": 0.22
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2246.27,
+              "porcentaje": 44.5,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1467.01,
+                  "porcentaje": 65.31,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 531.91,
+                      "porcentaje": 36.26
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 643.66,
+                      "porcentaje": 43.88
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.79,
+                      "porcentaje": 0.53
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 123.32,
+                      "porcentaje": 8.41
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 139.45,
+                      "porcentaje": 9.51
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 20.87,
+                      "porcentaje": 1.42
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 779.27,
+                  "porcentaje": 34.69,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 543.24,
+                      "porcentaje": 69.71
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 216.52,
+                      "porcentaje": 27.78
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 19.5,
+                      "porcentaje": 2.5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 82.77,
+              "porcentaje": 1.64,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 241.23,
+              "porcentaje": 4.78,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 2885.27,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 133.41,
+              "porcentaje": 4.62
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 233.93,
+              "porcentaje": 8.11
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 329.67,
+              "porcentaje": 11.43
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 63.38,
+              "porcentaje": 2.2
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 98.87,
+              "porcentaje": 3.43
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1471.81,
+              "porcentaje": 51.01
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 239.69,
+              "porcentaje": 8.31
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 78.41,
+              "porcentaje": 2.72
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 82.77,
+              "porcentaje": 2.87
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 48.64,
+              "porcentaje": 1.69
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 104.69,
+              "porcentaje": 3.63
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2162.54,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 653.08,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1509.46,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 1016.38,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 26.33,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2499.52,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEAS+2011x,1.pdf",
+    "anio": 2011,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5458.91,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Proucción vegetal",
+              "valor_millones_eur": 2597.89,
+              "porcentaje": 47.59
+            },
+            {
+              "etiqueta": "1. Cereales",
+              "valor_millones_eur": 1480.01,
+              "porcentaje": 56.97
+            },
+            {
+              "etiqueta": "2. Plantas industriales",
+              "valor_millones_eur": 316.32,
+              "porcentaje": 12.18
+            },
+            {
+              "etiqueta": "3. Plantas forrajeras",
+              "valor_millones_eur": 362.57,
+              "porcentaje": 13.96
+            },
+            {
+              "etiqueta": "4. Hortalizas",
+              "valor_millones_eur": 151.53,
+              "porcentaje": 5.83
+            },
+            {
+              "etiqueta": "5. Patata",
+              "valor_millones_eur": 98.32,
+              "porcentaje": 3.78
+            },
+            {
+              "etiqueta": "6. Frutas",
+              "valor_millones_eur": 100.55,
+              "porcentaje": 3.87
+            },
+            {
+              "etiqueta": "7. Vino y mosto",
+              "valor_millones_eur": 77.19,
+              "porcentaje": 2.97
+            },
+            {
+              "etiqueta": "8. Aceite de oliva",
+              "valor_millones_eur": 2.72,
+              "porcentaje": 0.1
+            },
+            {
+              "etiqueta": "9. Otros",
+              "valor_millones_eur": 8.66,
+              "porcentaje": 0.33
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2504.42,
+              "porcentaje": 45.88,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1720.67,
+                  "porcentaje": 68.71,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 515.24,
+                      "porcentaje": 29.94
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 797.07,
+                      "porcentaje": 46.32
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 10.14,
+                      "porcentaje": 0.59
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 176.99,
+                      "porcentaje": 10.29
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 198.74,
+                      "porcentaje": 11.55
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 22.48,
+                      "porcentaje": 1.31
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 783.75,
+                  "porcentaje": 31.29,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 541.48,
+                      "porcentaje": 69.09
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 220.35,
+                      "porcentaje": 28.11
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 21.92,
+                      "porcentaje": 2.8
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 91.88,
+              "porcentaje": 1.68,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 264.72,
+              "porcentaje": 4.85,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3231.28,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 139.86,
+              "porcentaje": 4.33
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 299.07,
+              "porcentaje": 9.26
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 427.65,
+              "porcentaje": 13.23
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 74.27,
+              "porcentaje": 2.3
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 99.17,
+              "porcentaje": 3.07
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1634.12,
+              "porcentaje": 50.57
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 241.46,
+              "porcentaje": 7.47
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 81.15,
+              "porcentaje": 2.51
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 91.88,
+              "porcentaje": 2.84
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 36.42,
+              "porcentaje": 1.13
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 106.22,
+              "porcentaje": 3.29
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2227.63,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 647.53,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1580.1,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 981.67,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 28.96,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2532.81,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEAS+2012x,0.pdf",
+    "anio": 2012,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5440.66,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 2435.07,
+              "porcentaje": 44.76,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1354.69,
+                  "porcentaje": 55.63
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 267.98,
+                  "porcentaje": 11.01
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 303.4,
+                  "porcentaje": 12.46
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 166.69,
+                  "porcentaje": 6.85
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 147.98,
+                  "porcentaje": 6.08
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 125.32,
+                  "porcentaje": 5.15
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 62.62,
+                  "porcentaje": 2.57
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.18,
+                  "porcentaje": 0.05
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 5.21,
+                  "porcentaje": 0.21
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2654.72,
+              "porcentaje": 48.79,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1833.19,
+                  "porcentaje": 69.05,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 578.88,
+                      "porcentaje": 31.58
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 864.97,
+                      "porcentaje": 47.18
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 8.81,
+                      "porcentaje": 0.48
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 177.36,
+                      "porcentaje": 9.67
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 176.24,
+                      "porcentaje": 9.61
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 26.93,
+                      "porcentaje": 1.47
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 821.53,
+                  "porcentaje": 30.95,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 563.31,
+                      "porcentaje": 68.57
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 237.04,
+                      "porcentaje": 28.85
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 21.18,
+                      "porcentaje": 2.58
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 95.47,
+              "porcentaje": 1.75,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 255.39,
+              "porcentaje": 4.69,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3308.37,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 145.21,
+              "porcentaje": 4.39
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 304.87,
+              "porcentaje": 9.22
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 455.22,
+              "porcentaje": 13.76
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 81.25,
+              "porcentaje": 2.46
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 90.43,
+              "porcentaje": 2.73
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1687.15,
+              "porcentaje": 51.0
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 237.15,
+              "porcentaje": 7.17
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 80.58,
+              "porcentaje": 2.44
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 95.47,
+              "porcentaje": 2.89
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 31.58,
+              "porcentaje": 0.95
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 99.46,
+              "porcentaje": 3.01
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2132.29,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 669.16,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1463.12,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 946.06,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 28.8,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2380.37,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEAS+2013,0.pdf",
+    "anio": 2013,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5630.62,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 2618.94,
+              "porcentaje": 46.51,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1427.74,
+                  "porcentaje": 54.52
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 244.09,
+                  "porcentaje": 9.32
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 368.16,
+                  "porcentaje": 14.06
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 156.56,
+                  "porcentaje": 5.98
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 187.82,
+                  "porcentaje": 7.17
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 158.57,
+                  "porcentaje": 6.05
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 71.8,
+                  "porcentaje": 2.74
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.03,
+                  "porcentaje": 0.04
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 3.15,
+                  "porcentaje": 0.12
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2648.75,
+              "porcentaje": 47.04,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1827.54,
+                  "porcentaje": 69.0,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 561.99,
+                      "porcentaje": 30.75
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 865.91,
+                      "porcentaje": 47.38
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.66,
+                      "porcentaje": 0.42
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 163.86,
+                      "porcentaje": 8.97
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 197.0,
+                      "porcentaje": 10.78
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 31.13,
+                      "porcentaje": 1.7
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 821.21,
+                  "porcentaje": 31.0,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 622.79,
+                      "porcentaje": 75.84
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 176.23,
+                      "porcentaje": 21.46
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 22.19,
+                      "porcentaje": 2.7
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 101.54,
+              "porcentaje": 1.8,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 261.38,
+              "porcentaje": 4.64,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3428.91,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 153.0,
+              "porcentaje": 4.46
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 294.27,
+              "porcentaje": 8.58
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 461.65,
+              "porcentaje": 13.46
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 98.59,
+              "porcentaje": 2.88
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 93.7,
+              "porcentaje": 2.73
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1761.95,
+              "porcentaje": 51.39
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 251.85,
+              "porcentaje": 7.34
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 80.71,
+              "porcentaje": 2.35
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 101.54,
+              "porcentaje": 2.96
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 32.87,
+              "porcentaje": 0.96
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 98.78,
+              "porcentaje": 2.88
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2201.71,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 686.16,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1515.55,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 900.54,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 29.9,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2386.19,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEAS+2014,0.pdf",
+    "anio": 2014,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5227.84,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 2092.89,
+              "porcentaje": 40.03,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1080.9,
+                  "porcentaje": 51.65
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 238.62,
+                  "porcentaje": 11.4
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 312.8,
+                  "porcentaje": 14.95
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 134.19,
+                  "porcentaje": 6.41
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 74.07,
+                  "porcentaje": 3.54
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 204.43,
+                  "porcentaje": 9.77
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 43.56,
+                  "porcentaje": 2.08
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 2.34,
+                  "porcentaje": 0.11
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 1.98,
+                  "porcentaje": 0.09
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2762.01,
+              "porcentaje": 52.83,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1876.7,
+                  "porcentaje": 67.95,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 552.75,
+                      "porcentaje": 29.45
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 907.21,
+                      "porcentaje": 48.34
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 8.07,
+                      "porcentaje": 0.43
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 161.04,
+                      "porcentaje": 8.58
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 214.39,
+                      "porcentaje": 11.42
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 33.24,
+                      "porcentaje": 1.77
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 885.31,
+                  "porcentaje": 32.05,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 677.09,
+                      "porcentaje": 76.48
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 182.77,
+                      "porcentaje": 20.65
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 25.45,
+                      "porcentaje": 2.87
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 106.27,
+              "porcentaje": 2.03,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 266.68,
+              "porcentaje": 5.1,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3380.38,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 155.9,
+              "porcentaje": 4.61
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 287.24,
+              "porcentaje": 8.5
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 478.0,
+              "porcentaje": 14.14
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 113.0,
+              "porcentaje": 3.34
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 97.74,
+              "porcentaje": 2.89
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1707.11,
+              "porcentaje": 50.5
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 199.17,
+              "porcentaje": 5.89
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 80.8,
+              "porcentaje": 2.39
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 106.27,
+              "porcentaje": 3.14
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 31.79,
+              "porcentaje": 0.94
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 123.36,
+              "porcentaje": 3.65
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 1847.46,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 719.3,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1128.16,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 889.97,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 31.13,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 1987.0,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  },
+  {
+    "archivo_origen": "CEAS+2015,0.pdf",
+    "anio": 2015,
+    "moneda": "EUR",
+    "unidad": "millones",
+    "tabla_resultados_renta_agraria": {
+      "encontrada": true,
+      "items": [
+        {
+          "codigo": "A",
+          "etiqueta": "Producción rama agraria",
+          "valor_millones_eur": 5364.93,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "Producción vegetal",
+              "valor_millones_eur": 2353.79,
+              "porcentaje": 43.9,
+              "detalle": [
+                {
+                  "etiqueta": "1. Cereales",
+                  "valor_millones_eur": 1162.57,
+                  "porcentaje": 49.4
+                },
+                {
+                  "etiqueta": "2. Plantas industriales",
+                  "valor_millones_eur": 301.68,
+                  "porcentaje": 12.8
+                },
+                {
+                  "etiqueta": "3. Plantas forrajeras",
+                  "valor_millones_eur": 339.78,
+                  "porcentaje": 14.4
+                },
+                {
+                  "etiqueta": "4. Hortalizas",
+                  "valor_millones_eur": 151.98,
+                  "porcentaje": 6.5
+                },
+                {
+                  "etiqueta": "5. Patata",
+                  "valor_millones_eur": 140.02,
+                  "porcentaje": 5.9
+                },
+                {
+                  "etiqueta": "6. Frutas",
+                  "valor_millones_eur": 140.45,
+                  "porcentaje": 6.0
+                },
+                {
+                  "etiqueta": "7. Vino y mosto",
+                  "valor_millones_eur": 112.62,
+                  "porcentaje": 4.8
+                },
+                {
+                  "etiqueta": "8. Aceite de oliva",
+                  "valor_millones_eur": 1.12,
+                  "porcentaje": 0.0
+                },
+                {
+                  "etiqueta": "9. Otros",
+                  "valor_millones_eur": 3.59,
+                  "porcentaje": 0.2
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción animal",
+              "valor_millones_eur": 2631.67,
+              "porcentaje": 49.1,
+              "detalle": [
+                {
+                  "etiqueta": "Carne y ganado",
+                  "valor_millones_eur": 1795.17,
+                  "porcentaje": 68.2,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Bovino",
+                      "valor_millones_eur": 549.07,
+                      "porcentaje": 30.6
+                    },
+                    {
+                      "etiqueta": "2. Porcino",
+                      "valor_millones_eur": 827.55,
+                      "porcentaje": 46.1
+                    },
+                    {
+                      "etiqueta": "3. Equino",
+                      "valor_millones_eur": 7.27,
+                      "porcentaje": 0.4
+                    },
+                    {
+                      "etiqueta": "4. Ovino y caprino",
+                      "valor_millones_eur": 198.91,
+                      "porcentaje": 11.1
+                    },
+                    {
+                      "etiqueta": "5. Aves",
+                      "valor_millones_eur": 180.69,
+                      "porcentaje": 10.1
+                    },
+                    {
+                      "etiqueta": "6. Otros",
+                      "valor_millones_eur": 31.69,
+                      "porcentaje": 1.8
+                    }
+                  ]
+                },
+                {
+                  "etiqueta": "Productos animales",
+                  "valor_millones_eur": 836.5,
+                  "porcentaje": 31.8,
+                  "detalle": [
+                    {
+                      "etiqueta": "1. Leche",
+                      "valor_millones_eur": 609.06,
+                      "porcentaje": 72.8
+                    },
+                    {
+                      "etiqueta": "2. Huevos",
+                      "valor_millones_eur": 200.78,
+                      "porcentaje": 24.0
+                    },
+                    {
+                      "etiqueta": "3. Otros",
+                      "valor_millones_eur": 26.67,
+                      "porcentaje": 3.2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "etiqueta": "Producción de servicios",
+              "valor_millones_eur": 103.75,
+              "porcentaje": 1.9,
+              "detalle": []
+            },
+            {
+              "etiqueta": "Otras producciones (5)",
+              "valor_millones_eur": 275.71,
+              "porcentaje": 5.1,
+              "detalle": []
+            }
+          ]
+        },
+        {
+          "codigo": "B",
+          "etiqueta": "Consumos intermedios",
+          "valor_millones_eur": 3311.93,
+          "porcentaje": null,
+          "detalle": [
+            {
+              "etiqueta": "1. Semilla y plantones",
+              "valor_millones_eur": 154.72,
+              "porcentaje": 4.7
+            },
+            {
+              "etiqueta": "2. Energía y lubricantes",
+              "valor_millones_eur": 259.85,
+              "porcentaje": 7.8
+            },
+            {
+              "etiqueta": "3. Fertilizantes y enmiendas",
+              "valor_millones_eur": 475.89,
+              "porcentaje": 14.4
+            },
+            {
+              "etiqueta": "4. Productos fitosanitarios",
+              "valor_millones_eur": 120.45,
+              "porcentaje": 3.6
+            },
+            {
+              "etiqueta": "5. Gastos veterinarios",
+              "valor_millones_eur": 97.1,
+              "porcentaje": 2.9
+            },
+            {
+              "etiqueta": "6. Piensos",
+              "valor_millones_eur": 1631.5,
+              "porcentaje": 49.3
+            },
+            {
+              "etiqueta": "7. Mantenimiento de material",
+              "valor_millones_eur": 204.7,
+              "porcentaje": 6.2
+            },
+            {
+              "etiqueta": "8. Mantenimiento de edificios",
+              "valor_millones_eur": 80.46,
+              "porcentaje": 2.4
+            },
+            {
+              "etiqueta": "9. Servicios agrícolas",
+              "valor_millones_eur": 103.75,
+              "porcentaje": 3.1
+            },
+            {
+              "etiqueta": "10. Servicios intermediación financiera",
+              "valor_millones_eur": 36.1,
+              "porcentaje": 1.1
+            },
+            {
+              "etiqueta": "11. Otros bienes y servicios",
+              "valor_millones_eur": 147.41,
+              "porcentaje": 4.5
+            }
+          ]
+        },
+        {
+          "codigo": "C",
+          "etiqueta": "Valor añadido bruto (A-B)",
+          "valor_millones_eur": 2052.99,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "D",
+          "etiqueta": "Amortizaciones (7)",
+          "valor_millones_eur": 695.54,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "E",
+          "etiqueta": "Valor Añadido Neto (C-D)",
+          "valor_millones_eur": 1357.45,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "F",
+          "etiqueta": "Otras subvenciones (8)",
+          "valor_millones_eur": 933.4,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "G",
+          "etiqueta": "Otros impuestos (9)",
+          "valor_millones_eur": 32.31,
+          "porcentaje": null,
+          "detalle": []
+        },
+        {
+          "codigo": "H",
+          "etiqueta": "Renta agraria (C-D+F-G)",
+          "valor_millones_eur": 2258.54,
+          "porcentaje": null,
+          "detalle": []
+        }
+      ]
+    }
+  }
+]

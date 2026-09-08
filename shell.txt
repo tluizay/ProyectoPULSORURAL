@@ -1,0 +1,21 @@
+###Ejemplos para pruebas en shell
+Que esta imprimiendo el INE 
+from pathlib import Path
+from ine.services.orchestrator import procesar_directorio_ceas
+from ine.analiticas.evolucion import preparar_datos_produccion_vegetal, preparar_datos_produccion_animal
+
+# 1. Cargamos la ruta de los PDFs y ejecutamos el pipeline base
+ruta = Path("ine/datos/pdfs")
+informes = procesar_directorio_ceas(ruta)
+
+print(f"Total informes encontrados: {len(informes)}")
+
+# 2. Probamos la función de producción vegetal
+datos_veg = preparar_datos_produccion_vegetal(informes)
+print("--- DATOS PRODUCCIÓN VEGETAL ---")
+print(datos_veg)
+
+# 3. Probamos la función de producción animal
+datos_anim = preparar_datos_produccion_animal(informes)
+print("--- DATOS PRODUCCIÓN ANIMAL ---")
+print(datos_anim)

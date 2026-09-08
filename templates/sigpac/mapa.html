@@ -12,6 +12,32 @@
         z-index: 1;
     }
 
+    /* Estilo para el botón de nueva búsqueda fuera del mapa (esquina superior izquierda de la página) */
+    .btn-nueva-busqueda {
+        background-color: white;
+        border: 1px solid #ced4da;
+        color: #6c757d;
+        /* Flecha en gris */
+        padding: 6px 12px;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .btn-nueva-busqueda:hover {
+        background-color: #f8f9fa;
+        color: #343a40;
+        /* Gris más oscuro al pasar el ratón */
+        border-color: #adb5bd;
+    }
+
     .tarjeta-sigpac {
         position: absolute;
         top: 20px;
@@ -44,9 +70,19 @@
 
 {% block contenido %}
 <div class="row">
+    <!-- CABECERA: Botón de nueva búsqueda en la parte superior izquierda de la página -->
     <div class="col-12 mb-3">
-        <h2>Consulta de Parcela SIGPAC</h2>
-        <p class="text-muted">Haz clic sobre cualquier punto del mapa para consultar la parcela y sus atributos.</p>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <div>
+                <h2>Consulta de Parcela SIGPAC</h2>
+                <p class="text-muted mb-0">Haz clic sobre cualquier punto del mapa para consultar la parcela y sus
+                    atributos.</p>
+            </div>
+            <!-- Botón fuera del mapa -->
+            <a href="{% url 'mapa' %}" class="btn btn-light">
+                Nueva Búsqueda
+            </a>
+        </div>
     </div>
 
     <div class="col-12 position-relative">
@@ -133,18 +169,18 @@
         // Coordenadas por defecto ajustadas a León, España (42.5987, -5.5671)
         const latitudPorDefecto = Number("{{ latitud|default:42.5987|stringformat:'f' }}");
         const longitudPorDefecto = Number("{{ longitud|default:-5.5671|stringformat:'f' }}");
- 
+
         // 1. Inicializar mapa centrado en León
         const mapa = L.map('contenedor-mapa', {
             doubleClickZoom: false
         }).setView([latitudPorDefecto, longitudPorDefecto], 16);
- 
+
         // 2. Capa base estándar
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; OpenStreetMap'
         }).addTo(mapa);
- 
+
         // 3. Capa transparente con los límites catastrales de parcelas/recintos SIGPAC
         L.tileLayer.wms("https://sigpac-hubcloud.es/wms", {
             layers: 'PARCELA,RECINTO',
@@ -156,25 +192,25 @@
             maxZoom: 20,
             zIndex: 100
         }).addTo(mapa);
- 
+
         // Ajustar encuadre de Leaflet tras cargar maquetación
         setTimeout(() => {
             mapa.invalidateSize();
         }, 100);
- 
+
         // 4. Renderizar parcela seleccionada (Morado)
         const nodoGeometria = document.getElementById('geometria-data');
- 
+
         if (nodoGeometria && nodoGeometria.textContent.trim() !== "" && nodoGeometria.textContent.trim() !== "null") {
             try {
                 let datosGeoJson = JSON.parse(nodoGeometria.textContent);
- 
+
                 if (typeof datosGeoJson === 'string') {
                     datosGeoJson = JSON.parse(datosGeoJson);
                 }
- 
+
                 const estructuraValida = datosGeoJson.geometry || datosGeoJson;
- 
+
                 if (estructuraValida && (estructuraValida.coordinates || estructuraValida.features || estructuraValida.type)) {
                     const capaPoligono = L.geoJSON(estructuraValida, {
                         style: {
@@ -185,7 +221,7 @@
                             fillOpacity: 0.45
                         }
                     }).addTo(mapa);
- 
+
                     const limites = capaPoligono.getBounds();
                     if (limites.isValid()) {
                         mapa.fitBounds(limites, { padding: [30, 30] });
@@ -195,12 +231,12 @@
                 console.error("Error al procesar el GeoJSON en Leaflet:", error);
             }
         }
- 
+
         // 5. Manejo de Clics usando la ruta 'croquis'
         mapa.on('click', function (evento) {
             const latitudSeleccionada = evento.latlng.lat;
             const longitudSeleccionada = evento.latlng.lng;
- 
+
             const urlCroquis = "{% url 'croquis' %}";
             window.location.href = `${urlCroquis}?lat=${latitudSeleccionada}&lon=${longitudSeleccionada}`;
         });
