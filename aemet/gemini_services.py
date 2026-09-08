@@ -28,7 +28,7 @@ def asistente_virtual(contexto_negocio):
         )
 
         response = client.models.generate_content(
-            model="gemini-3.5-flash-lite",  # ← más rápido, sin razonamiento largo
+            model="gemini-3.5-flash-lite", 
             contents=prompt,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,

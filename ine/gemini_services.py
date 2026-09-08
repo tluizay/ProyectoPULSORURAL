@@ -41,7 +41,7 @@ def asistente_virtual(contexto_negocio: str) -> str:
     )
 
     # Modelos a intentar en orden de preferencia
-    modelos_intentar =["gemini-3.6-flash", "gemini-2.5-flash"]
+    modelos_intentar ="gemini-3.5-flash"
 
     for modelo in modelos_intentar:
         try:

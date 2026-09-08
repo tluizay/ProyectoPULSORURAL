@@ -2,32 +2,19 @@ from django.shortcuts import render
 from ine.agregador import IneAgregador
 
 
-def api_ine(request):
-    busqueda = request.GET.get("codigo_municipio") or request.GET.get("busqueda")
-
-    # Si NO hay búsqueda (al abrir la página por primera vez), renderizamos la plantilla vacía
-    if not busqueda or not busqueda.strip():
-        return render(request, "ine/rendimientos.html", {})
-
-    # Solo si el usuario envió un valor ejecutamos el agregador
-    resultado = IneAgregador.obtener_analisis_completo(busqueda_municipio=busqueda)
-
+def vista_evolucion_agraria(request):
+    resultado = IneAgregador.obtener_datos_para_grafica("panel_completo")
+    print("RESULTADO INE AGREGADOR:", resultado)
     if resultado.get("estado") == "error":
-        return render(
-            request,
-            "ine/rendimientos.html",
-            {
-                "mensaje_error": resultado.get("mensaje"),
-                "codigo_municipio": busqueda,
-            },
-        )
+        return render(request, "ine/rendimientos.html", {"mensaje_error": resultado.get("mensaje")})
+
+    datos = resultado.get("datos_grafica", {})
 
     return render(
         request,
         "ine/rendimientos.html",
         {
-            "datos_ine": resultado.get("datos"),
-            "informe_ia": resultado.get("informe_ia"),
-            "codigo_municipio": busqueda,
+            "datos_evolucion": datos,       # Contiene 'vegetal' y 'animal'
+            "datos_provinciales": datos,    # Contiene 'evolucion_global' y 'provincial_anio'
         },
     )

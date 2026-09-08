@@ -59,7 +59,7 @@ matplotlib: Biblioteca principal para la creación de gráficos 2D y visualizaci
 
 pillow (PIL): Procesamiento, manipulación y edición de imágenes (formatos JPG, PNG, etc.).
 ### Modelo de extracción e interpretación
-
+Para fuentes de directamente desde internet
 ```text
                +----------------------------------+
                |        Vista / Controller        |
@@ -82,6 +82,18 @@ pillow (PIL): Procesamiento, manipulación y edición de imágenes (formatos JPG
      +-----------------+          +------------------+
 ```
 
+Para fuentes de documentos: 
+Documentos dentro de la aplicacion
+```text
+ine/
+│
+├── services/
+│   ├── __init__.py
+│   ├── extractor.py     <-- 1. Lectura de PDFs e imágenes (OCR)
+│   ├── parser.py        <-- 2. Lógica de expresiones regulares y parseo de tablas
+│   └── orchestrator.py  <-- 3. Orquestador principal (conecta extractor y parser)
+│
+```
 
 ## Fuentes de datos
 **Aement:** Agencia estatal metereologica
