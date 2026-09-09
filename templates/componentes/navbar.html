@@ -33,12 +33,12 @@
         </li>
       </ul>
 
-      <!-- Zona de Autenticación (Derecha) -->
-      <ul class="navbar-nav align-items-center gap-2">
+      <!-- Zona de Autenticación (Derecha / Adaptada para Móvil y Escritorio) -->
+      <ul class="navbar-nav align-items-lg-center gap-2 pt-3 pt-lg-0 border-top border-white border-opacity-10 border-top-lg-0">
         {% if request.user.is_authenticated %}
           <!-- Usuario Autenticado: Dropdown de Perfil -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2 px-3 py-1 rounded bg-success-subtle bg-opacity-25 border border-white border-opacity-25" 
+            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2 px-3 py-2 rounded bg-success-subtle bg-opacity-25 border border-white border-opacity-25" 
                href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-circle fs-5"></i>
               <span class="fw-semibold">{{ request.user.username }}</span>
@@ -47,11 +47,6 @@
               <li class="px-3 py-1 text-muted small border-bottom mb-1">
                 Conectado como <strong class="text-dark">{{ request.user.username }}</strong>
               </li>
-              
-              <!-- Opcional: Indicador si es Gestor -->
-              {% load static %} <!-- O el nombre del archivo de tus tags si difiere -->
-              {% comment %} Asegúrate de cargar tu templatetag si usas |is_gestor arriba en el archivo {% endcomment %}
-              
               <li>
                 <form action="{% url 'logout' %}" method="post" class="d-inline">
                   {% csrf_token %}
@@ -65,12 +60,12 @@
         {% else %}
           <!-- Usuario No Registrado / Invitado -->
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm px-3 py-2 fw-medium" href="{% url 'login' %}">
+            <a class="btn btn-outline-light btn-sm px-3 py-2 fw-medium w-100 w-lg-auto text-nowrap mb-2 mb-lg-0" href="{% url 'login' %}">
               <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
             </a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-light btn-sm px-3 py-2 fw-medium text-success" href="{% url 'register' %}">
+            <a class="btn btn-light btn-sm px-3 py-2 fw-medium text-success w-100 w-lg-auto text-nowrap" href="{% url 'register' %}">
               <i class="bi bi-person-plus me-1"></i> Registrarte
             </a>
           </li>
