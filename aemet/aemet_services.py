@@ -33,7 +33,7 @@ class Aemet(BaseDataService):
         fecha_actual = date.today()
         self.anio_inicio = fecha_actual.year - 1
         self.anio_fin = fecha_actual.year
-
+ 
     # ------------------------------------------------------------------
     # Distancia entre dos puntos geográficos (fórmula de Haversine)
     # ------------------------------------------------------------------
@@ -181,12 +181,6 @@ class Aemet(BaseDataService):
         """
         Consulta la API de AEMET y devuelve los datos crudos en formato lista de
         diccionarios.
-
-        - Si se creó el objeto con un identificador_estacion concreto, se usa
-          directamente esa estación (tal cual antes).
-        - Si no, se piden al inventario oficial las estaciones más cercanas a
-          (latitud, longitud) y se van probando en orden hasta encontrar una
-          que sí tenga datos climatológicos mensuales (no todas los tienen).
         """
         clave_api = getattr(settings, "AEMET_API_KEY", None)
         if not clave_api:
@@ -209,8 +203,6 @@ class Aemet(BaseDataService):
         for estacion in candidatas[:MAX_ESTACIONES_A_INTENTAR]:
             datos = self._fetch_estacion(estacion["identificador"], clave_api)
             if datos:
-                # Nos quedamos con la que finalmente tuvo datos, para que
-                # normalize() reporte la estación correcta.
                 self.identificador_estacion = estacion["identificador"]
                 return datos
 
@@ -218,8 +210,7 @@ class Aemet(BaseDataService):
             "Ninguna de las %s estaciones más cercanas a (%s, %s) tenía datos climatológicos mensuales.",
             len(candidatas[:MAX_ESTACIONES_A_INTENTAR]), latitud, longitud,
         )
-        # Aunque no haya datos, dejamos registrada la más cercana para que
-        # normalize() pueda informar de qué estación se intentó.
+
         self.identificador_estacion = candidatas[0]["identificador"]
         return []
 
@@ -236,7 +227,6 @@ class Aemet(BaseDataService):
         registros_limpios = []
         for fila in datos_brutos:
             fecha_str = str(fila.get("fecha", ""))
-            # AEMET suele devolver fechas como 'YYYY-MM' o 'YYYY'
             if len(fecha_str) >= 7:
                 try:
                     anio = int(fecha_str[:4])
@@ -246,18 +236,15 @@ class Aemet(BaseDataService):
             else:
                 continue
 
-            # AEMET usa el mes "13" para la fila de resumen/acumulado ANUAL, no es un mes real.
-            # Si no se descarta, sus totales anuales (p.ej. precipitación acumulada de todo
-            # el año) se cuelan como si fueran el dato de un mes cualquiera.
+            
             if mes < 1 or mes > 12:
                 continue
 
-            # Limpiar comas a puntos para convertir a float de forma segura
+           
             p_val = str(fila.get("p_mes", 0)).strip().replace(",", ".")
             t_val = str(fila.get("tm_mes", 0)).strip().replace(",", ".")
 
-            # AEMET usa códigos textuales en vez de números en algunos casos:
-            # "Ip" = precipitación inapreciable (por debajo del umbral medible) -> equivale a 0.0
+           
             if p_val.lower() == "ip":
                 precipitacion = 0.0
             else:
@@ -271,7 +258,7 @@ class Aemet(BaseDataService):
             except ValueError:
                 temperatura = float('nan')
 
-            # Omitir meses que no tengan datos reales (NaN)
+           
             if math.isnan(precipitacion) or math.isnan(temperatura):
                 continue
 
@@ -282,7 +269,7 @@ class Aemet(BaseDataService):
                 "temperatura_media_mensual": temperatura,
             })
 
-        # Ordenar y filtrar los últimos meses configurados
+       
         registros_limpios = sorted(registros_limpios, key=lambda x: (x["anio"], x["mes"]))
         ultimos_registros = registros_limpios[-self.NUMERO_MESES_A_MOSTRAR:]
 

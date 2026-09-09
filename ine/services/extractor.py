@@ -49,7 +49,6 @@ def extraer_texto_archivo(ruta_archivo: Path) -> str:
 
     if extension == ".pdf":
         texto_extraido = _extraer_texto_pdf_nativo(ruta_archivo)
-        # Si el texto extraído es muy escaso, se asume que es un PDF escaneado
         if len(texto_extraido.strip()) < MINIMO_CARACTERES_TEXTO_NATIVO:
             texto_extraido = _extraer_texto_pdf_escaneado_ocr(ruta_archivo)
         return texto_extraido

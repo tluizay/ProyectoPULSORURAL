@@ -70,7 +70,7 @@ class SigpacPuntoService(BaseDataService):
                 "atributos_brutos": None,
             }
 
-        # Extraer el diccionario de propiedades y la geometría directa del GeoJSON
+       
         propiedades = datos_brutos.get("properties") or datos_brutos.get("propiedades") or {}
         geometria_extraida = datos_brutos.get("geometry") or datos_brutos.get("geometria")
 
@@ -94,17 +94,16 @@ class SigpacPuntoService(BaseDataService):
             "47-900": "Valladolid",
         }
 
-        # Obtención de códigos
+        
         cod_provincia = propiedades.get("provincia")
         cod_municipio = propiedades.get("municipio")
 
-        # Traducción de nombres
+        
         nombre_provincia = provincias_ine.get(cod_provincia, f"Provincia {cod_provincia}")
         clave_muni = f"{cod_provincia}-{cod_municipio}"
         nombre_municipio = municipios_ine.get(clave_muni, f"Municipio {cod_municipio}")
 
-        # La API de este endpoint no devuelve uso ni superficie directa en atributos_brutos;
-        # se asignan valores informativos para evitar que salgan vacíos.
+       
         uso_detectado = propiedades.get("uso") or propiedades.get("uso_sigpac") or "No especificado"
         superficie_val = propiedades.get("superficie_ha") or propiedades.get("superficie") or "N/D"
 

@@ -1,5 +1,5 @@
 class BaseDataService:
-    """ejemplo de claudio este no se queda"""
+    """Base para coordenadas"""
 
     def fetch(self, lat: float, lng: float) -> dict:
         raise NotImplementedError

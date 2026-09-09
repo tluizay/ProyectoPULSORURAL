@@ -16,7 +16,7 @@ class IneAgregador:
                     "mensaje": f"La carpeta de informes no existe en la ruta: {ruta_carpeta_pdfs}"
                 }
 
-            # Procesamos todos los archivos de la carpeta
+          
             lista_todos_los_informes = procesar_directorio_ceas(ruta_carpeta_pdfs)
 
             if not lista_todos_los_informes:
@@ -25,11 +25,11 @@ class IneAgregador:
                     "mensaje": "No se encontraron informes PDF procesables en la carpeta."
                 }
 
-            # Ordenamos por año de forma descendente y cogemos el más reciente
+            
             lista_todos_los_informes.sort(key=lambda x: x.get("anio") or 0, reverse=True)
             informe_principal = lista_todos_los_informes[0]
 
-            # Generamos el análisis inteligente con Gemini para este informe
+            
             informe_ia = asistente_virtual(informe_principal)
 
             return {
@@ -65,7 +65,7 @@ class IneAgregador:
                     "mensaje": "No se encontraron informes PDF procesables para la gráfica."
                 }
 
-            # Delegamos la transformación matemática al paquete analiticas/ usando el dispatcher
+            
             datos_grafica = disparador_analitica(tipo_analitica, lista_todos_los_informes)
 
             return {

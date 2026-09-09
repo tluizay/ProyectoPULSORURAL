@@ -1,12 +1,7 @@
 from __future__ import annotations
 
-import io
 import logging
-import time
-import zipfile
 from pathlib import Path
-
-import pandas as pd
 import rasterio
 import requests
 import tenacity
@@ -32,16 +27,6 @@ CACHE_TTL_EMBALSES_SEGUNDOS = 6 * 60 * 60  # 6 horas
     retry=tenacity.retry_if_exception_type(requests.exceptions.RequestException),
     reraise=True,
 )
-def _request_con_reintentos(url: str, **kwargs) -> requests.Response:
-    """
-    Descarga una URL reintentando hasta 3 veces con espera creciente
-    (2s, 4s, 8s...) si hay un error de red o el servidor responde mal.
-    Si tras los 3 intentos sigue fallando, deja pasar la excepción original
-    (reraise=True) para que quien llame sepa que la descarga falló.
-    """
-    respuesta = requests.get(url, timeout=30, **kwargs)
-    respuesta.raise_for_status()
-    return respuesta
 
 
 class PropiedadesHidricas(BaseDataService):
