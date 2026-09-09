@@ -12,8 +12,10 @@
     </button>
 
     <!-- Menú Colapsable Responsive -->
-    <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-1">
+    <div class="collapse navbar-collapse mt-2 mt-lg-0 justify-content-between" id="navbarNav">
+      
+      <!-- Enlaces de Navegación Principales -->
+      <ul class="navbar-nav mb-2 mb-lg-0 gap-lg-1">
         <li class="nav-item">
           <a class="nav-link text-white fw-medium px-3 rounded" aria-current="page" href="{% url 'inicio' %}">
             <i class="bi bi-house-door me-1"></i> Inicio
@@ -26,9 +28,53 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-white-50 text-white-hover fw-medium px-3 rounded" href="{% url 'rendimientos' %}">
-            <i class=" bi-bar-chart-line me-1"></i> Estudio de rendimientos
+            <i class="bi bi-bar-chart-line me-1"></i> Estudio de rendimientos
           </a>
         </li>
+      </ul>
+
+      <!-- Zona de Autenticación (Derecha) -->
+      <ul class="navbar-nav align-items-center gap-2">
+        {% if request.user.is_authenticated %}
+          <!-- Usuario Autenticado: Dropdown de Perfil -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2 px-3 py-1 rounded bg-success-subtle bg-opacity-25 border border-white border-opacity-25" 
+               href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle fs-5"></i>
+              <span class="fw-semibold">{{ request.user.username }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2 mt-2">
+              <li class="px-3 py-1 text-muted small border-bottom mb-1">
+                Conectado como <strong class="text-dark">{{ request.user.username }}</strong>
+              </li>
+              
+              <!-- Opcional: Indicador si es Gestor -->
+              {% load static %} <!-- O el nombre del archivo de tus tags si difiere -->
+              {% comment %} Asegúrate de cargar tu templatetag si usas |is_gestor arriba en el archivo {% endcomment %}
+              
+              <li>
+                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item text-danger py-2 d-flex align-items-center gap-2">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        {% else %}
+          <!-- Usuario No Registrado / Invitado -->
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm px-3 py-2 fw-medium" href="{% url 'login' %}">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-light btn-sm px-3 py-2 fw-medium text-success" href="{% url 'register' %}">
+              <i class="bi bi-person-plus me-1"></i> Registrarte
+            </a>
+          </li>
+        {% endif %}
       </ul>
 
     </div>

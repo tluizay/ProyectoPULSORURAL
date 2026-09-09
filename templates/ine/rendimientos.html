@@ -5,14 +5,46 @@
 <div class="container mt-4">
     <h2 class="mb-4">Evolución de la Producción Agraria en Castilla y León</h2>
 
-    <!-- Mensaje de error por si fallara la analítica -->
+    <!-- Mensaje de error general -->
     {% if mensaje_error %}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger shadow-sm" role="alert">
             <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ mensaje_error }}
         </div>
     {% endif %}
 
-    <!-- Indicador de Carga (Spinner) -->
+    <!-- SECCIÓN: Asistente Virtual / Análisis de IA Global -->
+    <div class="card shadow-sm border-0 mb-4 bg-light">
+        <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <h5 class="card-title mb-0 fw-semibold text-success">
+                <i class="bi bi-robot me-2"></i> Asistente Virtual - Análisis de Informes INE
+            </h5>
+            
+            <div>
+                <a href="?regenerar=1" class="btn btn-outline-secondary btn-sm" title="Volver a generar el análisis de la IA">
+                    <i class="bi bi-arrow-clockwise"></i> Regenerar Análisis IA
+                </a>
+            </div>
+        </div>
+        <div class="card-body bg-white">
+            {% if analisis_md %}
+                <div class="analisis-ia-content">
+                    {{ analisis_md|safe }}
+                </div>
+            {% else %}
+                <p class="text-muted mb-0">No hay un análisis de IA disponible en este momento.</p>
+            {% endif %}
+            
+            {% if informe_principal %}
+                <div class="mt-3 pt-3 border-top text-muted small">
+                    <i class="bi bi-file-earmark-text me-1"></i> Informe de referencia procesado: 
+                    <strong>{{ informe_principal.titulo|default:"Documento INE más reciente" }}</strong>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- FIN SECCIÓN ASISTENTE VIRTUAL -->
+
+    <!-- Indicador de Carga (Spinner) para las gráficas -->
     <div id="loadingIndicator" class="text-center py-5">
         <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;">
             <span class="visually-hidden">Cargando gráficos...</span>
@@ -23,58 +55,157 @@
     <!-- Contenedor general de todas las gráficas (Oculto inicialmente) -->
     <div id="chartsContainer" style="display: none;">
         
-        <!-- Gráficas originales de Producción Vegetal y Animal (Apiladas) -->
-        <div class="card p-3 my-4 shadow-sm">
-            <h4>Evolución Producción Vegetal</h4>
-            <div style="position: relative; height: 350px; width: 100%;">
-                <canvas id="graficoVegetal"></canvas>
+    <!-- ========================================== -->
+    <!-- 1. EVOLUCIÓN PRODUCCIÓN VEGETAL            -->
+    <!-- ========================================== -->
+    <div class="card border-0 p-4 my-4 shadow-sm">
+        <h4 class="text-secondary mb-3">Evolución Producción Vegetal</h4>
+        
+        <!-- Fila superior: Gráfica a la izquierda y Texto lateral a la derecha -->
+        <div class="row align-items-center mb-4">
+            <div class="col-lg-8">
+                <div style="position: relative; height: 350px; width: 100%;">
+                    <canvas id="graficoVegetal"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="p-3 bg-light rounded h-100">
+                    <h5 class="fw-semibold text-success">Análisis Vegetal</h5>
+                    <p class="text-muted small mb-0">
+                        <!-- Aquí va tu texto lateral -->
+                        Aquí puedes colocar un resumen, notas clave o conclusiones específicas sobre la evolución de la producción vegetal a lo largo de los años.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <div class="card p-3 my-4 shadow-sm">
-            <h4>Evolución Producción Animal</h4>
-            <div style="position: relative; height: 350px; width: 100%;">
-                <canvas id="graficoAnimal"></canvas>
+        <!-- Fila inferior: Texto a la izquierda e Imagen a la derecha -->
+        <div class="row align-items-center pt-3 border-top">
+            <div class="col-lg-6">
+                <h5 class="fw-semibold text-secondary">Contexto e Impacto</h5>
+                <p class="text-muted">
+                    <!-- Aquí va tu texto izquierdo -->
+                    Detalla aquí los factores climáticos, subvenciones, cambios en las superficies de cultivo u observaciones adicionales que expliquen las variaciones observadas en la gráfica superior.
+                </p>
             </div>
-        </div>
-
-        <!-- NUEVA FILA: Gráfica 3 y Gráfica 4 una al lado de la otra en pantallas medianas/grandes -->
-        <div class="row g-4 my-2">
-            
-            <!-- Gráfica 3: Evolución Global (Líneas) - Ocupa la mitad izquierda -->
-            <div class="col-xl-6 col-lg-6">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-white py-3">
-                        <h5 class="card-title mb-0 fw-semibold text-success">Evolución Histórica Global (CyL)</h5>
-                    </div>
-                    <div class="card-body">
-                        <div style="position: relative; height: 350px; width: 100%;">
-                            <canvas id="chartEvolucionGlobal"></canvas>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-6 text-center">
+                <!-- Ruta de tu imagen (reemplaza el src con la de tu proyecto) -->
+                <img src="{% static 'img/vegetal-detalle.jpg' %}" alt="Detalle producción vegetal" class="img-fluid rounded shadow-sm" style="max-height: 220px; object-fit: cover;">
             </div>
-
-            <!-- Gráfica 4: Desglose Provincial por Año (Barras) - Ocupa la mitad derecha -->
-            <!-- Gráfica 4: Distribución de Cultivos (Torta) - Ocupa la mitad derecha -->
-            <div class="col-xl-6 col-lg-6">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-white py-3">
-                        <h5 class="card-title mb-0 fw-semibold text-primary">Distribución de Producción Vegetal por Cultivos</h5>
-                    </div>
-                    <div class="card-body">
-                        <div style="position: relative; height: 350px; width: 100%;">
-                            <canvas id="chartProvincialAnio"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. EVOLUCIÓN PRODUCCIÓN ANIMAL             -->
+    <!-- ========================================== -->
+    <div class="card border-0 p-4 my-4 shadow-sm">
+        <h4 class="text-secondary mb-3">Evolución Producción Animal</h4>
+        
+        <!-- Fila superior: Gráfica a la izquierda y Texto lateral a la derecha -->
+        <div class="row align-items-center mb-4">
+            <div class="col-lg-8">
+                <div style="position: relative; height: 350px; width: 100%;">
+                    <canvas id="graficoAnimal"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="p-3 bg-light rounded h-100">
+                    <h5 class="fw-semibold text-info">Análisis Ganadero</h5>
+                    <p class="text-muted small mb-0">
+                        <!-- Aquí va tu texto lateral -->
+                        Observaciones relevantes sobre el sector ganadero, fluctuaciones de precios o comportamiento histórico del sector cárnico y lácteo.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila inferior: Texto a la izquierda e Imagen a la derecha -->
+        <div class="row align-items-center pt-3 border-top">
+            <div class="col-lg-6">
+                <h5 class="fw-semibold text-secondary">Factores del Sector Pecuario</h5>
+                <p class="text-muted">
+                    <!-- Aquí va tu texto izquierdo -->
+                    Explica aquí aspectos relacionados con la cabaña ganadera, normativas de sanidad animal o costes de alimentación que impacten directamente en estos resultados.
+                </p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <!-- Ruta de tu imagen -->
+                <img src="{% static 'img/animal-detalle.jpg' %}" alt="Detalle producción animal" class="img-fluid rounded shadow-sm" style="max-height: 220px; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 3 y 4. FILA DE GRÁFICAS DOBLES (Lado a lado) -->
+    <!-- ========================================== -->
+    <div class="row g-4 my-2">
+        
+    <!-- Gráfica 3: Evolución Global (Líneas) -->
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-sm border-0 h-100 p-3">
+            <div class="card-header bg-white py-2 px-0">
+                <h5 class="card-title mb-0 fw-semibold text-success">Evolución Histórica Global (CyL)</h5>
+            </div>
+            <div class="card-body px-0">
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="chartEvolucionGlobal"></canvas>
+                </div>
+                <p class="text-muted small mt-3 mb-3">
+                    <!-- Texto lateral/inferior compacto para la gráfica 3 -->
+                    Comparativa de las tendencias globales a lo largo de las series temporales disponibles.
+                </p>
+            </div>
+            <!-- Mini sección inferior con icono en gris para la Gráfica 3 -->
+            <div class="card-footer bg-white border-0 px-0 pt-2">
+                <div class="row align-items-center">
+                    <div class="col-sm-9">
+                        <p class="text-muted small mb-0">Nota analítica sobre el comportamiento general y cruce de variables globales.</p>
+                    </div>
+                    <div class="col-sm-3 text-end">
+                        <!-- Icono relacionado con tendencias / gráficos globales en gris sutil -->
+                        <i class="bi bi-graph-up-arrow fs-2 text-secondary opacity-50" title="Tendencia global"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfica 4: Distribución de Cultivos (Torta) -->
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow-sm border-0 h-100 p-3">
+            <div class="card-header bg-white py-2 px-0">
+                <h5 class="card-title mb-0 fw-semibold text-primary">Distribución de Producción Vegetal por Cultivos</h5>
+            </div>
+            <div class="card-body px-0">
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="chartProvincialAnio"></canvas>
+                </div>
+                <p class="text-muted small mt-3 mb-3">
+                    <!-- Texto lateral/inferior compacto para la gráfica 4 -->
+                    Participación porcentual de cada tipo de cultivo sobre el total de la producción agrícola anual.
+                </p>
+            </div>
+            <!-- Mini sección inferior con icono en gris para la Gráfica 4 -->
+            <div class="card-footer bg-white border-0 px-0 pt-2">
+                <div class="row align-items-center">
+                    <div class="col-sm-9">
+                        <p class="text-muted small mb-0">Desglose de peso económico por familias de cultivos predominantes.</p>
+                    </div>
+                    <div class="col-sm-3 text-end">
+                        <!-- Icono relacionado con distribución / tarta / sectores en gris sutil -->
+                        <i class="bi bi-pie-chart fs-2 text-secondary opacity-50" title="Distribución de cultivos"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<!-- Inyectamos los datos de Python de forma unificada -->
+
+<!-- Inyección segura de datos unificados a JavaScript -->
 {{ datos_evolucion|json_script:"json-datos-panel" }}
 
 <!-- Cargar la librería Chart.js -->
@@ -89,11 +220,10 @@
             const elPanel = document.getElementById('json-datos-panel');
             if (elPanel && elPanel.textContent.trim()) {
                 const data = JSON.parse(elPanel.textContent);
-                console.log("Datos recibidos en el panel:", data); // Para depurar en consola si lo necesitas
-
-                // 1. Gráfica Vegetal
+                
+                // Inicialización de Gráfica Vegetal
                 const canvasVegetal = document.getElementById('graficoVegetal');
-                if (canvasVegetal && data?.vegetal) {
+                if (canvasVegetal && data.vegetal) {
                     new Chart(canvasVegetal.getContext('2d'), {
                         type: 'bar',
                         data: data.vegetal,
@@ -101,9 +231,9 @@
                     });
                 }
 
-                // 2. Gráfica Animal
+                // Inicialización de Gráfica Animal
                 const canvasAnimal = document.getElementById('graficoAnimal');
-                if (canvasAnimal && data?.animal) {
+                if (canvasAnimal && data.animal) {
                     new Chart(canvasAnimal.getContext('2d'), {
                         type: 'bar',
                         data: data.animal,
@@ -111,9 +241,9 @@
                     });
                 }
 
-                // 3. Gráfica de Líneas (Evolución Global)
+                // Inicialización de Gráfica de Líneas (Evolución Global)
                 const canvasEvolucion = document.getElementById('chartEvolucionGlobal');
-                if (canvasEvolucion && data?.evolucion_global) {
+                if (canvasEvolucion && data.evolucion_global) {
                     new Chart(canvasEvolucion.getContext('2d'), {
                         type: 'line',
                         data: data.evolucion_global,
@@ -131,26 +261,24 @@
                     });
                 }
 
-                // 4. Gráfica de Torta (Distribución de Cultivos)
+                // Inicialización de Gráfica de Torta (Distribución)
                 const canvasProvincial = document.getElementById('chartProvincialAnio');
-                if (canvasProvincial && data?.provincial_anio) {
+                if (canvasProvincial && data.provincial_anio) {
                     new Chart(canvasProvincial.getContext('2d'), {
-                        type: 'pie', // Cambiado a gráfico de pastel/torta
+                        type: 'pie',
                         data: data.provincial_anio,
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             plugins: { 
-                                legend: { 
-                                    position: 'right' // Ubica la leyenda a la derecha para mayor claridad
-                                } 
+                                legend: { position: 'right' } 
                             }
                         }
                     });
                 }
             }
 
-            // Ocultamos el spinner y mostramos las gráficas con éxito
+            // Ocultar el spinner y revelar el contenedor de gráficas
             if (loadingIndicator) loadingIndicator.style.display = 'none';
             if (chartsContainer) chartsContainer.style.display = 'block';
 
@@ -158,8 +286,8 @@
             console.error("Error al renderizar las gráficas:", error);
             if (loadingIndicator) {
                 loadingIndicator.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="bi bi-info-circle me-2"></i> No se pudieron cargar todas las gráficas. Revisa la consola para más detalles.
+                    <div class="alert alert-warning shadow-sm">
+                        <i class="bi bi-info-circle me-2"></i> Ocurrió un error al cargar las gráficas. Revisa la consola para más detalles.
                     </div>`;
             }
         }
