@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+PULSO RURAL - Iniciar Sesión
+{% endblock %}
+
+{% block contenido %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-md-6 col-lg-5 col-xl-4">
+
+            <!-- Tarjeta de Login -->
+            <div class="card shadow-sm border-0 bg-light">
+
+                <!-- Cabecera de la tarjeta -->
+                <div class="card-header bg-white py-3 text-center border-0">
+                    <!-- Tu icono personalizado más grande -->
+                    <img src="{% static 'img/icon.png' %}" alt="Pulso Rural Icon" class="mb-2"
+                        style="height: 60px; width: auto;">
+
+                    <h4 class="card-title mb-0 fw-semibold text-success">
+                        Pulso Rural
+                    </h4>
+                    <p class="text-muted small mb-0 mt-1">Accede a tu panel de gestión y análisis</p>
+                </div>
+
+                <!-- Cuerpo de la tarjeta con el formulario -->
+                <div class="card-body bg-white p-4 rounded-bottom">
+
+                    <!-- Mensajes de error o alerta de Django (ej. credenciales inválidas) -->
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show small py-2" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                            style="font-size: 0.75rem;"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.errors and not messages %}
+                    <div class="alert alert-danger small py-2" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i> Usuario o contraseña incorrectos. Por
+                        favor, inténtalo de nuevo.
+                    </div>
+                    {% endif %}
+
+                    <!-- Formulario de Django -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Renderizado automático o manual de campos del form -->
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label small fw-semibold text-secondary">
+                                {{ field.label }}
+                            </label>
+
+                            <!-- Añadimos clases de Bootstrap al input de Django dinámicamente o estructurado -->
+                            {{ field }}
+
+                            {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ field.errors|striptags }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <!-- Botón de envío -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-success py-2 fw-semibold shadow-sm">
+                                <i class="bi bi-unlock me-2"></i> Iniciar Sesión
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <!-- Pie con enlace de recuperación de contraseña -->
+                <div class="card-footer bg-light border-0 text-center py-3 text-muted small">
+                    ¿Has olvidado tu contraseña?
+                    <a href="{% url 'password_reset' %}" class="text-success text-decoration-none fw-semibold">
+                        Recupérala aquí
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Script rápido para asegurar que los inputs que genera Django tengan la clase form-control de Bootstrap -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const formInputs = document.querySelectorAll("form input:not([type='checkbox']):not([type='radio']):not([type='hidden'])");
+        formInputs.forEach(input => {
+            if (!input.classList.contains('form-control')) {
+                input.classList.add('form-control');
+            }
+        });
+    });
+</script>
+{% endblock %}

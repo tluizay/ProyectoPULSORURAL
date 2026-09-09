@@ -26,5 +26,6 @@ urlpatterns = [
     path('solgrids/', include('solgrids.urls')),
      path('itacyl/', include('itacyl.urls')),
     path('ine/', include('ine.urls')),
+    path('usuarios/', include('usuarios.urls')),
    
 ]   
