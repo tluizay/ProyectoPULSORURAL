@@ -4,6 +4,7 @@ from config.entorno import API_KEY_GEMINI
 
 
 def asistente_virtual(contexto_negocio):
+    "asistente virtual, Esta diseñada para dar un estudio del clima del punto seleccionado."
     if not API_KEY_GEMINI:
         return {"error": "No se encontró la API Key de Gemini."}
 
@@ -32,7 +33,7 @@ def asistente_virtual(contexto_negocio):
             contents=prompt,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
-                max_output_tokens=512,       # ← limita la respuesta
+                max_output_tokens=512,       
                 temperature=0.3,
             ),
         )

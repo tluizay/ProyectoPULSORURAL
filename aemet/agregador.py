@@ -1,11 +1,11 @@
 import json
-from aemet.aemet_services import Aemet  # O tu ruta de la clase Aemet
-from aemet.gemini_services import asistente_virtual  # Tu función de Gemini
- 
+from aemet.aemet_services import Aemet  
+from aemet.gemini_services import asistente_virtual  
 class ClimaInteligenteAggregator:
     
     @staticmethod
     def obtener_analisis_completo(identificador_estacion: str = None, latitud: float = 0.0, longitud: float = 0.0):
+        "Donde los datos de gemini y aemet convergen para ser enviador a la vista"
         cliente_aemet = Aemet(identificador_estacion=identificador_estacion)
         datos_brutos = cliente_aemet.fetch(latitud=latitud, longitud=longitud)
         json_aemet = cliente_aemet.normalize(datos_brutos)

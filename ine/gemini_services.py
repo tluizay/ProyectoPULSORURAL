@@ -14,7 +14,6 @@ def asistente_virtual(contexto_negocio: str) -> str:
 
     client = genai.Client(api_key=API_KEY_GEMINI)
 
-    # Instrucciones alineadas: sintético, directo y sin contradicciones
     system_instruction = (
         "Eres un analista de datos agrícolas de respuesta rápida. "
         "Debes responder SIEMPRE en español de España. "
@@ -40,7 +39,7 @@ def asistente_virtual(contexto_negocio: str) -> str:
         ),
     )
 
-    # Modelos a intentar en orden de preferencia
+   
     modelos_intentar ="gemini-3.5-flash"
 
     for modelo in modelos_intentar:
@@ -55,7 +54,7 @@ def asistente_virtual(contexto_negocio: str) -> str:
             return markdown.markdown(texto_markdown)
 
         except APIError as e:
-            # Si es error 503 (alta demanda), probamos con el siguiente modelo de respaldo
+        
             if e.code == 503 or "503" in str(e):
                 logger.warning(
                     f"Modelo {modelo} saturado (503). Intentando fallback..."
