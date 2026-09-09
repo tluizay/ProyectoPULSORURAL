@@ -19,3 +19,26 @@ print(datos_veg)
 datos_anim = preparar_datos_produccion_animal(informes)
 print("--- DATOS PRODUCCIÓN ANIMAL ---")
 print(datos_anim)
+
+en el uso de la ia
+Caché en sesión: agregué clave_cache = f'informe_ia_{anio}_{mes}'. Si esa clave ya existe en request.session y no se pide ?regenerar=1, se reutiliza el HTML guardado sin volver a llamar a la IA ni a la base de datos. Solo se recalcula si cambias de año/mes, o si visitas la URL con ?regenerar=1 (por ejemplo, agrega un botón "Regenerar informe" en el template que enlace a ?anio={{ anio }}&mes={{ mes }}&regenerar=1).
+def vista_asistente(request):
+    anio = int(request.GET.get('anio', datetime.now().year))
+    mes = int(request.GET.get('mes', datetime.now().month))
+    forzar_regeneracion = request.GET.get('regenerar') == '1'
+
+    # Clave única en sesión para este período. Si ya existe y no se pide
+    # regenerar explícitamente, reutilizamos el informe guardado en vez de
+    # volver a llamar a la IA (y así no se recalcula en cada recarga).
+    clave_cache = f'informe_ia_{anio}_{mes}'
+
+    try:
+        if not forzar_regeneracion and clave_cache in request.session:
+            analisis_html = request.session[clave_cache]   # ← usa la caché
+        else:
+            # ... calcula ventas, gastos, contexto_negocio ...
+            analisis_md = asistente_virtual(contexto_negocio)  # ← llama a services.py
+            analisis_html = markdown.markdown(analisis_md)
+
+            request.session[clave_cache] = analisis_html   # ← guarda en caché
+        ...
