@@ -70,33 +70,58 @@ def generar_imagen_barras(datos_grafica: dict, titulo: str) -> str:
     return base64.b64encode(buffer.read()).decode("utf-8")
 
 def generar_imagen_torta(datos_grafica: dict, titulo: str) -> str:
-    fig, ax = plt.subplots(figsize=(4, 4))
+    fig, ax = plt.subplots(figsize=(6, 4.2))  # más ancho para dejar hueco a la leyenda
+
     dataset = datos_grafica.get("datasets", [{}])[0]
-    ax.pie(
-        dataset.get("data", []),
-        labels=datos_grafica.get("labels", []),
-        colors=dataset.get("backgroundColor"),
-        autopct="%1.1f%%",
-        textprops={"fontsize": 7}
+    data = dataset.get("data", [])
+    labels = datos_grafica.get("labels", [])
+    colors = dataset.get("backgroundColor")
+
+    # Umbral: no mostrar % dentro de porciones demasiado pequeñas (se solapan)
+    total = sum(data) if data else 1
+    def autopct_filtrado(pct):
+        return f"{pct:.1f}%" if pct >= 2.5 else ""
+
+    wedges, _, autotexts = ax.pie(
+        data,
+        labels=None,              # quitamos las etiquetas pegadas al pastel
+        colors=colors,
+        autopct=autopct_filtrado,
+        pctdistance=0.75,
+        textprops={"fontsize": 7, "color": "white", "weight": "bold"},
+        startangle=90,
     )
+
     ax.set_title(titulo)
+
+    # Leyenda con nombre + porcentaje real, fuera del pastel
+    porcentajes = [f"{l} ({(v/total)*100:.1f}%)" for l, v in zip(labels, data)]
+    ax.legend(
+        wedges,
+        porcentajes,
+        loc="center left",
+        bbox_to_anchor=(1.0, 0.5),
+        fontsize=7,
+        frameon=False,
+    )
+
     plt.tight_layout()
 
     buffer = io.BytesIO()
-    fig.savefig(buffer, format="png", dpi=120)
+    fig.savefig(buffer, format="png", dpi=120, bbox_inches="tight")
     plt.close(fig)
     buffer.seek(0)
     return base64.b64encode(buffer.read()).decode("utf-8")
 
 def generar_imagen_lineas(datos_grafica: dict, titulo: str) -> str:
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(7, 4.5))
     labels = datos_grafica.get("labels", [])
-    
+
     for dataset in datos_grafica.get("datasets", []):
         color = dataset.get("borderColor") or dataset.get("backgroundColor")
         if isinstance(color, list):
-            color = color[0]  # Evita el error si viene como array de colores
-            
+            color = color[0]
+
         ax.plot(
             labels,
             dataset.get("data", []),
@@ -106,14 +131,20 @@ def generar_imagen_lineas(datos_grafica: dict, titulo: str) -> str:
             linewidth=1.5,
             markersize=4
         )
-        
-    ax.set_title(titulo, fontsize=9)
-    ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=2, fontsize=7, frameon=False)
+
+    ax.set_title(titulo, fontsize=9, pad=25)  # más espacio bajo el título
+
+    # Leyenda debajo del título pero fuera del área de las etiquetas del eje X
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.12), ncol=2, fontsize=7, frameon=False)
+
+    # Rotar las etiquetas del eje X y alinearlas para que no se solapen
     ax.tick_params(axis='both', which='major', labelsize=7)
+    plt.setp(ax.get_xticklabels(), rotation=30, ha='right', rotation_mode='anchor')
+
     plt.tight_layout()
 
     buffer = io.BytesIO()
-    fig.savefig(buffer, format="png", dpi=120)
+    fig.savefig(buffer, format="png", dpi=120, bbox_inches="tight")
     plt.close(fig)
     buffer.seek(0)
     return base64.b64encode(buffer.read()).decode("utf-8")
@@ -129,9 +160,9 @@ def descargar_pdf(request):
         'analisis_md': resultado.get('informe_ia', ''),
         'grafico_vegetal_b64': generar_imagen_barras(datos_grafica.get("vegetal", {}), "Evolución Producción Vegetal"),
         'grafico_animal_b64': generar_imagen_barras(datos_grafica.get("animal", {}), "Evolución Producción Animal"),
-        'grafico_provincialtorta_b64': generar_imagen_torta(datos_grafica.get("provincial_anio", {}), "Distribución por Cultivos"),
-        'grafico_provinciallinea_b64': generar_imagen_lineas(datos_grafica.get("provincial_anio", {}), "Distribución por Cultivos"),
-    }
+        'grafico_provincialtorta_b64': generar_imagen_torta(datos_grafica.get("provincial_anio", {}), "Distribución por Cultivos "),
+        'grafico_provinciallinea_b64': generar_imagen_lineas(datos_grafica.get("provincial_anio", {}), "Distribución historico global"),
+    } 
 
     template = get_template('ine/pdf_rendimientos.html')
     html = template.render(contexto, request)

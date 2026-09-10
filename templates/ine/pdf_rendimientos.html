@@ -118,23 +118,23 @@
     </div>
     {% endif %}
 
-    <!-- Gráfica: Evolución Histórica Global -->
     {% if grafico_provincialtorta_b64 %}
     <div>
-        <h2>Evolución Histórica Global (CyL)</h2>
+        <h2>Distribución por Cultivos (CyL)</h2>
         <div class="img-container">
-            <img src="data:image/png;base64,{{ grafico_provincialtotal_b64 }}" class="img-grafico" />
+            <img src="data:image/png;base64,{{ grafico_provincialtorta_b64 }}" class="img-grafico" />
         </div>
         <p style="font-size: 7.5pt; color: #6c757d; text-align: center; margin-top: 2px;">
-            Comparativa de las tendencias globales a lo largo de las series temporales disponibles.
+            Distribución porcentual por tipo de cultivo.
         </p>
     </div>
     {% endif %}
-       {% if grafico_provinciallinea_b64 %}
+
+    {% if grafico_provinciallinea_b64 %}
     <div>
         <h2>Evolución Histórica Global (CyL)</h2>
         <div class="img-container">
-            <img src="data:image/png;base64,{{ grafico_pronvinciallinea_b64 }}" class="img-grafico" />
+            <img src="data:image/png;base64,{{ grafico_provinciallinea_b64 }}" class="img-grafico" />
         </div>
         <p style="font-size: 7.5pt; color: #6c757d; text-align: center; margin-top: 2px;">
             Comparativa de las tendencias globales a lo largo de las series temporales disponibles.
