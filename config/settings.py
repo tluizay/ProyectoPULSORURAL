@@ -155,3 +155,10 @@ LEAFLET_CONFIG = {
 
 #utenticacion de ia
 API_KEY_GEMINI=entorno.API_KEY_GEMINI 
+
+# Autenticación
+LOGOUT_REDIRECT_URL = 'login'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = 'login'

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container text-center py-5">
+    <div class="card shadow-sm border-0 p-5 mx-auto" style="max-width: 500px;">
+        <div class="mb-3">
+            <i class="bi bi-check-circle-fill text-success display-1"></i>
+        </div>
+        <h3 class="fw-bold mb-3">Sesión Finalizada</h3>
+        <p class="text-muted mb-4">Has cerrado sesión correctamente de la plataforma.</p>
+        <a href="{% url 'login' %}" class="btn btn-success">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Volver a Iniciar Sesión
+        </a>
+    </div>
+</div>
+{% endblock %}
