@@ -40,7 +40,7 @@ def asistente_virtual(contexto_negocio: str) -> str:
     )
 
    
-    modelos_intentar ="gemini-3.5-flash"
+    modelos_intentar = ["gemini-3.5-flash", "gemini-3.5-flash-lite"]
 
     for modelo in modelos_intentar:
         try:

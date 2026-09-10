@@ -10,6 +10,19 @@ PULSO RURAL - Crear Cuenta
     <div class="row w-100 justify-content-center">
         <div class="col-md-6 col-lg-5 col-xl-4">
             
+            <!-- Bloque para mostrar mensajes de éxito o error -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show shadow-sm" role="alert">
+                        {% if message.tags == 'success' %}
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                        {% endif %}
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             <!-- Tarjeta con el diseño unificado de Pulso Rural -->
             <div class="card shadow-sm border-0 bg-light">
                 
@@ -74,7 +87,6 @@ PULSO RURAL - Crear Cuenta
     </div>
 </div>
 
-<!-- Script rápido para asegurar que los inputs que genera Django tengan la clase form-control de Bootstrap -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const formInputs = document.querySelectorAll("form input:not([type='checkbox']):not([type='radio']):not([type='hidden'])");
