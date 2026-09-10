@@ -25,7 +25,7 @@ def vista_evolucion_agraria(request):
         if resultado.get('estado') == 'ok':
             request.session[cache_key] = resultado
 
-    # 2. Responder si es una petición AJAX (fetch desde javascript)
+    # 2. Responder si es una petición AJAX (fetch desde javascript) 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         status_code = 200 if resultado.get('estado') == 'ok' else 400
         return JsonResponse(resultado, status=status_code)

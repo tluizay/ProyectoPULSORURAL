@@ -5,7 +5,8 @@
 <head>
 
     <!-- Tu archivo CSS personalizado global (opcional pero recomendado) -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pdf_rendimientos.css' %}">
 
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}?v=5">
@@ -23,6 +24,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet.vectorgrid@1.3.2/dist/Leaflet.VectorGrid-bundle.min.js"></script>
+    <!-- Buscador de lugares para el mapa SIGPAC (antes faltaba y hacía que L.Control.geocoder
+         no existiera, rompiendo el resto del script del mapa) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
 
 
     {% block extra_css %}{% endblock %}
@@ -64,7 +70,7 @@
                                 Estamos muy felices de tenerte por aquí. Registrate para descargar los informes
                             </p>
                             <div class="d-grid mt-4">
-                                <a href="{% url 'usuarios/login' %}" class="btn btn-success" data-bs-dismiss="modal">
+                                <a href="{% url 'login' %}" class="btn btn-success" data-bs-dismiss="modal">
                                     ¡Empezar ahora!
                                 </a>
                             </div>

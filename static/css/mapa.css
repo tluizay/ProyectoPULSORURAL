@@ -1,0 +1,122 @@
+/* ESTILOS DE MAPA, DE LA PLANTILLA MAPA */
+#contenedor-mapa {
+        height: 70vh;
+        width: 100%;
+        border-radius: 8px;
+        z-index: 1;
+    }
+
+    /* ESTILOS DE MAPA */
+    .btn-nueva-busqueda {
+        background-color: white;
+        border: 1px solid #ced4da;
+        color: #6c757d;
+        /* Flecha en gris */
+        padding: 6px 12px;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .btn-nueva-busqueda:hover {
+        background-color: #f8f9fa;
+        color: #343a40;
+        /* Gris más oscuro al pasar el ratón */
+        border-color: #adb5bd;
+    }
+
+    .tarjeta-sigpac {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: white;
+        padding: 15px;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        max-width: 350px;
+        font-size: 0.875rem;
+        max-height: 85%;
+        overflow-y: auto;
+    }
+
+    .tabla-sigpac td {
+        padding: 4px 8px;
+    }
+
+    .caja-diagnostico-ia {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        white-space: pre-line;
+    }
+/* --- Leyenda del mapa SIGPAC (líneas/colores + secciones de datos) --- */
+.leyenda-mapa {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    padding: 0.9rem 1.1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-top: 0.75rem;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.leyenda-linea {
+    display: inline-block;
+    width: 22px;
+    height: 0;
+    border-top-width: 3px;
+    border-top-style: solid;
+}
+
+.leyenda-caja {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+}
+
+/* Cabeceras de las tarjetas de datos, con icono + color por sección */
+.tarjeta-datos h5 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.buscador-lugares-grande .leaflet-control-geocoder-form input {
+    width: 260px;
+    height: 42px;
+    font-size: 1rem;
+    padding: 0 12px;
+}
+
+.buscador-lugares-grande .leaflet-control-geocoder-icon {
+    width: 42px;
+    height: 42px;
+    background-size: 22px 22px;
+}
+
+.buscador-lugares-grande.leaflet-control-geocoder {
+    border-radius: 8px;
+}

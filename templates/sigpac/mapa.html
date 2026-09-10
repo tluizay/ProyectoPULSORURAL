@@ -4,68 +4,8 @@
 {% block title %}PULSO RURAL | Consulta SIGPAC{% endblock %}
 
 {% block extra_css %}
-<style>
-    #contenedor-mapa {
-        height: 70vh;
-        width: 100%;
-        border-radius: 8px;
-        z-index: 1;
-    }
-
-    /* Estilo para el botón de nueva búsqueda fuera del mapa (esquina superior izquierda de la página) */
-    .btn-nueva-busqueda {
-        background-color: white;
-        border: 1px solid #ced4da;
-        color: #6c757d;
-        /* Flecha en gris */
-        padding: 6px 12px;
-        border-radius: 6px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .btn-nueva-busqueda:hover {
-        background-color: #f8f9fa;
-        color: #343a40;
-        /* Gris más oscuro al pasar el ratón */
-        border-color: #adb5bd;
-    }
-
-    .tarjeta-sigpac {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        background-color: white;
-        padding: 15px;
-        border-radius: 6px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        max-width: 350px;
-        font-size: 0.875rem;
-        max-height: 85%;
-        overflow-y: auto;
-    }
-
-    .tabla-sigpac td {
-        padding: 4px 8px;
-    }
-
-    .caja-diagnostico-ia {
-        background-color: #f8f9fa;
-        border-left: 4px solid #0d6efd;
-        padding: 10px;
-        border-radius: 4px;
-        font-size: 0.82rem;
-        white-space: pre-line;
-    }
-</style>
+<!-- El CSS del geocodificador ahora se carga en base.html, y los estilos de la
+     leyenda/tarjetas viven en static/css/mapa.css (ya incluido globalmente). -->
 {% endblock %}
 
 {% block contenido %}
@@ -75,8 +15,8 @@
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
             <div>
                 <h2>Consulta de Parcela SIGPAC</h2>
-                <p class="text-muted mb-0">Haz clic sobre cualquier punto del mapa para consultar la parcela y sus
-                    atributos.</p>
+                <p class="text-muted mb-0">Usa la barra de búsqueda dentro del mapa para ubicar una ciudad/provincia, o
+                    haz clic sobre cualquier parcela para consultar sus atributos.</p>
             </div>
             <!-- Botón fuera del mapa -->
             <a href="{% url 'mapa' %}" class="btn btn-light">
@@ -85,17 +25,46 @@
         </div>
     </div>
 
-    <div class="col-12 position-relative">
+    <!-- MAPA (La barra de búsqueda aparecerá flotando arriba a la izquierda dentro de este contenedor) -->
+    <div class="col-12 position-relative mb-2">
         <div id="contenedor-mapa"></div>
+    </div>
 
-        {% if datos_recinto or clima_aemet %}
-        <div class="tarjeta-sigpac">
+    <!-- LEYENDA DEL MAPA: qué significa cada línea/color -->
+    <div class="col-12 mb-4">
+        <div class="leyenda-mapa">
+        
+            <div class="leyenda-item">
+                <span class="leyenda-linea" style="border-color:#a855f7;"></span>
+                Recintos SIGPAC
+                <!-- El color exacto de esta línea lo define el propio servicio WMS de SIGPAC,
+                     no tu código. En cuanto la capa cargue correctamente, comprueba el tono real
+                     y ajusta este valor si no coincide. -->
+            </div>
+            <div class="leyenda-item">
+                <span class="leyenda-caja" style="border-color:#6f42c1; background-color:#a855f7; opacity:0.7;"></span>
+                Parcela seleccionada
+            </div>
+            <div class="leyenda-item">
+                <i class="bi bi-image text-secondary"></i>
+                Vista Satélite (PNOA / IGN)
+            </div>
+            <div class="leyenda-item">
+                <i class="bi bi-signpost-2 text-secondary"></i>
+                Vista Base (OpenStreetMap)
+            </div>
+        </div>
+    </div>
+
+    <!-- PAREJA 1: Datos del Recinto (Izquierda) & Datos Hídricos (Derecha) -->
+    <div class="col-md-6 mb-4">
+        <div class="card p-3 shadow-sm border-0 bg-white h-100 tarjeta-datos">
+            <h5 class="mb-2 text-success"><i class="bi bi-clipboard-data"></i> Datos del Recinto</h5>
             {% if datos_recinto %}
-            <h5 class="mb-2 text-success">Datos del Recinto</h5>
             {% if datos_recinto.sin_recinto %}
-            <p class="text-danger mb-2">No se encontró ningún recinto SIGPAC en la ubicación seleccionada.</p>
+            <p class="text-danger mb-0">No se encontró ningún recinto SIGPAC en la ubicación seleccionada.</p>
             {% else %}
-            <table class="table table-sm table-borderless tabla-sigpac mb-2">
+            <table class="table table-sm table-borderless tabla-sigpac mb-0">
                 <tbody>
                     <tr>
                         <td><strong>Provincia:</strong></td>
@@ -128,11 +97,28 @@
                 </tbody>
             </table>
             {% endif %}
+            {% else %}
+            <p class="text-muted mb-0">Sin datos de recinto cargados.</p>
             {% endif %}
+        </div>
+    </div>
 
-            <!-- SECCIÓN: Diagnóstico del clima con AEMET -->
-            <hr class="my-2">
-            <h5 class="mb-2 text-info">Diagnóstico AEMET</h5>
+    <div class="col-md-6 mb-4">
+        <div id="contenedor-hidrico" class="h-100">
+            <!-- Aquí se inyectará la card de SoilGrids -->
+        </div>
+    </div>
+
+    <!-- PAREJA 2: Datos de Suelo (Izquierda) & Diagnóstico Clima AEMET (Derecha) -->
+    <div class="col-md-6 mb-4">
+        <div id="contenedor-diagnostico-suelo" class="h-100">
+            <!-- Aquí se inyectará la card de ITACYL & Gemini -->
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card p-3 shadow-sm border-0 bg-white h-100 tarjeta-datos">
+            <h5 class="mb-2 text-info"><i class="bi bi-cloud-sun"></i> Diagnóstico AEMET</h5>
             <div id="contenedor-diagnostico-ia" class="text-muted small">
                 {% if clima_aemet and clima_aemet.interpretacion_ia %}
                 <div class="caja-diagnostico-ia">{{ clima_aemet.interpretacion_ia }}</div>
@@ -140,20 +126,6 @@
                 <span id="cargando-ia">Cargando análisis inteligente del clima...</span>
                 {% endif %}
             </div>
-        </div>
-        {% endif %}
-    </div>
-
-    <!-- SECCIÓN DE INFORMES TÉCNICOS (Debajo del Mapa) -->
-    <div class="col-12 mt-3">
-        <!-- 1. Contenedor de Propiedades Hídricas -->
-        <div id="contenedor-hidrico" class="mb-3">
-            <!-- Aquí se inyectará la card de SoilGrids -->
-        </div>
-
-        <!-- 2. Contenedor de Diagnóstico ITACYL + Gemini (AÑADIDO) -->
-        <div id="contenedor-diagnostico-suelo" class="mb-3">
-            <!-- Aquí se inyectará la card de ITACYL & Gemini -->
         </div>
     </div>
 </div>
@@ -164,41 +136,108 @@
 {{ datos_recinto.geometria|json_script:"geometria-data" }}
 {% endif %}
 
+<!-- El script del geocodificador (Control.Geocoder.js) ahora se carga en base.html,
+     junto a leaflet.js. Antes faltaba del todo, por eso L.Control.geocoder no existía
+     y el resto de este bloque (capa SIGPAC, control de capas, clics, fetch) no se ejecutaba. -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Coordenadas por defecto ajustadas a León, España (42.5987, -5.5671)
         const latitudPorDefecto = Number("{{ latitud|default:42.5987|stringformat:'f' }}");
         const longitudPorDefecto = Number("{{ longitud|default:-5.5671|stringformat:'f' }}");
 
-        // 1. Inicializar mapa centrado en León
-        const mapa = L.map('contenedor-mapa', {
-            doubleClickZoom: false
-        }).setView([latitudPorDefecto, longitudPorDefecto], 16);
+        // 1. Definir las capas base (Satélite PNOA y Calles OpenStreetMap)
+        // BUG ARREGLADO: la URL tenía una errata ("pnoa-ima" en vez de "pnoa-ma"),
+        // por lo que el IGN nunca devolvía tejas y la vista satélite salía en blanco.
+        // También se ajusta a la versión 1.3.0, que es la que declara el propio
+        // servicio del IGN en su GetCapabilities.
+        const ortofotoPNOA = L.tileLayer.wms("https://www.ign.es/wms-inspire/pnoa-ma", {
+            layers: 'OI.OrthoimageCoverage',
+            format: 'image/jpeg',
+            transparent: false,
+            version: '1.3.0',
+            attribution: '© PNOA / IGN',
+            maxZoom: 20
+        });
 
-        // 2. Capa base estándar
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        const capaOpenStreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; OpenStreetMap'
+        });
+
+        // 2. Inicializar el mapa centrado en León con la ortofoto como base por defecto
+        const mapa = L.map('contenedor-mapa', {
+            doubleClickZoom: false,
+            layers: [ortofotoPNOA]
+        }).setView([latitudPorDefecto, longitudPorDefecto], 16);
+
+        // 3. BARRA DE BÚSQUEDA DE CIUDADES/PROVINCIAS EN EL MAPA
+        // Se envuelve en try/catch: si algún día este plugin externo falla o tarda en
+        // cargar, ya NO se lleva por delante el resto de la inicialización del mapa
+        // (capa SIGPAC, catastro, clics, fetch de AEMET/suelo/agua).
+        try {
+            const controlBuscador = L.Control.geocoder({
+                position: 'topleft',
+                collapsed: false,
+                defaultMarkGeocode: true,
+                placeholder: "Buscar ciudad, provincia o lugar...",
+                errorMessage: "No se ha encontrado el lugar.",
+                geocoder: L.Control.Geocoder.nominatim({
+                    geocodersParams: {
+                        countrycodes: 'es' // Limitado a España
+                    }
+                })
+            }).addTo(mapa);
+
+            // Clase propia para poder agrandar la caja de búsqueda vía CSS
+            controlBuscador._container.classList.add('buscador-lugares-grande');
+        } catch (errorGeocoder) {
+            console.error("No se pudo iniciar el buscador de lugares:", errorGeocoder);
+        }
+
+        // 4. Capas superpuestas (Límites de Catastro y Recintos SIGPAC)
+        const capaCatastro = L.tileLayer.wms("https://ovc.catastro.meh.es/cartografia/wms/servidor.aspx", {
+            layers: 'CP.CadastralParcel',
+            format: 'image/png',
+            transparent: true,
+            version: '1.1.1',
+            attribution: '© Dirección General del Catastro',
+            maxZoom: 20,
+            zIndex: 50
         }).addTo(mapa);
 
-        // 3. Capa transparente con los límites catastrales de parcelas/recintos SIGPAC
-        L.tileLayer.wms("https://sigpac-hubcloud.es/wms", {
-            layers: 'PARCELA,RECINTO',
+        const capaSigpacRecintos = L.tileLayer.wms("https://sigpac-hubcloud.es/wms/ows", {
+            layers: 'AU.Sigpac:recinto',
             format: 'image/png',
             transparent: true,
             version: '1.3.0',
-            crs: L.CRS.EPSG3857,
             attribution: '© SIGPAC',
             maxZoom: 20,
             zIndex: 100
         }).addTo(mapa);
 
-        // Ajustar encuadre de Leaflet tras cargar maquetación
+        // 5. Configurar el control de capas
+        const mapasBase = {
+            "Satélite (PNOA)": ortofotoPNOA,
+            "Calles (OpenStreetMap)": capaOpenStreetMap
+        };
+
+        const capasSuperpuestas = {
+            "Límites Catastro (Rojas)": capaCatastro,
+            "Recintos SIGPAC": capaSigpacRecintos
+        };
+
+        L.control.layers(mapasBase, capasSuperpuestas, {
+            position: 'topright',
+            collapsed: false
+        }).addTo(mapa);
+
+        // Forzar recálculo del tamaño del contenedor
         setTimeout(() => {
             mapa.invalidateSize();
-        }, 100);
+        }, 200);
 
-        // 4. Renderizar parcela seleccionada (Morado)
+        // 6. Renderizar parcela seleccionada (Morado)
         const nodoGeometria = document.getElementById('geometria-data');
 
         if (nodoGeometria && nodoGeometria.textContent.trim() !== "" && nodoGeometria.textContent.trim() !== "null") {
@@ -214,10 +253,10 @@
                 if (estructuraValida && (estructuraValida.coordinates || estructuraValida.features || estructuraValida.type)) {
                     const capaPoligono = L.geoJSON(estructuraValida, {
                         style: {
-                            color: '#6f42c1',       // Borde morado
+                            color: '#6f42c1',
                             weight: 4,
                             opacity: 0.9,
-                            fillColor: '#a855f7',   // Relleno morado
+                            fillColor: '#a855f7',
                             fillOpacity: 0.45
                         }
                     }).addTo(mapa);
@@ -232,7 +271,7 @@
             }
         }
 
-        // 5. Manejo de Clics usando la ruta 'croquis'
+        // 7. Manejo de Clics usando la ruta 'croquis'
         mapa.on('click', function (evento) {
             const latitudSeleccionada = evento.latlng.lat;
             const longitudSeleccionada = evento.latlng.lng;
@@ -241,16 +280,15 @@
             window.location.href = `${urlCroquis}?lat=${latitudSeleccionada}&lon=${longitudSeleccionada}`;
         });
 
-        // 6. Configuración de coordenadas compartidas para peticiones asíncronas
+        // 8. Peticiones asíncronas (Clima, Hídrico, Suelo)
         const latRaw = "{{ latitud|default:42.5987 }}";
         const lonRaw = "{{ longitud|default:-5.5671 }}";
 
         const lat = latRaw.replace(',', '.');
         const lon = lonRaw.replace(',', '.');
 
-        // A. Petición para el Clima / AEMET
+        // A. AEMET
         const urlDiagnostico = `/aemet/consulta_clima/?lat=${lat}&lon=${lon}`;
-
         fetch(urlDiagnostico)
             .then(response => {
                 if (!response.ok) throw new Error("Error en la respuesta del servidor AEMET");
@@ -259,39 +297,38 @@
             .then(data => {
                 const contenedorIa = document.getElementById('contenedor-diagnostico-ia');
                 if (!contenedorIa) return;
-
                 const infoIa = data.interpretacion_ia || {};
                 const texto = infoIa.interpretacion_ia || infoIa.error || data.mensaje;
-
                 if (texto) {
                     contenedorIa.innerHTML = `<div class="caja-diagnostico-ia">${texto}</div>`;
                 }
             })
-            .catch(err => {
-                console.error("Error al cargar el diagnóstico auxiliar:", err);
-            });
+            .catch(err => console.error("Error al cargar AEMET:", err));
 
-        // B. Petición para las Propiedades Hídricas (SoilGrids)
+        // B. SoilGrids (Hídrico)
         const urlBaseAguas = "{% url 'consulta_aguas' %}";
         const urlAguas = `${urlBaseAguas}?lat=${lat}&lon=${lon}`;
         const contenedorHidrico = document.getElementById('contenedor-hidrico');
 
         if (contenedorHidrico) {
-            contenedorHidrico.innerHTML = `<p class="text-info small mb-0">🔄 Consultando propiedades hídricas del suelo...</p>`;
+            contenedorHidrico.innerHTML = `
+                <div class="card p-3 shadow-sm border-0 bg-white h-100 tarjeta-datos">
+                    <h5 class="mb-2 text-primary"><i class="bi bi-droplet-half"></i> Datos Hídricos</h5>
+                    <p class="text-info small mb-0">Consultando propiedades hídricas del suelo...</p>
+                </div>`;
         }
 
         fetch(urlAguas)
             .then(response => {
-                if (!response.ok) throw new Error("Error en la respuesta del servidor hídrico");
+                if (!response.ok) throw new Error("Error en la respuesta hídrica");
                 return response.json();
             })
             .then(data => {
                 if (!contenedorHidrico) return;
-
                 if (data.datos_disponibles) {
                     contenedorHidrico.innerHTML = `
-                        <div class="card p-2 bg-light border-start border-info border-3 shadow-sm mb-3">
-                            <h6 class="fw-bold text-dark mb-1">💧 Propiedades Hídricas (SoilGrids)</h6>
+                        <div class="card p-3 bg-white border-start border-primary border-3 shadow-sm h-100 tarjeta-datos">
+                            <h5 class="fw-bold text-primary mb-2"><i class="bi bi-droplet-half"></i> Propiedades Hídricas (SoilGrids)</h5>
                             <p class="mb-1 small"><strong>Capacidad de Campo:</strong> ${data.capacidad_campo ?? 'N/D'} %</p>
                             <p class="mb-1 small"><strong>Punto de Marchitez:</strong> ${data.punto_marchitez ?? 'N/D'} %</p>
                             <p class="mb-1 small"><strong>Agua Útil:</strong> ${data.agua_util ?? 'N/D'} %</p>
@@ -299,44 +336,56 @@
                         </div>
                     `;
                 } else {
-                    contenedorHidrico.innerHTML = `<p class="text-muted mb-3 small">Sin datos hídricos disponibles para esta ubicación.</p>`;
+                    contenedorHidrico.innerHTML = `
+                        <div class="card p-3 bg-white border-0 shadow-sm h-100 tarjeta-datos">
+                            <h5 class="mb-2 text-primary"><i class="bi bi-droplet-half"></i> Datos Hídricos</h5>
+                            <p class="text-muted mb-0 small">Sin datos hídricos disponibles para esta ubicación.</p>
+                        </div>`;
                 }
             })
             .catch(err => {
-                console.error("Error al cargar propiedades hídricas:", err);
-                if (contenedorHidrico) {
-                    contenedorHidrico.innerHTML = `<p class="text-danger mb-3 small">⚠️ No se pudo cargar el diagnóstico hídrico.</p>`;
-                }
+                console.error("Error hídrico:", err);
+                if (contenedorHidrico) contenedorHidrico.innerHTML = `
+                    <div class="card p-3 bg-white border-0 shadow-sm h-100 tarjeta-datos">
+                        <h5 class="mb-2 text-primary"><i class="bi bi-droplet-half"></i> Datos Hídricos</h5>
+                        <p class="text-danger mb-0 small">⚠️ No se pudo cargar el diagnóstico hídrico.</p>
+                    </div>`;
             });
 
-        // C. Petición para Diagnóstico de Suelos (ITACYL + Gemini IA)
+        // C. ITACYL + Gemini (Suelos)
         const urlBaseSuelos = "{% url 'itacyl:consulta_suelo' %}";
         const urlDiagnosticoSuelos = `${urlBaseSuelos}?lat=${lat}&lon=${lon}`;
         const contenedorSuelos = document.getElementById('contenedor-diagnostico-suelo');
 
         if (contenedorSuelos) {
-            contenedorSuelos.innerHTML = `<p class="text-info small mb-0">🌱 Consultando tipo de suelo e informe agronómico...</p>`;
+            contenedorSuelos.innerHTML = `
+                <div class="card p-3 shadow-sm border-0 bg-white h-100 tarjeta-datos">
+                    <h5 class="mb-2 text-success"><i class="bi bi-flower1"></i> Diagnóstico de Suelos</h5>
+                    <p class="text-info small mb-0">Consultando tipo de suelo e informe agronómico...</p>
+                </div>`;
         }
 
         fetch(urlDiagnosticoSuelos)
             .then(response => {
-                if (!response.ok) throw new Error("Error al consultar la API de Suelos ITACYL");
+                if (!response.ok) throw new Error("Error en suelos ITACYL");
                 return response.json();
             })
             .then(data => {
                 if (!contenedorSuelos) return;
-
                 if (data.error) {
-                    contenedorSuelos.innerHTML = `<p class="text-danger small mb-0">⚠️ ${data.error}</p>`;
+                    contenedorSuelos.innerHTML = `
+                        <div class="card p-3 bg-white border-0 shadow-sm h-100 tarjeta-datos">
+                            <h5 class="mb-2 text-success"><i class="bi bi-flower1"></i> Diagnóstico de Suelos</h5>
+                            <p class="text-danger small mb-0">⚠️ ${data.error}</p>
+                        </div>`;
                     return;
                 }
-
                 const municipio = data.nombre_municipio || 'No especificado';
                 const interpretacionIa = data.interpretacion_ia || 'Sin análisis disponible.';
 
                 contenedorSuelos.innerHTML = `
-                    <div class="card p-3 bg-light border-start border-success border-4 shadow-sm">
-                        <h6 class="fw-bold text-success mb-2">🌱 Diagnóstico de Suelos (ITACYL & Gemini)</h6>
+                    <div class="card p-3 bg-white border-start border-success border-4 shadow-sm h-100 tarjeta-datos">
+                        <h5 class="fw-bold text-success mb-2"><i class="bi bi-flower1"></i> Diagnóstico de Suelos (ITACYL & Gemini)</h5>
                         <p class="mb-2 small"><strong>Municipio:</strong> ${municipio}</p>
                         <div class="caja-diagnostico-ia mt-2 p-2 bg-white rounded border small text-dark">
                             ${interpretacionIa}
@@ -345,10 +394,12 @@
                 `;
             })
             .catch(err => {
-                console.error("Error al cargar el diagnóstico de suelos:", err);
-                if (contenedorSuelos) {
-                    contenedorSuelos.innerHTML = `<p class="text-danger mb-0 small">⚠️ No se pudo obtener la información del suelo.</p>`;
-                }
+                console.error("Error suelos:", err);
+                if (contenedorSuelos) contenedorSuelos.innerHTML = `
+                    <div class="card p-3 bg-white border-0 shadow-sm h-100 tarjeta-datos">
+                        <h5 class="mb-2 text-success"><i class="bi bi-flower1"></i> Diagnóstico de Suelos</h5>
+                        <p class="text-danger mb-0 small">⚠️ No se pudo obtener la información del suelo.</p>
+                    </div>`;
             });
     });
 </script>
