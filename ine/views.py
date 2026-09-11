@@ -169,18 +169,46 @@ def generar_imagen_lineas(datos_grafica: dict, titulo: str) -> str:
 
 @login_required
 def descargar_pdf(request):
-    resultado = IneAgregador.obtener_todo_unificado(tipo_analitica="panel_completo")
-    datos_grafica = resultado.get("datos_grafica", {})
-   
+    # 1. Qué informe estaba viendo el usuario (por defecto, el general)
+    tipo_informe = request.GET.get('informe', 'virtual')
+
+    # 2. Reutilizar los datos base ya cacheados en sesión si existen,
+    #    para no volver a procesar los PDFs del INE innecesariamente
+    datos_base = request.session.get('datos_base_global')
+    if not datos_base or datos_base.get('estado') != 'ok':
+        datos_base = IneAgregador.obtener_datos_base(tipo_analitica="panel_completo")
+        if datos_base.get('estado') == 'ok':
+            request.session['datos_base_global'] = datos_base
+
+    if datos_base.get('estado') != 'ok':
+        return HttpResponse(
+            f"No se pudo generar el PDF: {datos_base.get('mensaje')}",
+            status=500
+        )
+
+    datos_grafica = datos_base.get("datos_grafica", {})
+
+    # 3. Reutilizar el informe IA ya cacheado en sesión (el mismo que se ve en pantalla)
+    #    o generarlo si aún no se había pedido
+    cache_key_informe = f'informe_ia_{tipo_informe}'
+    informe_cacheado = request.session.get(cache_key_informe)
+
+    if informe_cacheado and informe_cacheado.get('estado') == 'ok':
+        analisis_md = informe_cacheado.get('informe_ia', '')
+    else:
+        resultado_ia = IneAgregador.generar_informe_ia(tipo_informe, datos_base['panel_completo'])
+        analisis_md = resultado_ia.get('informe_ia', '') if resultado_ia.get('estado') == 'ok' else ''
+        if resultado_ia.get('estado') == 'ok':
+            request.session[cache_key_informe] = resultado_ia
 
     contexto = {
-        'informe_principal': resultado.get('datos', {}),
-        'analisis_md': resultado.get('informe_ia', ''),
+        'informe_principal': datos_base.get('datos', {}),
+        'analisis_md': analisis_md,
         'grafico_vegetal_b64': generar_imagen_barras(datos_grafica.get("vegetal", {}), "Evolución Producción Vegetal"),
         'grafico_animal_b64': generar_imagen_barras(datos_grafica.get("animal", {}), "Evolución Producción Animal"),
-        'grafico_provincialtorta_b64': generar_imagen_torta(datos_grafica.get("provincial_anio", {}), "Distribución por Cultivos "),
-        'grafico_provinciallinea_b64': generar_imagen_lineas(datos_grafica.get("provincial_anio", {}), "Distribución historico global"),
-    } 
+        'grafico_provincialtorta_b64': generar_imagen_torta(datos_grafica.get("provincial_anio", {}), "Distribución por Cultivos"),
+        'grafico_provinciallinea_b64': generar_imagen_lineas(datos_grafica.get("evolucion_global", {}), "Evolución histórica global"),
+    }
 
     template = get_template('ine/pdf_rendimientos.html')
     html = template.render(contexto, request)

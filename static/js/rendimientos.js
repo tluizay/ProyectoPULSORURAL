@@ -79,20 +79,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
     const selector = document.getElementById('selectorInformeIA');
     const contenedorInforme = document.getElementById('contenidoInformeIA');
     const loadingInforme = document.getElementById('loadingInformeIA');
+    const btnDescargarPdf = document.getElementById('btnDescargarPdf');
 
     if (!selector) return;
 
+    // 1. Evento para actualizar el informe de forma dinámica al cambiar la opción del selector
     selector.addEventListener('change', function () {
         const tipoInforme = selector.value;
         if (!tipoInforme) return;
 
         // Estado de carga
-        contenedorInforme.innerHTML = '';
-        loadingInforme.style.display = 'block';
+        if (contenedorInforme) contenedorInforme.innerHTML = '';
+        if (loadingInforme) loadingInforme.style.display = 'block';
         selector.disabled = true;
 
         fetch(`?informe=${encodeURIComponent(tipoInforme)}`, {
@@ -100,28 +102,43 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json().then(data => ({ status: response.status, data })))
             .then(({ status, data }) => {
-                loadingInforme.style.display = 'none';
+                if (loadingInforme) loadingInforme.style.display = 'none';
                 selector.disabled = false;
 
                 if (status === 200 && data.estado === 'ok') {
-                    contenedorInforme.innerHTML = data.informe_ia;
+                    if (contenedorInforme) contenedorInforme.innerHTML = data.informe_ia;
                 } else {
-                    contenedorInforme.innerHTML = `
-                        <div class="alert alert-warning shadow-sm mb-0">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                            ${data.mensaje || 'No se pudo generar el análisis solicitado.'}
-                        </div>`;
+                    if (contenedorInforme) {
+                        contenedorInforme.innerHTML = `
+                            <div class="alert alert-warning shadow-sm mb-0">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                ${data.mensaje || 'No se pudo generar el análisis solicitado.'}
+                            </div>`;
+                    }
                 }
             })
             .catch(error => {
                 console.error("Error al obtener el informe IA:", error);
-                loadingInforme.style.display = 'none';
+                if (loadingInforme) loadingInforme.style.display = 'none';
                 selector.disabled = false;
-                contenedorInforme.innerHTML = `
-                    <div class="alert alert-danger shadow-sm mb-0">
-                        <i class="bi bi-x-circle-fill me-2"></i>
-                        Error de conexión al generar el análisis. Inténtalo de nuevo.
-                    </div>`;
+                if (contenedorInforme) {
+                    contenedorInforme.innerHTML = `
+                        <div class="alert alert-danger shadow-sm mb-0">
+                            <i class="bi bi-x-circle-fill me-2"></i>
+                            Error de conexión al generar el análisis. Inténtalo de nuevo.
+                        </div>`;
+                }
             });
     });
+
+    // 2. Evento para actualizar dinámicamente la URL del botón de descarga PDF según el tipo seleccionado
+    if (btnDescargarPdf) {
+        btnDescargarPdf.addEventListener('click', function (evento) {
+            const tipoInforme = selector.value || 'virtual';
+            const url = new URL(btnDescargarPdf.href, window.location.origin);
+            url.searchParams.set('informe', tipoInforme);
+            btnDescargarPdf.href = url.toString();
+            // No hace falta preventDefault: permitimos que el navegador siga el enlace para la descarga
+        });
+    }
 });

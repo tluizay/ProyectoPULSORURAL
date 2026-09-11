@@ -4,6 +4,37 @@
 
 <head>
     <meta charset="UTF-8">
+    <style>
+        /* Estilos recomendados para que el análisis renderizado en HTML/PDF se vea limpio */
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.4;
+        }
+        .box {
+            margin-bottom: 20px;
+        }
+        .analisis-contenido p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        .analisis-contenido ul {
+            margin-top: 5px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        .analisis-contenido li {
+            margin-bottom: 5px;
+        }
+        .img-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .img-grafico {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,7 +45,10 @@
     <div class="box">
         <h2>Análisis del Asistente Virtual</h2>
         {% if analisis_md %}
-        <div>{{ analisis_md|striptags }}</div>
+        <!-- CAMBIO AQUÍ: Usamos |safe en lugar de |striptags para conservar el formato HTML -->
+        <div class="analisis-contenido">
+            {{ analisis_md|safe }}
+        </div>
         {% else %}
         <p>No hay un análisis de IA disponible para este informe.</p>
         {% endif %}
