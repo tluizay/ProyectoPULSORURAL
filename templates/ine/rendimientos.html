@@ -7,44 +7,48 @@
     <h2 class="mb-4">Evolución de la Producción Agraria en Castilla y León</h2>
 
     <!-- Mensaje de error general -->
-    {% if mensaje_error %}
-        <div class="alert alert-danger shadow-sm" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ mensaje_error }}
-        </div>
-    {% endif %}
-
-    <!-- SECCIÓN: Asistente Virtual / Análisis de IA Global -->
+     <!-- SECCIÓN: Asistente Virtual / Análisis de IA Global -->
     <div class="card shadow-sm border-0 mb-4 bg-light">
         <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
             <h5 class="card-title mb-0 fw-semibold text-success">
                 <i class="bi bi-robot me-2"></i> Asistente Virtual - Análisis de Informes INE
             </h5>
-            
+
             <div class="d-flex align-items-center gap-2">
-                <!-- BOTÓN VINCULADO A LA VIEW 'descargar_pdf' -->
                 {% if user.is_authenticated %}
                     <a href="{% url 'pdf_rendimientos' %}" class="btn btn-success btn-sm shadow-sm" title="Descargar informe completo en PDF">
                         <i class="bi bi-file-earmark-pdf-fill me-1"></i> Descargar PDF
                     </a>
                 {% endif %}
 
-                <a href="?regenerar=1" class="btn btn-outline-secondary btn-sm" title="Volver a generar el análisis de la IA">
-                    <i class="bi bi-arrow-clockwise"></i> Regenerar Análisis
-                </a>
+                <!-- Selector de tipo de informe IA -->
+                <select id="selectorInformeIA" class="form-select form-select-sm" style="width: auto;">
+                    <option value="" selected disabled>Selecciona un análisis...</option>
+                    <option value="virtual">Análisis general</option>
+                    <option value="crecimiento">¿Economía en crecimiento?</option>
+                    <option value="financiero">¿Ha valido la pena invertir?</option>
+                    <option value="desarrollo">¿Crecimiento sostenible?</option>
+                </select>
             </div>
         </div>
         <div class="card-body bg-white">
-            {% if analisis_md %}
-                <div class="analisis-ia-content">
-                    {{ analisis_md|safe }}
+
+            <!-- Spinner mientras se genera el informe IA (oculto por defecto) -->
+            <div id="loadingInformeIA" class="text-center py-4" style="display: none;">
+                <div class="spinner-border text-success spinner-border-sm" role="status">
+                    <span class="visually-hidden">Generando análisis...</span>
                 </div>
-            {% else %}
-                <p class="text-muted mb-0">No hay un análisis de IA disponible en este momento.</p>
-            {% endif %}
-            
+                <p class="text-muted small mt-2 mb-0">Generando análisis con IA, esto puede tardar unos segundos...</p>
+            </div>
+
+            <!-- Contenedor donde se pinta el informe recibido por AJAX -->
+            <div id="contenidoInformeIA" class="analisis-ia-content">
+                <p class="text-muted mb-0" id="mensajeInformeVacio">Selecciona un tipo de análisis en el desplegable para generarlo.</p>
+            </div>
+
             {% if informe_principal %}
                 <div class="mt-3 pt-3 border-top text-muted small">
-                    <i class="bi bi-file-earmark-text me-1"></i> Informe de referencia procesado: 
+                    <i class="bi bi-file-earmark-text me-1"></i> Informe de referencia procesado:
                     <strong>{{ informe_principal.titulo|default:"Documento INE más reciente" }}</strong>
                 </div>
             {% endif %}

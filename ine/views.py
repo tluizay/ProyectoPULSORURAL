@@ -11,46 +11,64 @@ import matplotlib.pyplot as plt
 import io, base64
 
 def vista_evolucion_agraria(request):
-    cache_key = 'informe_unificado_global'
+    cache_key_base = 'datos_base_global'
     forzar = request.GET.get('regenerar') == '1'
 
-    # 1. Obtener de sesión o invocar al agregador unificado
-    if not forzar and cache_key in request.session:
-        resultado = request.session[cache_key]
-    else:
-        # Llamamos al único método que ahora hace todo
-        resultado = IneAgregador.obtener_todo_unificado("panel_completo")
-        print("RESULTADO INE AGREGADOR:", resultado.get("estado"))
-        
-        if resultado.get('estado') == 'ok':
-            request.session[cache_key] = resultado
-
-    # 2. Responder si es una petición AJAX (fetch desde javascript) 
+    # --- Rama AJAX: el usuario ha seleccionado un informe concreto ---
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        status_code = 200 if resultado.get('estado') == 'ok' else 400
-        return JsonResponse(resultado, status=status_code)
+        tipo_informe = request.GET.get('informe')  # 'virtual' | 'crecimiento' | 'financiero' | 'desarrollo'
 
-    # 3. Control de errores
+        if not tipo_informe:
+            return JsonResponse({"estado": "error", "mensaje": "Falta el parámetro 'informe'."}, status=400)
+
+        # Cacheamos cada informe IA por separado para no regenerarlo si ya se pidió
+        cache_key_informe = f'informe_ia_{tipo_informe}'
+        if not forzar and cache_key_informe in request.session:
+            return JsonResponse(request.session[cache_key_informe], status=200)
+
+        # Necesitamos los datos base ya procesados (deben existir en sesión)
+        datos_base = request.session.get(cache_key_base)
+        if not datos_base or datos_base.get('estado') != 'ok':
+            return JsonResponse(
+                {"estado": "error", "mensaje": "No hay datos base cargados. Recarga la página primero."},
+                status=400
+            )
+
+        resultado_ia = IneAgregador.generar_informe_ia(tipo_informe, datos_base['panel_completo'])
+        status_code = 200 if resultado_ia.get('estado') == 'ok' else 400
+
+        if resultado_ia.get('estado') == 'ok':
+            request.session[cache_key_informe] = resultado_ia
+
+        return JsonResponse(resultado_ia, status=status_code)
+
+    # --- Carga normal de página: solo datos base, sin IA ---
+    if not forzar and cache_key_base in request.session:
+        resultado = request.session[cache_key_base]
+    else:
+        resultado = IneAgregador.obtener_datos_base("panel_completo")
+        print("RESULTADO DATOS BASE:", resultado.get("estado"))
+
+        if resultado.get('estado') == 'ok':
+            request.session[cache_key_base] = resultado
+            # Si se fuerza regeneración, invalidamos también los informes IA cacheados
+            if forzar:
+                for tipo in IneAgregador.ASISTENTES:
+                    request.session.pop(f'informe_ia_{tipo}', None)
+
     if resultado.get("estado") == "error":
         return render(request, "ine/rendimientos.html", {"mensaje_error": resultado.get("mensaje")})
 
-    # 4. Extraer los datos de la gráfica
     datos = resultado.get("datos_grafica", {})
 
-    # 5. Construir el contexto unificado
     contexto = {
-        # Datos para Chart.js
-        "datos_evolucion": datos,       # Contiene 'vegetal' y 'animal'
-        "datos_provinciales": datos,    # Contiene 'evolucion_global' y 'provincial_anio'
-        
-        # Datos para el HTML y Gemini
-        "analisis_md": resultado.get('informe_ia'),
+        "datos_evolucion": datos,
+        "datos_provinciales": datos,
         "informe_principal": resultado.get('datos'),
-        "todos_los_informes": resultado.get('panel_completo', []), # <-- Ojo aquí, usamos la clave de tu nuevo agregador
+        "todos_los_informes": resultado.get('panel_completo', []),
         "mensaje_error": None,
     }
 
-    # 6. Renderizar una única plantilla con toda la información
     return render(request, "ine/rendimientos.html", contexto)
 
 

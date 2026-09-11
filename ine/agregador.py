@@ -1,18 +1,26 @@
 from pathlib import Path
 from ine.services.orchestrator import procesar_directorio_ceas
-from ine.gemini_services import asistente_virtual
-from ine.analiticas.disparador import disparador_analitica  
+from ine.gemini_services import asistente_virtual, asistente_crecimiento, asistente_desarrollo, asistente_financiero
+from ine.analiticas.disparador import disparador_analitica
 
 class IneAgregador:
+
+    ASISTENTES = {
+        "virtual": asistente_virtual,
+        "crecimiento": asistente_crecimiento,
+        "financiero": asistente_financiero,
+        "desarrollo": asistente_desarrollo,
+    }
+
     @staticmethod
-    def obtener_todo_unificado(tipo_analitica: str = "evolucion_general"):
+    def obtener_datos_base(tipo_analitica: str = "evolucion_general"):
         """
-        Método unificado que procesa los PDFs una sola vez y devuelve 
-        tanto los datos para las gráficas como el análisis de Gemini.
+        Procesa los PDFs y devuelve los datos crudos + los datos de gráfica.
+        NO llama a Gemini. Pensado para cachear en sesión en la carga inicial.
         """
         try:
             ruta_carpeta_pdfs = Path("ine/datos/pdfs")
-            
+
             if not ruta_carpeta_pdfs.exists():
                 return {
                     "estado": "error",
@@ -27,26 +35,42 @@ class IneAgregador:
                     "mensaje": "No se encontraron informes PDF procesables en la carpeta."
                 }
 
-            # 1. Preparar datos para el asistente virtual (informe más reciente)
             lista_todos_los_informes.sort(key=lambda x: x.get("anio") or 0, reverse=True)
-            informe_principal = lista_todos_los_informes[0]
-            
-            informe_ia = asistente_virtual(informe_principal)
-            print("DEBUG - Resultado de la IA:", informe_ia)
 
-            # 2. Obtener datos para las gráficas usando el disparador
             datos_grafica = disparador_analitica(tipo_analitica, lista_todos_los_informes)
 
             return {
                 "estado": "ok",
-                "datos": informe_principal,
+                "datos": lista_todos_los_informes,
                 "panel_completo": lista_todos_los_informes,
-                "informe_ia": informe_ia,
-                "datos_grafica": datos_grafica
+                "datos_grafica": datos_grafica,
             }
 
         except Exception as e:
             return {
                 "estado": "error",
                 "mensaje": f"Ocurrió un error al procesar los documentos: {str(e)}"
+            }
+
+    @staticmethod
+    def generar_informe_ia(tipo_informe: str, lista_informes: list):
+        """
+        Llama a UN solo asistente de Gemini, el que el usuario haya elegido.
+        Requiere la lista de informes ya procesada (de obtener_datos_base).
+        """
+        asistente = IneAgregador.ASISTENTES.get(tipo_informe)
+
+        if asistente is None:
+            return {
+                "estado": "error",
+                "mensaje": f"Tipo de informe no reconocido: '{tipo_informe}'"
+            }
+
+        try:
+            texto_html = asistente(lista_informes)
+            return {"estado": "ok", "informe_ia": texto_html, "tipo": tipo_informe}
+        except Exception as e:
+            return {
+                "estado": "error",
+                "mensaje": f"Ocurrió un error al generar el informe con IA: {str(e)}"
             }

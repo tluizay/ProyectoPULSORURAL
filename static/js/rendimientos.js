@@ -78,3 +78,50 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const selector = document.getElementById('selectorInformeIA');
+    const contenedorInforme = document.getElementById('contenidoInformeIA');
+    const loadingInforme = document.getElementById('loadingInformeIA');
+
+    if (!selector) return;
+
+    selector.addEventListener('change', function () {
+        const tipoInforme = selector.value;
+        if (!tipoInforme) return;
+
+        // Estado de carga
+        contenedorInforme.innerHTML = '';
+        loadingInforme.style.display = 'block';
+        selector.disabled = true;
+
+        fetch(`?informe=${encodeURIComponent(tipoInforme)}`, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+            .then(response => response.json().then(data => ({ status: response.status, data })))
+            .then(({ status, data }) => {
+                loadingInforme.style.display = 'none';
+                selector.disabled = false;
+
+                if (status === 200 && data.estado === 'ok') {
+                    contenedorInforme.innerHTML = data.informe_ia;
+                } else {
+                    contenedorInforme.innerHTML = `
+                        <div class="alert alert-warning shadow-sm mb-0">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            ${data.mensaje || 'No se pudo generar el análisis solicitado.'}
+                        </div>`;
+                }
+            })
+            .catch(error => {
+                console.error("Error al obtener el informe IA:", error);
+                loadingInforme.style.display = 'none';
+                selector.disabled = false;
+                contenedorInforme.innerHTML = `
+                    <div class="alert alert-danger shadow-sm mb-0">
+                        <i class="bi bi-x-circle-fill me-2"></i>
+                        Error de conexión al generar el análisis. Inténtalo de nuevo.
+                    </div>`;
+            });
+    });
+});
