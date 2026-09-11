@@ -33,7 +33,7 @@
     <!-- LEYENDA DEL MAPA: qué significa cada línea/color -->
     <div class="col-12 mb-4">
         <div class="leyenda-mapa">
-        
+
             <div class="leyenda-item">
                 <span class="leyenda-linea" style="border-color:#a855f7;"></span>
                 Recintos SIGPAC
@@ -71,10 +71,6 @@
                         <td>{{ datos_recinto.provincia|default:"-" }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Municipio:</strong></td>
-                        <td>{{ datos_recinto.municipio|default:"-" }}</td>
-                    </tr>
-                    <tr>
                         <td><strong>Polígono:</strong></td>
                         <td>{{ datos_recinto.poligono|default:"-" }}</td>
                     </tr>
@@ -86,16 +82,29 @@
                         <td><strong>Recinto:</strong></td>
                         <td>{{ datos_recinto.recinto|default:"-" }}</td>
                     </tr>
+
+                
+                    {% if datos_recinto.pendiente_media %}
                     <tr>
-                        <td><strong>Uso SIGPAC:</strong></td>
-                        <td>{{ datos_recinto.uso|default:"-" }}</td>
+                        <td><strong>Pendiente media:</strong></td>
+                        <td>{{ datos_recinto.pendiente_media }}%</td>
                     </tr>
+                    {% endif %}
+                    {% if datos_recinto.altitud %}
                     <tr>
-                        <td><strong>Superficie:</strong></td>
-                        <td>{{ datos_recinto.superficie_ha|default:"-" }} ha</td>
+                        <td><strong>Altitud:</strong></td>
+                        <td>{{ datos_recinto.altitud }} m</td>
                     </tr>
+                    {% endif %}
+                    {% if datos_recinto.elegibilidad %}
+                    <tr>
+                        <td><strong>Elegibilidad:</strong></td>
+                        <td>{{ datos_recinto.elegibilidad }}</td>
+                    </tr>
+                    {% endif %}
                 </tbody>
             </table>
+
             {% endif %}
             {% else %}
             <p class="text-muted mb-0">Sin datos de recinto cargados.</p>
@@ -155,4 +164,4 @@
         urlSuelos: "{% url 'itacyl:consulta_suelo' %}"
     });
 </script>
-{% endblock %} 
+{% endblock %}

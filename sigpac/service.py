@@ -4,6 +4,7 @@ import logging
 import requests
 from core.base_services import BaseDataService
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -11,37 +12,32 @@ class SigpacPuntoService(BaseDataService):
     URL_COLECCION_ITEMS = "https://sigpac-hubcloud.es/ogcapi/collections/recintos/items"
 
     def fetch(self, latitud: float, longitud: float) -> dict | None:
-        delta_coordenadas = 0.00005
-        limite_geografico = (
-            f"{longitud - delta_coordenadas},"
-            f"{latitud - delta_coordenadas},"
-            f"{longitud + delta_coordenadas},"
-            f"{latitud + delta_coordenadas}"
-        )
+        delta = 0.00005
+        limite_geografico = f"{longitud - delta},{latitud - delta},{longitud + delta},{latitud + delta}"
 
         parametros_peticion = {
             "f": "json",
-            "bbox": limite_geografico, #sigipac OGC API - Features de SIGPAC acepta parámetros de filtrado como bbox (Bounding Box o cuadro delimitador)
+            "bbox": limite_geografico,
             "limit": 1
         }
 
-        respuesta_servidor = requests.get(
-            self.URL_COLECCION_ITEMS, 
-            params=parametros_peticion, 
-            timeout=10
-        )
-
-        if respuesta_servidor.status_code != 200:
-            logger.warning(
-                f"SIGPAC OGC API respondió con código de estado {respuesta_servidor.status_code}"
+        try:
+            respuesta_servidor = requests.get(
+                self.URL_COLECCION_ITEMS,
+                params=parametros_peticion,
+                timeout=10
             )
-            return None
 
-        datos_json = respuesta_servidor.json()
-        elementos_encontrados = datos_json.get("features", [])
+            if respuesta_servidor.status_code == 200:
+                datos_json = respuesta_servidor.json()
+                elementos_encontrados = datos_json.get("features", [])
+                if elementos_encontrados:
+                    return elementos_encontrados[0]
+            else:
+                logger.warning(f"SIGPAC OGC API respondió con código {respuesta_servidor.status_code}")
 
-        if elementos_encontrados:
-            return elementos_encontrados[0]
+        except Exception as e:
+            logger.error(f"Error de conexión al consultar SIGPAC: {e}")
 
         return None
 
@@ -58,71 +54,66 @@ class SigpacPuntoService(BaseDataService):
                 "sin_recinto": True,
                 "error": None,
                 "provincia": None,
-                "municipio": None,
                 "agregado": None,
                 "zona": None,
                 "poligono": None,
                 "parcela": None,
                 "recinto": None,
-                "superficie_ha": None,
-                "uso": None,
+                "pendiente_media": None,
+                "altitud": None,
+                "elegibilidad": None,       # no existe en el API actual
+                "cap_resultante": None,     # no existe en el API actual
+                "dn_perimeter": None,       # no existe en el API actual
+                "geocentro_x": None,        # no existe en el API actual
+                "geocentro_y": None,        # no existe en el API actual
                 "geometria": None,
                 "atributos_brutos": None,
             }
 
-       
         propiedades = datos_brutos.get("properties") or datos_brutos.get("propiedades") or {}
         geometria_extraida = datos_brutos.get("geometry") or datos_brutos.get("geometria")
 
-        # Diccionarios de mapeo INE para traducir códigos a nombres de texto
         provincias_ine = {
-            24: "León",
-            47: "Valladolid",
-            34: "Palencia",
-            9: "Burgos",
-            49: "Zamora",
-            37: "Salamanca",
-            40: "Segovia",
-            42: "Soria",
-            5: "Ávila"
+            24: "León", "24": "León",
+            47: "Valladolid", "47": "Valladolid",
+            34: "Palencia", "34": "Palencia",
+            9: "Burgos", "09": "Burgos", "9": "Burgos",
+            49: "Zamora", "49": "Zamora",
+            37: "Salamanca", "37": "Salamanca",
+            40: "Segovia", "40": "Segovia",
+            42: "Soria", "42": "Soria",
+            5: "Ávila", "05": "Ávila", "5": "Ávila"
         }
 
-        municipios_ine = {
-            "24-226": "Villaquilambre",
-            "24-89": "León",
-            "47-186": "Villaobispo de Regueras",
-            "47-900": "Valladolid",
-        }
-
-        
         cod_provincia = propiedades.get("provincia")
-        cod_municipio = propiedades.get("municipio")
 
-        
-        nombre_provincia = provincias_ine.get(cod_provincia, f"Provincia {cod_provincia}")
-        clave_muni = f"{cod_provincia}-{cod_municipio}"
-        nombre_municipio = municipios_ine.get(clave_muni, f"Municipio {cod_municipio}")
-
-       
-        uso_detectado = propiedades.get("uso") or propiedades.get("uso_sigpac") or "No especificado"
-        superficie_val = propiedades.get("superficie_ha") or propiedades.get("superficie") or "N/D"
+        # Resolución segura de provincia
+        prov_key = int(cod_provincia) if str(cod_provincia).isdigit() else cod_provincia
+        nombre_provincia = provincias_ine.get(
+            prov_key,
+            f"Provincia {cod_provincia}" if cod_provincia is not None else "No especificada"
+        )
 
         return {
             "sin_recinto": False,
             "error": None,
             "provincia": nombre_provincia,
-            "municipio": nombre_municipio,
             "agregado": propiedades.get("agregado", 0),
             "zona": propiedades.get("zona", 0),
             "poligono": propiedades.get("poligono"),
             "parcela": propiedades.get("parcela"),
             "recinto": propiedades.get("recinto"),
-            "superficie_ha": superficie_val,
-            "uso": uso_detectado,
+            "pendiente_media": self._obtener_primer_valor(propiedades, "pendiente_media", valor_defecto=None),
+            "altitud": self._obtener_primer_valor(propiedades, "altitud", valor_defecto=None),
+            "elegibilidad": None,       # campo no disponible en el API actual
+            "cap_resultante": None,     # campo no disponible en el API actual
+            "dn_perimeter": None,       # campo no disponible en el API actual
+            "geocentro_x": None,        # campo no disponible en el API actual
+            "geocentro_y": None,        # campo no disponible en el API actual
             "geometria": geometria_extraida,
             "atributos_brutos": propiedades,
         }
-
+        
 class SigpacAreaService(BaseDataService):
     URL_COLECCION_ITEMS = "https://sigpac-hubcloud.es/ogcapi/collections/recintos/items"
 
@@ -167,7 +158,7 @@ class SigpacAreaService(BaseDataService):
                 "propiedades_recinto": elemento_recinto.get("properties", {}),
                 "geometria": elemento_recinto.get("geometry", None)
             })
-
+ 
         return {
             "cantidad_recintos": len(recintos_normalizados),
             "recintos": recintos_normalizados

@@ -112,4 +112,6 @@ más cercanas la punto reduciendo las posibilidades de retornar datos nulos.
 
 La web esta diseñada para cargar datos al vuelo por tanto el inventario completo de estaciones se almacena en memoria/Redis (cache.set) durante 24 horas (CACHE_TTL_INVENTARIO_SEGUNDOS) para evitar descargar la lista de estaciones en cada llamada asimismo el método normalize() toma los datos devueltos por AEMET (datos_brutos) y corrige las inconsistencias del formato de origen mediante.
 
-**sigpac:**
+**sigpac:** Sistema de información geografíca de parcelas
+Es una aplicacion encargada de llamar al sigpac, solicitar los datos del registro de la parcela seleccionada en el mapa y mostralos. Se resume en consulta puntual y extraer los metadatos y la geometria.
+
