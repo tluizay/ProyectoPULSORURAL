@@ -1,4 +1,4 @@
-console.log("¡El archivo calculadora.js se ha leído y ejecutado correctamente!");
+
 // C. Calculadora con diagnóstico y delegación global robusta
 document.addEventListener("click", function (evento) {
     const botonCalcular = evento.target.closest("#btn-calcular");
@@ -67,5 +67,3 @@ document.addEventListener("click", function (evento) {
         }
     });
 });
-
-console.log("¡El archivo mapa.js se ha cargado y ejecutado correctamente!");

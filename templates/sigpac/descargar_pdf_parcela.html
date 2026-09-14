@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #333; line-height: 1.4; }
+        h2 { color: #198754; border-bottom: 2px solid #198754; padding-bottom: 5px; margin-top: 0; }
+        h4 { color: #0d6efd; margin-bottom: 8px; }
+        .card { border: 1px solid #ddd; padding: 12px; margin-bottom: 15px; background-color: #fdfdfd; border-radius: 4px; }
+        .table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
+        .table td { padding: 5px; border-bottom: 1px solid #eee; }
+        .caja-ia { background-color: #f8f9fa; border-left: 3px solid #198754; padding: 8px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Informe Integral de Parcela - Pulso Rural</h2>
+    <p><strong>Ubicación Geográfica:</strong> Latitud: {{ latitud }} | Longitud: {{ longitud }}</p>
+
+    <!-- 1. Datos del Recinto -->
+    <div class="card">
+        <h4>Datos del Recinto SIGPAC</h4>
+        {% if datos_recinto and not datos_recinto.sin_recinto %}
+        <table class="table">
+            <tr><td><strong>Provincia:</strong></td><td>{{ datos_recinto.provincia|default:"-" }}</td></tr>
+            <tr><td><strong>Polígono:</strong></td><td>{{ datos_recinto.poligono|default:"-" }}</td></tr>
+            <tr><td><strong>Parcela:</strong></td><td>{{ datos_recinto.parcela|default:"-" }}</td></tr>
+            <tr><td><strong>Recinto:</strong></td><td>{{ datos_recinto.recinto|default:"-" }}</td></tr>
+            <tr><td><strong>Pendiente media:</strong></td><td>{{ datos_recinto.pendiente_media|default:"-" }}%</td></tr>
+            <tr><td><strong>Altitud:</strong></td><td>{{ datos_recinto.altitud|default:"-" }} m</td></tr>
+        </table>
+        {% else %}
+        <p>Sin datos de recinto disponibles.</p>
+        {% endif %}
+    </div>
+
+    <!-- 2. Datos Hídricos (SoilGrids) -->
+    <div class="card">
+        <h4>Propiedades Hídricas (SoilGrids)</h4>
+        {% if datos_hidricos %}
+        <table class="table">
+            <tr><td><strong>Capacidad de Campo:</strong></td><td>{{ datos_hidricos.capacidad_campo|default:"N/D" }} %</td></tr>
+            <tr><td><strong>Punto de Marchitez:</strong></td><td>{{ datos_hidricos.punto_marchitez|default:"N/D" }} %</td></tr>
+            <tr><td><strong>Agua Útil:</strong></td><td>{{ datos_hidricos.agua_util|default:"N/D" }} %</td></tr>
+            <tr><td><strong>Profundidad Útil:</strong></td><td>{{ datos_hidricos.profundidad_util_centimetros|default:"N/D" }} cm</td></tr>
+        </table>
+        {% else %}
+        <p>Información hídrica no disponible para esta zona.</p>
+        {% endif %}
+    </div>
+
+    <!-- 3. Diagnóstico de Suelos (ITACYL & Gemini) -->
+    <div class="card">
+        <h4>Diagnóstico de Suelos (ITACYL & Gemini)</h4>
+        {% if datos_suelo %}
+        <p><strong>Municipio:</strong> {{ datos_suelo.nombre_municipio|default:"No especificado" }}</p>
+        <div class="caja-ia">{{ datos_suelo.interpretacion_ia|safe }}</div>
+        {% else %}
+        <p>Sin diagnóstico de suelo disponible.</p>
+        {% endif %}
+    </div>
+
+    <!-- 4. Diagnóstico Clima (AEMET) -->
+    <div class="card">
+        <h4>Diagnóstico Clima (AEMET)</h4>
+        {% if clima_aemet %}
+        <div class="caja-ia">{{ clima_aemet.interpretacion_ia|safe }}</div>
+        {% else %}
+        <p>Sin análisis climático disponible.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

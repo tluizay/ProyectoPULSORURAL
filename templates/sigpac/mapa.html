@@ -11,15 +11,17 @@
 {% block contenido %}
 <div class="row">
     <!-- CABECERA: Botón de nueva búsqueda en la parte superior izquierda de la página -->
-    <div class="col-12 mb-3">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-            <div>
-                <h2>Consulta de Parcela SIGPAC</h2>
-                <p class="text-muted mb-0">Usa la barra de búsqueda dentro del mapa para ubicar una ciudad/provincia, o
-                    haz clic sobre cualquier parcela para consultar sus atributos.</p>
-            </div>
-            <!-- Botón fuera del mapa -->
-            <a href="{% url 'mapa' %}" class="btn btn-light">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+        <div>
+            <h2>Consulta de Parcela SIGPAC</h2>
+            <p class="text-muted mb-0">Usa la barra de búsqueda dentro del mapa para ubicar una ciudad/provincia...</p>
+        </div>
+        <div class="d-flex gap-2">
+            <!-- BOTÓN DE DESCARGA PDF -->
+            <button id="btn-descargar-pdf" class="btn btn-danger btn-sm">
+                <i class="bi bi-file-earmark-pdf"></i> Descargar PDF Completo
+            </button>
+            <a href="{% url 'mapa' %}" class="btn btn-light btn-sm">
                 Nueva Búsqueda
             </a>
         </div>
@@ -250,6 +252,7 @@
 
 <!-- 1. Cargamos el archivo JavaScript independiente -->
 
+    <!-- 1. Script del Mapa -->
     <script src="{% static 'js/mapa.js' %}"></script>
     <script>
         inicializarMapaSigpac({
@@ -263,6 +266,9 @@
         });
     </script>
 
-    <!-- 2. NUEVO: Inyección del archivo independiente de la calculadora -->
+    <!-- 2. Script de la Calculadora -->
     <script src="{% static 'js/calculadora.js' %}"></script>
+
+    <!-- 3. NUEVO: Script de exportación a PDF -->
+    <script src="{% static 'js/pdf_mapa.js' %}"></script>
 {% endblock %}

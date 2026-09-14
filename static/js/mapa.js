@@ -94,7 +94,7 @@ function inicializarMapaSigpac(config) {
             mapa.invalidateSize();
         }, 200);
 
-        // 6. Renderizar parcela seleccionada (Morado)
+        // 6. Renderizar parcela seleccionada (Morado) con límite de Zoom
         const nodoGeometria = document.getElementById('geometria-data');
 
         if (nodoGeometria && nodoGeometria.textContent.trim() !== "" && nodoGeometria.textContent.trim() !== "null") {
@@ -120,7 +120,11 @@ function inicializarMapaSigpac(config) {
 
                     const limites = capaPoligono.getBounds();
                     if (limites.isValid()) {
-                        mapa.fitBounds(limites, { padding: [30, 30] });
+                        // Usamos maxZoom para evitar que el mapa haga un zoom in desproporcionado
+                        mapa.fitBounds(limites, { 
+                            padding: [30, 30], 
+                            maxZoom: 16 // <--- Esto evita que la pantalla se acerque demasiado y pierdas la ubicación
+                        });
                     }
                 }
             } catch (error) {
