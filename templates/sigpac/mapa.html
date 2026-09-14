@@ -83,7 +83,7 @@
                         <td>{{ datos_recinto.recinto|default:"-" }}</td>
                     </tr>
 
-                
+
                     {% if datos_recinto.pendiente_media %}
                     <tr>
                         <td><strong>Pendiente media:</strong></td>
@@ -135,6 +135,106 @@
                 <span id="cargando-ia">Cargando análisis inteligente del clima...</span>
                 {% endif %}
             </div>
+        </div>
+    </div>
+    <!-- SECCIÓN: Calculadora de Productividad de Tierras -->
+    <!-- SECCIÓN: Calculadora de Productividad de Tierras -->
+    <div class="col-12 mb-4">
+        <div class="card p-4 shadow-sm border-0 bg-white tarjeta-datos">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h5 class="mb-0 text-primary">
+                    <i class="bi bi-calculator"></i> Calculadora de Productividad de Tierras
+                </h5>
+                {% if not request.user.is_authenticated %}
+                <span class="badge bg-secondary text-white">
+                    <i class="bi bi-lock-fill"></i> Exclusivo para miembros
+                </span>
+                {% endif %}
+            </div>
+
+            {% if request.user.is_authenticated %}
+            <!-- Contenedor general en dos columnas (Izquierda: Formulario, Derecha: Panel de Resultados) -->
+            <div class="row align-items-start">
+
+                <!-- Columna Izquierda: Formulario -->
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                    <form id="form-calculadora" class="row g-3" data-calcular-url="{% url 'calculadora' %}">
+                        <div class="col-12">
+                            <label for="superficie_ha" class="form-label small font-monospace">Superficie (ha)</label>
+                            <input type="number" step="any" class="form-control form-control-sm" id="superficie_ha"
+                                required placeholder="Ej. 10.5">
+                        </div>
+                        <div class="col-12">
+                            <label for="rendimiento_kg_ha" class="form-label small font-monospace">Rendimiento
+                                (kg/ha)</label>
+                            <input type="number" step="any" class="form-control form-control-sm" id="rendimiento_kg_ha"
+                                required placeholder="Ej. 3500">
+                        </div>
+                        <div class="col-12">
+                            <label for="precio_kg" class="form-label small font-monospace">Precio (€/kg)</label>
+                            <input type="number" step="any" class="form-control form-control-sm" id="precio_kg" required
+                                placeholder="Ej. 0.22">
+                        </div>
+                        <div class="col-12">
+                            <label for="coste_ha" class="form-label small font-monospace">Coste estimado (€/ha)</label>
+                            <input type="number" step="any" class="form-control form-control-sm" id="coste_ha"
+                                placeholder="Opcional (Ej. 400)">
+                        </div>
+                        <div class="col-12 text-end mt-4">
+                            <button type="button" id="btn-calcular" class="btn btn-success btn-sm px-4">
+                                <i class="bi bi-play-fill"></i> Calcular Margen
+                            </button>
+                        </div>
+                    </form>
+                    <div id="error-calculadora" class="alert alert-danger mt-3 d-none py-2 small" role="alert"></div>
+                </div>
+
+                <!-- Columna Derecha: Tarjeta de Resultados Estilo Panel (Aprovechando todos los campos devueltos) -->
+                <div class="col-lg-6">
+                    <div class="p-3 bg-light rounded border-0 h-100">
+                        <h6 class="text-dark fw-bold mb-3 border-bottom pb-2">
+                            <i class="bi bi-file-earmark-bar-graph text-primary"></i> Desglose de Resultados
+                        </h6>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted small">Producción Total</span>
+                            <strong id="res-produccion" class="text-dark">-</strong>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted small">Ingreso Total</span>
+                            <strong id="res-ingreso" class="text-success">-</strong>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted small">Coste Total</span>
+                            <strong id="res-coste" class="text-danger">-</strong>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted small">Margen Total</span>
+                            <strong id="res-margen" class="text-primary">-</strong>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <span class="text-muted small">Margen por Hectárea</span>
+                            <strong id="res-margen-ha" class="text-secondary">-</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {% else %}
+            <!-- Vista bloqueada para usuarios no autenticados (Candado) -->
+            <div class="text-center py-4 bg-light rounded border border-dashed">
+                <div class="mb-2">
+                    <i class="bi bi-lock-fill text-muted fs-1"></i>
+                </div>
+                <h6 class="text-dark fw-bold">Calculadora de Productividad Bloqueada</h6>
+                <p class="text-muted small mb-3">Inicia sesión como miembro registrado para utilizar la herramienta de
+                    simulación de costes, ingresos y márgenes de tus parcelas.</p>
+                <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary btn-sm">
+                    Iniciar Sesión / Registrarse
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

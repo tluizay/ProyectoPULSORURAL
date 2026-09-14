@@ -2,8 +2,6 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponseBadRequest
 from .service import SigpacPuntoService
-from aemet.aemet_services import Aemet
-
 
 
 def mapa(request):
@@ -22,7 +20,6 @@ def croquis_parcela(peticion_http):
     except ValueError:
         return HttpResponseBadRequest("Coordenadas no válidas")
 
-    # 1. Solo SIGPAC (rápido, 2-5s)
     servicio_sigpac = SigpacPuntoService()
     datos_recinto = servicio_sigpac.get_data(latitud, longitud)
 

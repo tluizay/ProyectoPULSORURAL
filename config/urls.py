@@ -27,5 +27,6 @@ urlpatterns = [
      path('itacyl/', include('itacyl.urls')),
     path('ine/', include('ine.urls')),
     path('usuarios/', include('usuarios.urls')),
+    path('calculadora/', include('calculadora.urls')),
    
 ]   

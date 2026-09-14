@@ -14,8 +14,6 @@ def api_diagnostico_clima(request):
     
     forzar_regeneracion = request.GET.get('regenerar') == '1'
     estacion = request.GET.get('estacion')
-   
-    # Llamamos al agregador pasando todos los filtros necesarios
     resultado = ClimaInteligenteAggregator.obtener_analisis_completo(
         identificador_estacion=estacion, 
         latitud=lat, 

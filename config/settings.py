@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'itacyl',
     'ine',
     'usuarios',
+    'calculadora',
     
 ]
 
