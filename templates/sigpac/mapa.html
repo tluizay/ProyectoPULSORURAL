@@ -138,7 +138,6 @@
         </div>
     </div>
     <!-- SECCIÓN: Calculadora de Productividad de Tierras -->
-    <!-- SECCIÓN: Calculadora de Productividad de Tierras -->
     <div class="col-12 mb-4">
         <div class="card p-4 shadow-sm border-0 bg-white tarjeta-datos">
             <div class="d-flex align-items-center justify-content-between mb-3">
@@ -250,18 +249,20 @@
      y el resto de este bloque (capa SIGPAC, control de capas, clics, fetch) no se ejecutaba. -->
 
 <!-- 1. Cargamos el archivo JavaScript independiente -->
-<script src="{% static 'js/mapa.js' %}"></script>
 
-<!-- 2. Inicializamos el mapa inyectando las rutas de Django de manera segura -->
-<script>
-    inicializarMapaSigpac({
-        latitud: "{{ latitud|default:42.5987|stringformat:'f' }}",
-        longitud: "{{ longitud|default:-5.5671|stringformat:'f' }}",
-        lat: "{{ latitud|default:42.5987 }}",
-        lon: "{{ longitud|default:-5.5671 }}",
-        urlCroquis: "{% url 'croquis' %}",
-        urlAguas: "{% url 'consulta_aguas' %}",
-        urlSuelos: "{% url 'itacyl:consulta_suelo' %}"
-    });
-</script>
+    <script src="{% static 'js/mapa.js' %}"></script>
+    <script>
+        inicializarMapaSigpac({
+            latitud: "{{ latitud|default:42.5987|stringformat:'f' }}",
+            longitud: "{{ longitud|default:-5.5671|stringformat:'f' }}",
+            lat: "{{ latitud|default:42.5987 }}",
+            lon: "{{ longitud|default:-5.5671 }}",
+            urlCroquis: "{% url 'croquis' %}",
+            urlAguas: "{% url 'consulta_aguas' %}",
+            urlSuelos: "{% url 'itacyl:consulta_suelo' %}"
+        });
+    </script>
+
+    <!-- 2. NUEVO: Inyección del archivo independiente de la calculadora -->
+    <script src="{% static 'js/calculadora.js' %}"></script>
 {% endblock %}
