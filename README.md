@@ -95,7 +95,7 @@ ine/
 │
 ```
 
-## Fuentes de datos
+## Aplicaciones y fuentes de datos
 **Aement:** Agencia estatal metereologica
 ```text
 Esta fuente tiene el siguiente sistemas:
@@ -104,7 +104,6 @@ Esta fuente tiene el siguiente sistemas:
 [PULSORURAL] ---> 3. GET (URL temporal) ---------> [Servidor de Datos AEMET]
 [PULSORURAL] <--- 4. JSON con los datos crudos <--- [Servidor de Datos AEMET]
 ```
-
 
 el punto de origen o la petición es un click en el mapa, por tanto el sistemas debe proveé una solucion a la
 ubicación de donde solicita los datos. Cuenta con una estrategia fallback de cinco intentos donde busca cinco estaciones
@@ -115,3 +114,8 @@ La web esta diseñada para cargar datos al vuelo por tanto el inventario complet
 **sigpac:** Sistema de información geografíca de parcelas
 Es una aplicacion encargada de llamar al sigpac, solicitar los datos del registro de la parcela seleccionada en el mapa y mostralos. Se resume en consulta puntual y extraer los metadatos y la geometria.
 
+**Soilgrids:** 
+**Core:**
+**Ine:**
+**Usuarios:**
+**Calculadora:**

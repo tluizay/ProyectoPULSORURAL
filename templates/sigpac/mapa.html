@@ -139,12 +139,12 @@
             </div>
         </div>
     </div>
-    <!-- SECCIÓN: Calculadora de Productividad de Tierras -->
+<!-- SECCIÓN: Calculadora de Productividad de Tierras -->
     <div class="col-12 mb-4">
         <div class="card p-4 shadow-sm border-0 bg-white tarjeta-datos">
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <h5 class="mb-0 text-primary">
-                    <i class="bi bi-calculator"></i> Calculadora de Productividad de Tierras
+                    <i class="bi bi-calculator"></i> Calculadora de Productividad de Tierras (Plurianual)
                 </h5>
                 {% if not request.user.is_authenticated %}
                 <span class="badge bg-secondary text-white">
@@ -166,13 +166,13 @@
                                 required placeholder="Ej. 10.5">
                         </div>
                         <div class="col-12">
-                            <label for="rendimiento_kg_ha" class="form-label small font-monospace">Rendimiento
+                            <label for="rendimiento_kg_ha" class="form-label small font-monospace">Rendimiento Base
                                 (kg/ha)</label>
                             <input type="number" step="any" class="form-control form-control-sm" id="rendimiento_kg_ha"
                                 required placeholder="Ej. 3500">
                         </div>
                         <div class="col-12">
-                            <label for="precio_kg" class="form-label small font-monospace">Precio (€/kg)</label>
+                            <label for="precio_kg" class="form-label small font-monospace">Precio Base (€/kg)</label>
                             <input type="number" step="any" class="form-control form-control-sm" id="precio_kg" required
                                 placeholder="Ej. 0.22">
                         </div>
@@ -181,20 +181,32 @@
                             <input type="number" step="any" class="form-control form-control-sm" id="coste_ha"
                                 placeholder="Opcional (Ej. 400)">
                         </div>
+                        <!-- Nuevos campos añadidos -->
+                        <div class="col-6">
+                            <label for="anios" class="form-label small font-monospace">Años (separados por coma)</label>
+                            <input type="text" class="form-control form-control-sm" id="anios"
+                                placeholder="Ej. 2026,2027,2028,2029" value="2026,2027,2028,2029,2030">
+                        </div>
+                        <div class="col-6">
+                            <label for="tasa_interes" class="form-label small font-monospace">Tasa Interés/Inflación anual (%)</label>
+                            <input type="number" step="any" class="form-control form-control-sm" id="tasa_interes"
+                                placeholder="Ej. 2.0" value="2.0">
+                        </div>
+
                         <div class="col-12 text-end mt-4">
                             <button type="button" id="btn-calcular" class="btn btn-success btn-sm px-4">
-                                <i class="bi bi-play-fill"></i> Calcular Margen
+                                <i class="bi bi-play-fill"></i> Calcular Margen y Proyección
                             </button>
                         </div>
                     </form>
                     <div id="error-calculadora" class="alert alert-danger mt-3 d-none py-2 small" role="alert"></div>
                 </div>
 
-                <!-- Columna Derecha: Tarjeta de Resultados Estilo Panel (Aprovechando todos los campos devueltos) -->
+                <!-- Columna Derecha: Tarjeta de Resultados Estilo Panel -->
                 <div class="col-lg-6">
                     <div class="p-3 bg-light rounded border-0 h-100">
                         <h6 class="text-dark fw-bold mb-3 border-bottom pb-2">
-                            <i class="bi bi-file-earmark-bar-graph text-primary"></i> Desglose de Resultados
+                            <i class="bi bi-file-earmark-bar-graph text-primary"></i> Desglose de Resultados (Último Año / Base)
                         </h6>
 
                         <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
@@ -219,7 +231,16 @@
                         </div>
                     </div>
                 </div>
-
+                
+                <!-- Sección de la Gráfica -->
+                <div class="col-12 mt-4">
+                    <div class="card p-3 border-0 bg-light">
+                        <h6 class="text-dark fw-bold mb-3">
+                            <i class="bi bi-graph-up text-primary"></i> Comparativa Plurianual y Bandas de Sensibilidad (±2%)
+                        </h6>
+                        <canvas id="graficaProductividad" width="400" height="150"></canvas>
+                    </div>
+                </div>
             </div>
 
             {% else %}
@@ -238,6 +259,8 @@
             {% endif %}
         </div>
     </div>
+
+
 </div>
 {% endblock %}
 
@@ -252,23 +275,25 @@
 
 <!-- 1. Cargamos el archivo JavaScript independiente -->
 
-    <!-- 1. Script del Mapa -->
-    <script src="{% static 'js/mapa.js' %}"></script>
-    <script>
-        inicializarMapaSigpac({
-            latitud: "{{ latitud|default:42.5987|stringformat:'f' }}",
-            longitud: "{{ longitud|default:-5.5671|stringformat:'f' }}",
-            lat: "{{ latitud|default:42.5987 }}",
-            lon: "{{ longitud|default:-5.5671 }}",
-            urlCroquis: "{% url 'croquis' %}",
-            urlAguas: "{% url 'consulta_aguas' %}",
-            urlSuelos: "{% url 'itacyl:consulta_suelo' %}"
-        });
-    </script>
+<!-- 1. Script del Mapa -->
+<script src="{% static 'js/mapa.js' %}"></script>
 
-    <!-- 2. Script de la Calculadora -->
-    <script src="{% static 'js/calculadora.js' %}"></script>
 
-    <!-- 3. NUEVO: Script de exportación a PDF -->
-    <script src="{% static 'js/pdf_mapa.js' %}"></script>
+<script>
+    inicializarMapaSigpac({
+        latitud: "{{ latitud|default:42.5987|stringformat:'f' }}",
+        longitud: "{{ longitud|default:-5.5671|stringformat:'f' }}",
+        lat: "{{ latitud|default:42.5987 }}",
+        lon: "{{ longitud|default:-5.5671 }}",
+        urlCroquis: "{% url 'croquis' %}",
+        urlAguas: "{% url 'consulta_aguas' %}",
+        urlSuelos: "{% url 'itacyl:consulta_suelo' %}"
+    });
+</script>
+
+<!-- 2. Script de la Calculadora -->
+<script src="{% static 'js/calculadora.js' %}"></script>
+
+<!-- 3. NUEVO: Script de exportación a PDF -->
+<script src="{% static 'js/pdf_mapa.js' %}"></script>
 {% endblock %}

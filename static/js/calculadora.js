@@ -1,6 +1,7 @@
+// C. Calculadora con diagnóstico, delegación global robusta y soporte plurianual / gráfica
+let miGrafica = null; // Variable global para destruir la gráfica anterior si se recalcula
 
-// C. Calculadora con diagnóstico y delegación global robusta
-document.addEventListener("click", function (evento) {
+document.addEventListener("click", async function (evento) {
     const botonCalcular = evento.target.closest("#btn-calcular");
     if (!botonCalcular) return; // Si no se hizo clic en el botón de calcular, ignorar.
 
@@ -20,14 +21,22 @@ document.addEventListener("click", function (evento) {
         return;
     }
 
-    const superficie = document.getElementById("superficie_ha")?.value || "";
-    const rendimiento = document.getElementById("rendimiento_kg_ha")?.value || "";
-    const precio = document.getElementById("precio_kg")?.value || "";
-    const coste = document.getElementById("coste_ha")?.value || "";
+    const divError = document.getElementById("error-calculadora");
+    if (divError) {
+        divError.classList.add("d-none");
+        divError.textContent = "";
+    }
+
+    // Recoger valores del formulario (incluyendo los nuevos campos de años y tasa de interés)
+    const superficie_ha = document.getElementById("superficie_ha")?.value || "";
+    const rendimiento_kg_ha = document.getElementById("rendimiento_kg_ha")?.value || "";
+    const precio_kg = document.getElementById("precio_kg")?.value || "";
+    const coste_ha = document.getElementById("coste_ha")?.value || "";
+    const anios = document.getElementById("anios")?.value || "";
+    const tasa_interes = document.getElementById("tasa_interes")?.value || "";
 
     // Validación rápida en cliente para campos obligatorios
-    const divError = document.getElementById("error-calculadora");
-    if (!superficie || !rendimiento || !precio) {
+    if (!superficie_ha || !rendimiento_kg_ha || !precio_kg) {
         if (divError) {
             divError.textContent = "Por favor, completa los campos obligatorios (Superficie, Rendimiento y Precio).";
             divError.classList.remove("d-none");
@@ -35,35 +44,107 @@ document.addEventListener("click", function (evento) {
         return;
     }
 
-    if (divError) divError.classList.add("d-none");
+    // Construir parámetros GET de forma limpia con URLSearchParams
+    const params = new URLSearchParams({
+        superficie_ha,
+        rendimiento_kg_ha,
+        precio_kg,
+        coste_ha,
+        anios,
+        tasa_interes
+    });
 
-    const url = `${urlCalcular}?superficie_ha=${encodeURIComponent(superficie)}&rendimiento_kg_ha=${encodeURIComponent(rendimiento)}&precio_kg=${encodeURIComponent(precio)}&coste_ha=${encodeURIComponent(coste)}`;
-    
+    const url = `${urlCalcular}?${params.toString()}`;
     console.log("Enviando petición a la URL:", url);
 
-    fetch(url, {
-        method: "GET",
-        headers: { "X-Requested-With": "XMLHttpRequest" }
-    })
-    .then(response => {
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        });
+
+        const data = await response.json();
+
         if (!response.ok) {
-            return response.json().then(errData => { throw new Error(errData.error || "Error en el cálculo."); });
+            throw new Error(data.error || "Error en el cálculo.");
         }
-        return response.json();
-    })
-    .then(data => {
+
         console.log("Datos de cálculo recibidos:", data);
-        if(document.getElementById("res-produccion")) document.getElementById("res-produccion").textContent = `${Number(data.produccion_total_kg).toLocaleString()} kg`;
-        if(document.getElementById("res-ingreso")) document.getElementById("res-ingreso").textContent = `${Number(data.ingreso_total).toLocaleString()} €`;
-        if(document.getElementById("res-coste")) document.getElementById("res-coste").textContent = `${Number(data.coste_total).toLocaleString()} €`;
-        if(document.getElementById("res-margen")) document.getElementById("res-margen").textContent = `${Number(data.margen_total).toLocaleString()} €`;
-        if(document.getElementById("res-margen-ha")) document.getElementById("res-margen-ha").textContent = `${Number(data.margen_por_ha).toLocaleString()} €/ha`;
-    })
-    .catch(error => {
+
+        // 1. Rellenar la tarjeta de resultados con el último año de la proyección (o el base)
+        if (data.proyeccion && data.proyeccion.length > 0) {
+            const ultimoAnio = data.proyeccion[data.proyeccion.length - 1];
+            
+            if (document.getElementById("res-produccion")) document.getElementById("res-produccion").textContent = `${Number(ultimoAnio.produccion_total_kg).toLocaleString()} kg`;
+            if (document.getElementById("res-ingreso")) document.getElementById("res-ingreso").textContent = `${Number(ultimoAnio.ingreso_total).toLocaleString()} €`;
+            if (document.getElementById("res-coste")) document.getElementById("res-coste").textContent = `${Number(ultimoAnio.coste_total).toLocaleString()} €`;
+            if (document.getElementById("res-margen")) document.getElementById("res-margen").textContent = `${Number(ultimoAnio.margen_total).toLocaleString()} €`;
+            if (document.getElementById("res-margen-ha")) document.getElementById("res-margen-ha").textContent = `${Number(ultimoAnio.margen_por_ha).toLocaleString()} €/ha`;
+        }
+
+        // 2. Pintar o actualizar la Gráfica con Chart.js si viene en la respuesta
+        if (data.chart) {
+            renderizarGrafica(data.chart);
+        }
+
+    } catch (error) {
         console.error("Error en la petición de cálculo:", error);
         if (divError) {
             divError.textContent = error.message;
             divError.classList.remove("d-none");
         }
-    });
+    }
 });
+
+function renderizarGrafica(chartData) {
+    const canvasElement = document.getElementById('graficaProductividad');
+    if (!canvasElement) return;
+
+    const ctx = canvasElement.getContext('2d');
+
+    // Si ya existe una gráfica previa, la destruimos para evitar errores de solapamiento al recalcular
+    if (miGrafica) {
+        miGrafica.destroy();
+    }
+
+    miGrafica = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString() + ' €';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
