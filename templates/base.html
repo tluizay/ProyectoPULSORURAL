@@ -20,11 +20,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css" />
 
-    <!-- 2) Tus CSS DESPUÉS, para que puedan sobrescribir a Bootstrap.
-         OJO: el archivo real en disco se llama 'pdf_redimientos.css' (sin la 'n').
-         Antes se pedía 'pdf_rendimientos.css' y devolvía 404. -->
-    <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pdf_redimientos.css' %}">
+  
 
     <!-- Scripts de librerías -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -33,6 +29,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+      <!-- 2) Tus CSS DESPUÉS, para que puedan sobrescribir a Bootstrap.
+         OJO: el archivo real en disco se llama 'pdf_redimientos.css' (sin la 'n').
+         Antes se pedía 'pdf_rendimientos.css' y devolvía 404. -->
+    <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pdf_redimientos.css' %}">
+    
     {% block extra_css %}{% endblock %}
 </head>
 

@@ -1,9 +1,10 @@
-import logging
-import markdown
-from google import genai
-from google.genai import types
-from google.genai.errors import APIError
-from config.entorno import API_KEY_GEMINI
+import logging #rastreo de errores
+import markdown #formato en el que la ia devuelve los datos
+from google import genai #cliente
+from google.genai import types #contiene todas las clases de soporte, definiciones de tipos de datos, configuraciones 
+#y esquemas estructurados que necesitas para interactuar con los modelos de Gemini de forma avanzada
+from google.genai.errors import APIError #manejo de errores
+from config.entorno import API_KEY_GEMINI #llamada a la api
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +30,7 @@ def _consultar_gemini(contexto_negocio: str, system_instruction: str) -> str:
     configuracion = types.GenerateContentConfig(
         system_instruction=system_instruction,
         max_output_tokens=8192,  # Margen amplio desde el inicio para evitar cortes
-        temperature=0.2,
+        temperature=0.2, #temperatura de creatividad cercano a 0 mas racional cercano a 1 mas disparatado
         automatic_function_calling=types.AutomaticFunctionCallingConfig(
             disable=True
         ),
