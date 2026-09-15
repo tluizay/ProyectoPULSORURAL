@@ -139,7 +139,7 @@
             </div>
         </div>
     </div>
-<!-- SECCIÓN: Calculadora de Productividad de Tierras -->
+    <!-- SECCIÓN: Calculadora de Productividad de Tierras -->
     <div class="col-12 mb-4">
         <div class="card p-4 shadow-sm border-0 bg-white tarjeta-datos">
             <div class="d-flex align-items-center justify-content-between mb-3">
@@ -159,7 +159,8 @@
 
                 <!-- Columna Izquierda: Formulario -->
                 <div class="col-lg-6 mb-3 mb-lg-0">
-                    <form id="form-calculadora" class="row g-3" data-calcular-url="{% url 'calculadora' %}">
+                    <form id="form-calculadora" class="row g-3" data-calcular-url="{% url 'calculadora' %}"
+                        data-grafica-url="{% url 'grafica_comparativa' %}">
                         <div class="col-12">
                             <label for="superficie_ha" class="form-label small font-monospace">Superficie (ha)</label>
                             <input type="number" step="any" class="form-control form-control-sm" id="superficie_ha"
@@ -193,7 +194,8 @@
                             <input type="hidden" id="anios" name="anios" value="">
                         </div>
                         <div class="col-6">
-                            <label for="tasa_interes" class="form-label small font-monospace">Tasa Interés/Inflación anual (%)</label>
+                            <label for="tasa_interes" class="form-label small font-monospace">Tasa Interés/Inflación
+                                anual (%)</label>
                             <input type="number" step="any" class="form-control form-control-sm" id="tasa_interes"
                                 placeholder="Ej. 2.0" value="2.0">
                         </div>
@@ -211,7 +213,8 @@
                 <div class="col-lg-6">
                     <div class="p-3 bg-light rounded border-0 h-100">
                         <h6 class="text-dark fw-bold mb-3 border-bottom pb-2">
-                            <i class="bi bi-file-earmark-bar-graph text-primary"></i> Desglose de Resultados (Último Año / Base)
+                            <i class="bi bi-file-earmark-bar-graph text-primary"></i> Desglose de Resultados (Último Año
+                            / Base)
                         </h6>
 
                         <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
@@ -236,14 +239,19 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <!-- Sección de la Gráfica -->
                 <!-- Sección de la Gráfica -->
                 <div class="col-12 mt-4">
                     <div class="card p-3 border-0 bg-light">
                         <h6 class="text-dark fw-bold mb-3">
-                            <i class="bi bi-graph-up text-primary"></i> Comparativa Plurianual y Bandas de Sensibilidad (±2%)
+                            <i class="bi bi-graph-up text-primary"></i> Comparativa Plurianual y Bandas de Sensibilidad
+                            (±2%)
                         </h6>
-                        <canvas id="graficaProductividad" width="400" height="150"></canvas>
+                        <!-- CONTENEDOR CON ALTURA FIJA -->
+                        <div style="position: relative; height: 320px; width: 100%;">
+                            <canvas id="graficaProductividad"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -274,9 +282,6 @@
 {{ datos_recinto.geometria|json_script:"geometria-data" }}
 {% endif %}
 
-<!-- El script del geocodificador (Control.Geocoder.js) ahora se carga en base.html,
-     junto a leaflet.js. Antes faltaba del todo, por eso L.Control.geocoder no existía
-     y el resto de este bloque (capa SIGPAC, control de capas, clics, fetch) no se ejecutaba. -->
 
 <!-- 1. Cargamos el archivo JavaScript independiente -->
 
