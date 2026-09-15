@@ -24,3 +24,5 @@ AEMET_API_KEY=os.getenv("AEMET_API_KEY")
 #gemini
 
 API_KEY_GEMINI = os.getenv('API_KEY_GEMINI')
+
+EMAIL_BACKEND=os.getenv('EMAIL_BACKEND')

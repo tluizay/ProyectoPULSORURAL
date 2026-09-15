@@ -25,10 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = entorno.SECRET_KEY
 DEBUG = entorno.DEBUG
 ALLOWED_HOSTS = entorno.ALLOWED_HOSTS
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -135,11 +132,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+EMAIL_BACKEND = entorno.EMAIL_BACKEND
 
 
 AEMET_API_KEY = config('AEMET_API_KEY', default='')

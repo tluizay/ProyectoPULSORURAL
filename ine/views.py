@@ -47,7 +47,6 @@ def vista_evolucion_agraria(request):
         resultado = request.session[cache_key_base]
     else:
         resultado = IneAgregador.obtener_datos_base("panel_completo")
-        print("RESULTADO DATOS BASE:", resultado.get("estado"))
 
         if resultado.get('estado') == 'ok':
             request.session[cache_key_base] = resultado
