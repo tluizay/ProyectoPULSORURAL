@@ -4,34 +4,34 @@
 
 <head>
 
-    <!-- Tu archivo CSS personalizado global (opcional pero recomendado) -->
-    <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pdf_rendimientos.css' %}">
-
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}?v=5">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="origin-when-cross-origin">
+
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}?v=5">
 
     <title>
         {% block title %}PULSO RURAL{% endblock %}
     </title>
 
-    <!-- Estilos globales de Bootstrap -->
+    <!-- 1) Librerías externas PRIMERO -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet.vectorgrid@1.3.2/dist/Leaflet.VectorGrid-bundle.min.js"></script>
-    <!-- Buscador de lugares para el mapa SIGPAC (antes faltaba y hacía que L.Control.geocoder
-         no existiera, rompiendo el resto del script del mapa) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css" />
-    <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
-    <!-- Asegúrate de tener esto en el <head> de tu base.html -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- 2) Tus CSS DESPUÉS, para que puedan sobrescribir a Bootstrap.
+         OJO: el archivo real en disco se llama 'pdf_redimientos.css' (sin la 'n').
+         Antes se pedía 'pdf_rendimientos.css' y devolvía 404. -->
+    <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pdf_redimientos.css' %}">
+
+    <!-- Scripts de librerías -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@1.3.2/dist/Leaflet.VectorGrid-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -46,9 +46,9 @@
     </main>
 
     {% include "componentes/footer.html" %}
+
     <!-- MODAL DE BIENVENIDA CON FOTO Y TEXTO -->
     <div class="modal fade" id="welcomeModal" tabindex="-1" aria-hidden="true">
-        <!-- Puedes agregar 'modal-lg' o 'modal-xl' para que el modal sea más ancho y luzca mejor -->
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
 
@@ -61,8 +61,8 @@
 
                         <!-- COLUMNA IZQUIERDA: LA IMAGEN -->
                         <div class="col-md-6 mb-3 mb-md-0">
-                            <!-- Reemplaza la ruta de la imagen por la tuya -->
-                            <img src="img/modal.jpg" alt="Bienvenida" class="img-fluid rounded shadow-sm w-100">
+                            <img src="{% static 'img/modal.jpg' %}" alt="Bienvenida"
+                                class="img-fluid rounded shadow-sm w-100">
                         </div>
 
                         <!-- COLUMNA DERECHA: EL TEXTO Y BOTÓN -->
@@ -84,24 +84,26 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Asegúrate de tener esto en el <head> de tu base.html -->
+
+    <!-- Script para mostrar el modal solo una vez.
+         Estaba fuera de <body> (después de </body>): ahora va dentro y después de
+         cargar bootstrap.bundle, que es lo que define la variable global 'bootstrap'. -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modalEl = document.getElementById('welcomeModal');
+            if (!modalEl) return;
+
+            if (!localStorage.getItem('modal_visto')) {
+                var welcomeModal = new bootstrap.Modal(modalEl);
+                welcomeModal.show();
+                localStorage.setItem('modal_visto', 'true');
+            }
+        });
+    </script>
+
     {% block extra_js %}{% endblock %}
 </body>
-<!-- Script para mostrar el modal solo una vez -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // 1. Verificamos si la variable 'modal_visto' NO existe en el navegador
-        if (!localStorage.getItem('modal_visto')) {
-
-            // 2. Si no existe, inicializamos y mostramos el modal de Bootstrap
-            var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
-            welcomeModal.show();
-
-            // 3. Guardamos la variable para que la próxima vez ya no se cumpla la condición
-            localStorage.setItem('modal_visto', 'true');
-        }
-    });
-</script>
 
 </html>

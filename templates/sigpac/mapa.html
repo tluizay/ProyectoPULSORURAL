@@ -181,11 +181,16 @@
                             <input type="number" step="any" class="form-control form-control-sm" id="coste_ha"
                                 placeholder="Opcional (Ej. 400)">
                         </div>
-                        <!-- Nuevos campos añadidos -->
+                        <!-- AÑOS: ahora se introduce un número entero de años (horizonte de la
+                             proyección), no una lista de años. El campo oculto #anios se rellena
+                             solo con "2026,2027,..." para no tocar la vista ni calculadora.js. -->
                         <div class="col-6">
-                            <label for="anios" class="form-label small font-monospace">Años (separados por coma)</label>
-                            <input type="text" class="form-control form-control-sm" id="anios"
-                                placeholder="Ej. 2026,2027,2028,2029" value="2026,2027,2028,2029,2030">
+                            <label for="num_anios" class="form-label small font-monospace">Nº de años a
+                                proyectar</label>
+                            <input type="number" min="1" max="30" step="1" inputmode="numeric"
+                                class="form-control form-control-sm" id="num_anios" placeholder="Ej. 5" value="5">
+                            <div class="form-text small" id="ayuda-anios"></div>
+                            <input type="hidden" id="anios" name="anios" value="">
                         </div>
                         <div class="col-6">
                             <label for="tasa_interes" class="form-label small font-monospace">Tasa Interés/Inflación anual (%)</label>
@@ -293,6 +298,41 @@
 
 <!-- 2. Script de la Calculadora -->
 <script src="{% static 'js/calculadora.js' %}"></script>
+
+<!-- 2.b Puente entre el campo entero (#num_anios) y el campo que espera la vista (#anios).
+     Escucha 'input'/'change', nunca 'click', así el valor ya está sincronizado
+     antes de que calculadora.js procese la pulsación del botón. -->
+<script>
+    (function () {
+        var campoNumero = document.getElementById("num_anios");
+        var campoOculto = document.getElementById("anios");
+        var ayuda = document.getElementById("ayuda-anios");
+        if (!campoNumero || !campoOculto) return;
+
+        var anioInicio = new Date().getFullYear();
+
+        function sincronizarAnios() {
+            var n = parseInt(campoNumero.value, 10);
+            if (isNaN(n) || n < 1) n = 1;
+            if (n > 30) n = 30;
+
+            var lista = [];
+            for (var i = 0; i < n; i++) {
+                lista.push(anioInicio + i);
+            }
+            campoOculto.value = lista.join(",");
+            if (ayuda) {
+                ayuda.textContent = n === 1
+                    ? "Año " + anioInicio
+                    : anioInicio + " – " + (anioInicio + n - 1);
+            }
+        }
+
+        campoNumero.addEventListener("input", sincronizarAnios);
+        campoNumero.addEventListener("change", sincronizarAnios);
+        sincronizarAnios();
+    })();
+</script>
 
 <!-- 3. NUEVO: Script de exportación a PDF -->
 <script src="{% static 'js/pdf_mapa.js' %}"></script>
