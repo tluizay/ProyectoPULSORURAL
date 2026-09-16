@@ -171,7 +171,7 @@ pulso-rural/
 
 Hay dos patrones distintos según el origen del dato.
 
-### 5.1 Fuentes en línea (SIGPAC, AEMET, SoilGrids, ITACYL)
+### 5.1.1 Fuentes en línea (SIGPAC, AEMET, SoilGrids, ITACYL)
 
 ```text
                +----------------------------------+
@@ -194,10 +194,37 @@ Hay dos patrones distintos según el origen del dato.
      |   (Extracción)  |          |  (Interpretación)|
      +-----------------+          +------------------+
 ```
+### 5.1.2 Fuentes en línea (INE)
+```text
++---------------------------------------------------------------+
+|                      Vista / Controller                       |
++---------------------------------------------------------------+
+       |                                                 ^
+       | 1. Solicita análisis de una zona / archivo      | 6. Retorna resultado
+       v                                                 |    final listo
++---------------------------------------------------------------+
+|                        agregador.py                           |
+|                    (Orquestador Principal)                    |
++---------------------------------------------------------------+
+       |                                                 ^
+       | 2. Lee archivos desde                           | 5. Devuelve análisis
+       |    datos/pdfs/ y procesa                        |    + JSON estructurado
+       v                                                 |
++-------------------------------+               +---------------+
+|      services/ (Carpeta)      |               | gemini_services.py
+|  - orchestrator.py            |               | (Envía JSON a |
+|  - extractor.py (Lee de disco)|               |  la API de IA)|
+|  - paser.py (Genera JSON)     |               +---------------+
++-------------------------------+                       ^
+       |                                                |
+       +---- 3. Lee de datos/pdfs/ y -------------------+
+             guarda en datos/salida_json/
+
+```
 
 El contrato común lo define `core/base_services.py`: cada servicio implementa `fetch()` (traer el dato crudo) y `normalize()` (dejarlo en un diccionario estable), y el método `get_data()` encadena ambos capturando cualquier excepción para que un fallo de una fuente externa nunca rompa la vista.
 
-### 5.2 Fuentes documentales (INE)
+### 5.2 Fuentes documentales (CEAS)
 
 ```text
 ine/
