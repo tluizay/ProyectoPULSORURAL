@@ -213,15 +213,12 @@
         </div>
     </div>
 </div>
+ <!-- 2. Cargar tu archivo de JavaScript independiente -->
+<script src="{% static 'js/rendimientos.js' %}"></script>
 
 <!-- Inyección segura de datos unificados a JavaScript -->
 {{ datos_evolucion|json_script:"json-datos-panel" }}
 
 
 
-<!-- 1. Cargar primero la librería externa de la que depende -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- 2. Cargar tu archivo de JavaScript independiente -->
-<script src="{% static 'js/rendimientos.js' %}"></script>
 {% endblock %}
