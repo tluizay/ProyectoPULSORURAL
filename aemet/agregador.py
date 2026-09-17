@@ -8,8 +8,6 @@ class ClimaInteligenteAggregator:
     
     @staticmethod
     def obtener_analisis_completo(identificador_estacion: str = None, latitud: float = 0.0, longitud: float = 0.0, anio: int = None, mes: int = None, forzar_regeneracion: bool = False):
-
-        
         anio = anio or datetime.now().year
         mes = mes or datetime.now().month
         
