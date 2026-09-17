@@ -7,9 +7,6 @@ def asistente_calculadora(request):
     return render(request, "sigpac/mapa.html")
 
 
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-
 
 @login_required
 def calcular(request):
@@ -31,16 +28,13 @@ def calcular(request):
         rendimiento_kg_ha = float(request.GET.get("rendimiento_kg_ha", ""))
         precio_kg = float(request.GET.get("precio_kg", ""))
         coste_ha = float(request.GET.get("coste_ha", 0) or 0)
-        
-        # Tasa de interés / incremento anual (porcentaje, ej: 2.0 -> 2%)
         tasa_interes = float(request.GET.get("tasa_interes", 0) or 0) / 100.0
 
-        # Procesar los años (ejemplo: ?anios=2026,2027,2028)
         anios_raw = request.GET.get("anios", "")
         if anios_raw:
             lista_anios = [int(a.strip()) for a in anios_raw.split(",")]
         else:
-            lista_anios = [] # Si no ponen años, se calcula solo una vez de forma estática
+            lista_anios = [] 
 
     except (TypeError, ValueError):
         return JsonResponse(
@@ -54,7 +48,6 @@ def calcular(request):
             status=400,
         )
 
-    # Si el usuario no especificó años, devolvemos el cálculo base de un solo periodo
     if not lista_anios:
         produccion_total_kg = superficie_ha * rendimiento_kg_ha
         ingreso_total = produccion_total_kg * precio_kg
@@ -74,18 +67,15 @@ def calcular(request):
             "margen_por_ha": round(margen_por_ha, 2),
         })
 
-    # Si hay varios años, proyectamos aplicando la tasa de interés/crecimiento compuesto
     proyeccion_anios = []
     
-    # Tomamos el año base como el primer elemento de la lista para calcular el interés acumulado año con año
     anio_base = lista_anios[0]
 
     for i, anio in enumerate(lista_anios):
-        # Aplicamos la tasa de interés compuesta en función de los años transcurridos desde el inicio
         factor_crecimiento = (1 + tasa_interes) ** i
 
         precio_ajustado = precio_kg * factor_crecimiento
-        coste_ajustado = coste_ha * factor_crecimiento  # Asumimos que los costes también suben con la inflación/interés
+        coste_ajustado = coste_ha * factor_crecimiento 
 
         produccion_total_kg = superficie_ha * rendimiento_kg_ha
         ingreso_total = produccion_total_kg * precio_ajustado
@@ -112,9 +102,6 @@ def calcular(request):
             "proyeccion": proyeccion_anios,
         }
     )
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-
 
 @login_required
 def calcular_grafica_comparativa(request):
@@ -163,14 +150,9 @@ def calcular_grafica_comparativa(request):
     for i, anio in enumerate(lista_anios):
         labels_anios.append(str(anio))
         
-        # Factor de crecimiento compuesto por los años transcurridos
         factor_crecimiento = (1 + tasa_interes) ** i
         precio_ajustado = precio_kg * factor_crecimiento
-
-        # Rendimiento base y variantes de ±2% aplicadas al rendimiento o ingreso total
-        prod_base = superficie_ha * rendimiento_base * precio_ajustado
-        
-        # Aplicamos la comparativa del 2% por encima y por debajo
+        prod_base = superficie_ha * rendimiento_base * precio_ajustado      
         prod_superior = prod_base * 1.02
         prod_inferior = prod_base * 0.98
 
@@ -178,7 +160,6 @@ def calcular_grafica_comparativa(request):
         datos_superior.append(round(prod_superior, 2))
         datos_inferior.append(round(prod_inferior, 2))
 
-    # Estructura JSON optimizada para librerías de gráficos como Chart.js
     return JsonResponse({
         "chart": {
             "labels": labels_anios,
